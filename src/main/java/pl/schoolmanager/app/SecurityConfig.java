@@ -32,25 +32,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("teacher").password("teacher").roles("TEACHER");
+		auth.inMemoryAuthentication().withUser("student").password("student").roles("STUDENT");
+		auth.inMemoryAuthentication().withUser("parent").password("parent").roles("PARENT");
 	}
 	
 	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
-//			// Admin only controller to be defined below
-//			.antMatchers("/teacher/**")
-//			.hasRole("ADMIN").anyRequest().authenticated()
-//			.and()
-//			// custom login page to be defined below
-//			.formLogin().loginPage("/login").permitAll()
-//			.and()
-//			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/")
-//			.deleteCookies("JSESSIONID").invalidateHttpSession(true)
-//			.and()
-//		    .exceptionHandling().accessDeniedPage("/403");
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
+			// Admin only controller to be defined below
+			.antMatchers("/teacher/**")
+			.hasRole("ADMIN").anyRequest().authenticated()
+			.and()
+			.formLogin().
+			// custom login page to be defined below
+//			loginPage("/login").
+			permitAll()
+			.and()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/")
+			.deleteCookies("JSESSIONID").invalidateHttpSession(true)
+			.and()
+		    .exceptionHandling().accessDeniedPage("/403");
+	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
