@@ -46,6 +46,7 @@ public class HomeController {
 			return "redirect:register";
 		} else {
 			user.setUserRole("ROLE_USER");
+			user.setEnabled(true);
 			this.userRepo.save(user);
 			return "redirect:/login";
 		}
