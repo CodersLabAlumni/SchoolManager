@@ -1,3 +1,2 @@
 # School-manager-Vol2
-a collaborative project
-contributors: Lukasz-Bdn, mateuszlichon, PietrygaM
+a collaborative project by: Lukasz-Bdn, mateuszlichon, PietrygaM
