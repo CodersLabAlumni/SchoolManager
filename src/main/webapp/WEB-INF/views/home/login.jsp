@@ -4,12 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@ include file="../jspf/headconfig.jspf"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Homepage</title>
-<link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-
+<%@ include file="../jspf/main_menu.jspf"%>
 	<ul class="navbar-nav mr-auto">
 		<sec:authorize access="isAnonymous()">
 			<li class="nav-item"><a class="btn btn-primary"
@@ -40,5 +40,6 @@
 	</div>
 
 	</div>
+<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>
