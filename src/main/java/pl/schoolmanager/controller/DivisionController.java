@@ -70,11 +70,11 @@ public class DivisionController {
 	//DELETE
 	@DeleteMapping("/delete/{divisionId}")
 	public String deleteDivision(@PathVariable long divisionId) {
-		Division division = this.divisionRepository.findOne(divisionId);
-		this.divisionRepository.delete(division);
+		this.divisionRepository.delete(divisionId);
 		return "index"; //to decide where to return
 	}
 	
+	//SHOW ALL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getDivisions() {
 		return this.divisionRepository.findAll();

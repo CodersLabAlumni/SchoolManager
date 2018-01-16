@@ -69,11 +69,12 @@ public class MarkController {
 	
 	//DELETE
 	@DeleteMapping("/delete/{markId}")
-	public String deleteDivision(@PathVariable long markId) {
+	public String deleteMark(@PathVariable long markId) {
 		this.markRepository.delete(markId);
 		return "index"; //to decide where to return
 	}
 	
+	//SHOW ALL
 	@ModelAttribute("availableMarks")
 	public List<Mark> getMarks() {
 		return this.markRepository.findAll();
