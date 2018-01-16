@@ -18,44 +18,37 @@ import pl.schoolmanager.repository.UserRepository;
 public class HomeController {
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@GetMapping("/")
 	public String home() {
 		return "home/home";
 	}
-	
+
 	@GetMapping("login")
 	public String loginGet() {
 		return "home/login";
 	}
-	
-	@PostMapping("login") 
+
+	@PostMapping("login")
 	public String loginPost() {
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("register")
 	public String registerGet(Model m) {
 		m.addAttribute("user", new User());
 		return "home/register";
 	}
-	
+
 	@PostMapping("register")
 	public String registerPost(@ModelAttribute User user, BindingResult bindingResult, Model m) {
-			if(bindingResult.hasErrors()) {
-				return "redirect:register";
-			} else {
-				user.setUserRole("ROLE_USER");
-				try {
-					this.userRepo.save(user);
-				} catch (Exception e) {
-					m.addAttribute("msg", "User with this email and/or username is already present."
-							+ " Please select different email/username or login using existing "
-							+ "credentials");
-					return "home/register";
-				}
-				return "redirect:/login";
-			}
+		if (bindingResult.hasErrors()) {
+			return "redirect:register";
+		} else {
+			user.setUserRole("ROLE_USER");
+			this.userRepo.save(user);
+			return "redirect:/login";
+		}
 	}
 
 	@GetMapping("403")

@@ -27,7 +27,7 @@
 
 	<div class="container">
 		<h1>
-			Welcome to Spare Part Manager <b><sec:authentication
+			Welcome to School Manager <b><sec:authentication
 					property="principal.username" /> </b>.
 		</h1>
 		<h2>

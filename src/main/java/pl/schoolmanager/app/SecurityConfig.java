@@ -19,36 +19,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
-//	@Autowired
-//	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.jdbcAuthentication().dataSource(dataSource)
-//				.passwordEncoder(passwordEncoder())
-//				.usersByUsernameQuery("select username,password, enabled from User "
-//						+ "where username=?")
-//				.authoritiesByUsernameQuery("select username, userRole from User "
-//						+ "where username=?");
-//	}
-	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("teacher").password("teacher").roles("TEACHER");
-		auth.inMemoryAuthentication().withUser("student").password("student").roles("STUDENT");
-		auth.inMemoryAuthentication().withUser("parent").password("parent").roles("PARENT");
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.passwordEncoder(passwordEncoder())
+				.usersByUsernameQuery("select username,password, enabled from User "
+						+ "where username=?")
+				.authoritiesByUsernameQuery("select username, userRole from User "
+						+ "where username=?");
 	}
+	
+//	@Autowired
+//	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+//		auth.inMemoryAuthentication().withUser("teacher").password("teacher").roles("TEACHER");
+//		auth.inMemoryAuthentication().withUser("student").password("student").roles("STUDENT");
+//		auth.inMemoryAuthentication().withUser("parent").password("parent").roles("PARENT");
+//	}
 	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
-			// Admin only controller to be defined below
 			.antMatchers("/teacher/**")
 			.hasRole("ADMIN").anyRequest().authenticated()
 			.and()
-			.formLogin().
-			// custom login page to be defined below
-			loginPage("/home/login").
-			permitAll()
+			.formLogin().loginPage("/login").permitAll()
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/")

@@ -10,8 +10,18 @@
 </head>
 <body>
 
+	<ul class="navbar-nav mr-auto">
+		<sec:authorize access="isAnonymous()">
+			<li class="nav-item"><a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/login">Login</a></li>
+			<li class="nav-item"><a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/register">Register</a></li>
+		</sec:authorize>
+	</ul>
+
+
 	<div class="container">
-		<h3>Login:</h3>
+		<h3>Login to School Manager:</h3>
 		<form:form method="post">
 			<p>
 				<label for="username">Username</label> <input type="text"
