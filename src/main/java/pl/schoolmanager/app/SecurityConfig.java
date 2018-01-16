@@ -19,32 +19,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
+//	@Autowired
+//	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.jdbcAuthentication().dataSource(dataSource)
+//				.passwordEncoder(passwordEncoder())
+//				.usersByUsernameQuery("select username,password, enabled from User "
+//						+ "where username=?")
+//				.authoritiesByUsernameQuery("select username, userRole from User "
+//						+ "where username=?");
+//	}
+	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery("select username,password, enabled from User "
-						+ "where username=?")
-				.authoritiesByUsernameQuery("select username, userRole from User "
-						+ "where username=?");
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
 	}
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
-			// Admin only controller to be defined below
-			.antMatchers("/teacher/**")
-			.hasRole("ADMIN").anyRequest().authenticated()
-			.and()
-			// custom login page to be defined below
-			.formLogin().loginPage("/login").permitAll()
-			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/")
-			.deleteCookies("JSESSIONID").invalidateHttpSession(true)
-			.and()
-		    .exceptionHandling().accessDeniedPage("/403");
-	}
+	
+	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
+//			// Admin only controller to be defined below
+//			.antMatchers("/teacher/**")
+//			.hasRole("ADMIN").anyRequest().authenticated()
+//			.and()
+//			// custom login page to be defined below
+//			.formLogin().loginPage("/login").permitAll()
+//			.and()
+//			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//			.logoutSuccessUrl("/")
+//			.deleteCookies("JSESSIONID").invalidateHttpSession(true)
+//			.and()
+//		    .exceptionHandling().accessDeniedPage("/403");
+//	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
