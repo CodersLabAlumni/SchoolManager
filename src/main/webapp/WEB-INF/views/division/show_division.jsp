@@ -23,8 +23,8 @@
 			</thead>
 			<tbody>
 					<tr class="table-light"><td>ID</td><td scope="row"><c:out value="${division.id}"/></td></tr>
-					<tr class="table-light"><td>E-mail</td><td scope="row"><c:out value="${division.name}"/></td></tr>	
-					<tr class="table-light"><td>First name</td><td scope="row"><c:out value="${division.description}"/></td></tr>
+					<tr class="table-light"><td>Name</td><td scope="row"><c:out value="${division.name}"/></td></tr>	
+					<tr class="table-light"><td>Description</td><td scope="row"><c:out value="${division.description}"/></td></tr>
 			</tbody>
 		</table>
 		<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />

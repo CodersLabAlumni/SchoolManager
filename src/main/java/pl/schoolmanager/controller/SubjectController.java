@@ -80,4 +80,9 @@ public class SubjectController {
 	public List<Subject> getSubject() {
 		return this.subjectRepository.findAll();
 	}
+	
+	@GetMapping("/all")
+	public String all(Model m) {
+		return "subject/all_subjects";
+	}
 }
