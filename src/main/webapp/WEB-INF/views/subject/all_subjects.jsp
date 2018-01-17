@@ -35,9 +35,12 @@
 									<button type="button" class="btn btn-primary dropdown-toggle"
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/subject/view/${subject.id}">View details</a>
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/subject/update/${subject.id}">Update</a> 
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/subject/delete/${subject.id}">Delete</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											details</a> <a class="dropdown-item"
+											href="${pageContext.request.contextPath}/subject/update/${subject.id}">Update</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/subject/delete/${subject.id}">Delete</a>
 									</div>
 								</div>
 							</div>

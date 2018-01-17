@@ -12,7 +12,8 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Student details: ${student.firstName} ${student.lastName} </legend>
+		<legend>Student details: ${student.firstName}
+			${student.lastName} </legend>
 
 		<table class="table table-bordered">
 			<thead>
@@ -22,13 +23,26 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr class="table-light"><td>ID</td><td scope="row"><c:out value="${student.id}"/></td></tr>
-					<tr class="table-light"><td>E-mail</td><td scope="row"><c:out value="${student.email}"/></td></tr>	
-					<tr class="table-light"><td>First name</td><td scope="row"><c:out value="${student.firstName}"/></td></tr>
-					<tr class="table-light"><td>Last name</td><td scope="row"><c:out value="${student.lastName}"/></td></tr>	
+				<tr class="table-light">
+					<td>ID</td>
+					<td scope="row"><c:out value="${student.id}" /></td>
+				</tr>
+				<tr class="table-light">
+					<td>E-mail</td>
+					<td scope="row"><c:out value="${student.email}" /></td>
+				</tr>
+				<tr class="table-light">
+					<td>First name</td>
+					<td scope="row"><c:out value="${student.firstName}" /></td>
+				</tr>
+				<tr class="table-light">
+					<td>Last name</td>
+					<td scope="row"><c:out value="${student.lastName}" /></td>
+				</tr>
 			</tbody>
 		</table>
-		<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

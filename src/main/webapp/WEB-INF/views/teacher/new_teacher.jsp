@@ -20,16 +20,17 @@
 
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">E-mail
-						</label>
+					</label>
 					<div class="col-lg-10">
-						<form:input class="form-control" id="inputEmail" aria-describedby="emailHelp"
-							placeholder="Enter email" type="email" path="email" />
+						<form:input class="form-control" id="inputEmail"
+							aria-describedby="emailHelp" placeholder="Enter email"
+							type="email" path="email" />
 						<form:errors path="email" class="text-danger" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputPassword" class="col-lg-2 control-label">Password
-						</label>
+					</label>
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputPassword"
 							placeholder="Password" type="password" path="password" />

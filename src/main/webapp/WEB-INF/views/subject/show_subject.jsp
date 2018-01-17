@@ -22,12 +22,22 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr class="table-light"><td>ID</td><td scope="row"><c:out value="${subject.id}"/></td></tr>
-					<tr class="table-light"><td>Name</td><td scope="row"><c:out value="${subject.name}"/></td></tr>	
-					<tr class="table-light"><td>Description</td><td scope="row"><c:out value="${subject.description}"/></td></tr>
+				<tr class="table-light">
+					<td>ID</td>
+					<td scope="row"><c:out value="${subject.id}" /></td>
+				</tr>
+				<tr class="table-light">
+					<td>Name</td>
+					<td scope="row"><c:out value="${subject.name}" /></td>
+				</tr>
+				<tr class="table-light">
+					<td>Description</td>
+					<td scope="row"><c:out value="${subject.description}" /></td>
+				</tr>
 			</tbody>
 		</table>
-		<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

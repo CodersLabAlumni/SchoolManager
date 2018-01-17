@@ -12,6 +12,7 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
+		
 		<legend>All Teachers</legend>
 
 		<table class="table table-bordered">
@@ -37,9 +38,12 @@
 									<button type="button" class="btn btn-primary dropdown-toggle"
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/teacher/view/${teacher.id}">View details</a>
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/teacher/update/${teacher.id}">Update</a> 
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/teacher/delete/${teacher.id}">Delete</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacher/view/${teacher.id}">View
+											details</a> <a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacher/update/${teacher.id}">Update</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacher/delete/${teacher.id}">Delete</a>
 									</div>
 								</div>
 							</div>
