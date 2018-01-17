@@ -1,55 +1,68 @@
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">School Manager</a>
-		</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="#">School Manager</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarColor03" aria-controls="navbarColor03"
+		aria-expanded="false" aria-label="Toggle navigation" style="">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Division<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/division/all">All</a></li>
-						<li><a href="${pageContext.request.contextPath}/division/create">Add new</a></li>
-					</ul></li>
-			</ul>
+	<div class="collapse navbar-collapse" id="navbarColor03">
+		<ul class="navbar-nav mr-auto">
 
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Teacher<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/teacher/all">All</a></li>
-						<li><a href="${pageContext.request.contextPath}/teacher/create">Add new</a></li>
-					</ul></li>
-			</ul>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Division</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/division/all">All</a> <a
+						class="dropdown-item"
+						href="${pageContext.request.contextPath}/division/create">Create
+						new</a>
+				</div></li>
 
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Student<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/student/all">All</a></li>
-						<li><a href="${pageContext.request.contextPath}/student/create">Add new</a></li>
-					</ul></li>
-			</ul>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Teacher</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/teacher/all">All</a> <a
+						class="dropdown-item"
+						href="${pageContext.request.contextPath}/teacher/create">Create
+						new</a>
+				</div></li>
 
-			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Subject<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/subject/all">All</a></li>
-						<li><a href="${pageContext.request.contextPath}/subject/create">Add new</a></li>
-					</ul></li>
-			</ul>
-		</div>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Student</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/student/all">All</a> <a
+						class="dropdown-item"
+						href="${pageContext.request.contextPath}/student/create">Create
+						new</a>
+				</div></li>
+
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Subject</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/subject/all">All</a> <a
+						class="dropdown-item"
+						href="${pageContext.request.contextPath}/subject/create">Create
+						new</a>
+				</div></li>
+
+
+
+
+
+
+		</ul>
 	</div>
 </nav>

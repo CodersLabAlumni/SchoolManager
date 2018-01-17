@@ -10,14 +10,16 @@
 </head>
 <body>
 <%@ include file="../jspf/main_menu.jspf"%>
-	<ul class="navbar-nav mr-auto">
-		<sec:authorize access="isAnonymous()">
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/login">Login</a></li>
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/register">Register</a></li>
-		</sec:authorize>
-	</ul>
+
+ 
+			<ul class="navbar-nav mr-auto">
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item"><a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/login">Login</a></li>
+					<li class="nav-item"><a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/register">Register</a></li>
+				</sec:authorize>
+			</ul>
 
 
 	<div class="container">
