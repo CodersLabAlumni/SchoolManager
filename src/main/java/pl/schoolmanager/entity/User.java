@@ -1,10 +1,15 @@
 package pl.schoolmanager.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,7 +35,8 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
-	private String userRole;
+	@OneToMany(mappedBy="currentLocation", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+	private List<UserRole> userRoles;
 	
 	public User() {
 		super();
@@ -39,7 +45,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username  + ", email=" + email
-				+ ", enabled=" + enabled + ", userRole=" + userRole + "]";
+				+ ", enabled=" + enabled + "]";
 	}
 
 	public int getId() {
@@ -90,12 +96,14 @@ public class User {
 		this.email = email;
 	}
 
-	public String getUserRole() {
-		return userRole;
+	public List<UserRole> getUserRoles() {
+		return userRoles;
 	}
 
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
+
+
 
 }
