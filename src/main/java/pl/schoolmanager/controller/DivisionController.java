@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.StudentRepository;
 
 @Controller
 @RequestMapping("/division")
@@ -24,6 +26,14 @@ public class DivisionController {
 	@Autowired
 	private DivisionRepository divisionRepository;
 
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	@GetMapping("/all")
+	public String all(Model m) {
+		return "division/all_divisions";
+	}	
+		
 	//CREATE
 	@GetMapping("/create")
 	public String createDivision(Model m) {
@@ -73,14 +83,43 @@ public class DivisionController {
 		return "index"; //to decide where to return
 	}
 	
+	//INSIDE DIVISION
+	@GetMapping("/inside/{divisionId}")
+	public String insideDivision(Model m, @PathVariable long divisionId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		List <Student> students = this.studentRepository.findAllByDivisionId(divisionId);
+		m.addAttribute("division", division);
+		m.addAttribute("students", students);
+		return "division/inside_division"; //view to be developed
+	}
+	
+	//ADD STUDENT TO DIVISION
+	@GetMapping("/addStudent/{divisionId}")
+	public String addStudent(Model m, @PathVariable long divisionId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		List <Student> students = this.studentRepository.findAllByDivisionId(divisionId);
+		List <Student> studentsNotInDivision = this.studentRepository.findAllByDivisionIdIsNull();
+		m.addAttribute("division", division);
+		m.addAttribute("students", students);
+		m.addAttribute("studentsNotInDivision", studentsNotInDivision);
+		return "division/addStudent_division"; //view to be developed
+	}
+	
+	@GetMapping("addStudent/{divisionId}/{studentId}")
+	public String addStudent(@PathVariable long divisionId, @PathVariable long studentId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		Student student = this.studentRepository.findOne(studentId);		
+		student.setDivision(division);
+		this.studentRepository.save(student);
+		return "redirect:/division/addStudent/{divisionId}";
+	}
+	
+	
 	//SHOW ALL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getDivisions() {
 		return this.divisionRepository.findAll();
 	}
 	
-	@GetMapping("/all")
-	public String all(Model m) {
-		return "division/all_divisions";
-	}
+	
 }
