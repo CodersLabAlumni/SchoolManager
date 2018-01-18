@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
+@Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,7 +37,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
-	@OneToMany(mappedBy="currentLocation", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<UserRole> userRoles;
 	
 	public User() {
