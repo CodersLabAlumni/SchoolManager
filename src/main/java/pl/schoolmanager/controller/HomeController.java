@@ -1,8 +1,5 @@
 package pl.schoolmanager.controller;
 
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -66,4 +63,5 @@ public class HomeController {
 	public String testAccessDenied() {
 		return "You managed to get here";
 	}
+	
 }
