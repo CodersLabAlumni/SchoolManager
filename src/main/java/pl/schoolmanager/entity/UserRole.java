@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private String username;
 	@Column(name="user_role")
 	private String userRole;
@@ -27,11 +27,11 @@ public class UserRole {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
