@@ -1,6 +1,7 @@
 package pl.schoolmanager.controller;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,7 +48,7 @@ public class HomeController {
 
 	@PostMapping("register")
 	@Transactional
-	public String registerPost(@ModelAttribute User user, BindingResult bindingResult, Model m) {
+	public String registerPost(@Valid @ModelAttribute User user, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:register";
 		} else {
