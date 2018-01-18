@@ -67,13 +67,13 @@ public class HomeController {
 	public String accessDenied() {
 		return "errors/accessDenied";
 	}
-	
-	//test mapping
+
+	// test mapping
 	@GetMapping("test")
 	@ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String testAccessDenied() {
 		return "You managed to get here";
 	}
-	
+
 }

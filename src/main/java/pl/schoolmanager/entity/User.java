@@ -41,6 +41,8 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	private List<UserRole> userRoles;
 
 	public User() {
 		super();

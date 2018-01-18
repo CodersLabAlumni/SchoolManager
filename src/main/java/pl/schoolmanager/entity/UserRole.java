@@ -1,6 +1,8 @@
 package pl.schoolmanager.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +17,9 @@ public class UserRole {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String username;
+	@Column(name="user_role")
 	private String userRole;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 

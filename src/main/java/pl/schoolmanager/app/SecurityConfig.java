@@ -14,51 +14,32 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery("select username,password,enabled from user "
-						+ "where username=?")
-				.authoritiesByUsernameQuery("select username, userRole from user_role "
-						+ "where username=?");
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
+				.usersByUsernameQuery("select username,password,enabled from user " + "where username=?")
+				.authoritiesByUsernameQuery("select username, user_role from user_role " + "where username=?");
 	}
-	
-//	@Autowired
-//	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//		auth.inMemoryAuthentication().withUser("teacher").password("teacher").roles("TEACHER");
-//		auth.inMemoryAuthentication().withUser("student").password("student").roles("STUDENT");
-//		auth.inMemoryAuthentication().withUser("parent").password("parent").roles("PARENT");
-//	}
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
-			.antMatchers("/teacher/**", "/mark/**")
-			.hasRole("ADMIN").anyRequest().authenticated()
-			.and()
-			.formLogin().loginPage("/login").permitAll()
-			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/")
-			.deleteCookies("JSESSIONID").invalidateHttpSession(true)
-			.and()
-		    .exceptionHandling().accessDeniedPage("/403");
+		http.authorizeRequests().antMatchers("/login", "/register").permitAll().antMatchers("/teacher/**", "/mark/**")
+				.hasRole("ADMIN").anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+				.deleteCookies("JSESSIONID").invalidateHttpSession(true).and().exceptionHandling()
+				.accessDeniedPage("/403");
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**");
 	}
-	
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
