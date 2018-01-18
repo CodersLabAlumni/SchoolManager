@@ -1,5 +1,7 @@
 package pl.schoolmanager.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,12 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.schoolmanager.entity.User;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
+import pl.schoolmanager.repository.UserRoleRepository;
 
 @Controller("/")
 public class HomeController {
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private UserRoleRepository userRoleRepo;
 
 	@GetMapping("/")
 	public String home() {
@@ -40,13 +46,18 @@ public class HomeController {
 	}
 
 	@PostMapping("register")
+	@Transactional
 	public String registerPost(@ModelAttribute User user, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:register";
 		} else {
-			user.setUserRole("ROLE_USER");
+			UserRole userRole = new UserRole();
 			user.setEnabled(true);
+			userRole.setUsername(user.getUsername());
+			userRole.setUser(user);
+			userRole.setUserRole("ROLE_USER");
 			this.userRepo.save(user);
+			this.userRoleRepo.save(userRole);
 			return "redirect:/login";
 		}
 	}

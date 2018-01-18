@@ -1,5 +1,6 @@
 package pl.schoolmanager.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,9 +38,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
-	@OneToMany(mappedBy="user", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
-	private List<UserRole> userRoles;
-	
+
 	public User() {
 		super();
 	}
@@ -97,15 +96,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<UserRole> getUserRoles() {
-		return userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-
 
 }
