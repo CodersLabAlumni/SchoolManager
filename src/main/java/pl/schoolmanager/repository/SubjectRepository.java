@@ -11,4 +11,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 	List<Subject>findAllByDivisionId(long divisionId);
 	List<Subject>findAllByDivisionIdIsNullOrDivisionIdIsNot(long divisionId);
 	
+	List<Subject>findAllByTeacherId(long teacherId);
+	List<Subject>findAllByTeacherIdIsNullOrTeacherIdIsNot(long teacherId);
+	
 }

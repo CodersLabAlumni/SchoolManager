@@ -130,7 +130,7 @@ public class DivisionController {
 		m.addAttribute("subjectsNotInDivision", subjectsNotInDivision);
 		return "division/addSubject_division";
 	}
-		
+
 	@GetMapping("addSubject/{divisionId}/{subjectId}")
 	public String addSubject(@PathVariable long divisionId, @PathVariable long subjectId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -139,10 +139,6 @@ public class DivisionController {
 		this.subjectRepository.save(subject);
 		return "redirect:/division/addSubject/{divisionId}";
 	}	
-	
-	
-	
-	
 	
 	
 	//SHOW ALL

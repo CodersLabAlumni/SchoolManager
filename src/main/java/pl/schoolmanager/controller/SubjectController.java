@@ -23,7 +23,13 @@ public class SubjectController {
 
 	@Autowired
 	private SubjectRepository subjectRepository;
-
+	
+	@GetMapping("/all")
+	public String all(Model m) {
+		return "subject/all_subjects";
+	}
+	
+	
 	// CREATE
 	@GetMapping("/create")
 	public String createSubject(Model m) {
@@ -80,8 +86,7 @@ public class SubjectController {
 		return this.subjectRepository.findAll();
 	}
 	
-	@GetMapping("/all")
-	public String all(Model m) {
-		return "subject/all_subjects";
-	}
+	
+	
+	
 }

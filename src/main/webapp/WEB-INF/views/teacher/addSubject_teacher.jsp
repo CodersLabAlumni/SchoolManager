@@ -12,9 +12,9 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Division: ${division.name} </legend>
+		<legend>Teacher: ${teacher.firstName}  ${teacher.lastName}</legend>
 		</br>
-		<legend>All subjects in division </legend>
+		<legend>All taught subjects  </legend>
 		<%@ include file="../jspf/subjects.jspf"%>
 
 		<legend>All subjects to add </legend>
@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${subjectsNotInDivision}" var="subject">
+				<c:forEach items="${subjectsNotTaught}" var="subject">
 					<tr class="table-light">
 						<td scope="row"><c:out value="${subject.id}" /></td>
 						<td><c:out value="${subject.name}" /></td>
@@ -50,7 +50,7 @@
 							</div>
 						</td>
 						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/division/addSubject/${division.id}/${subject.id}">Add</a>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}/${subject.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
 
 @Controller
@@ -24,6 +26,15 @@ public class TeacherController {
 	@Autowired
 	private TeacherRepository teacherRepository;
 
+	@Autowired
+	private SubjectRepository subjectRepository;
+	
+
+	@GetMapping("/all")
+	public String all(Model m) {
+		return "teacher/all_teachers";
+	}
+	
 	// CREATE
 	@GetMapping("/create")
 	public String createTeacher(Model m) {
@@ -80,9 +91,26 @@ public class TeacherController {
 		return this.teacherRepository.findAll();
 	}
 	
-	@GetMapping("/all")
-	public String all(Model m) {
-		return "teacher/all_teachers";
+	//ADD SUBJECT TO TEACHER
+	@GetMapping("/addSubject/{teacherId}")
+	public String addSubject(Model m, @PathVariable long teacherId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		List <Subject> subjects = this.subjectRepository.findAllByTeacherId(teacherId);
+		List <Subject> subjectsNotTaught = this.subjectRepository.findAllByTeacherIdIsNullOrTeacherIdIsNot(teacherId);
+		m.addAttribute("teacher", teacher);
+		m.addAttribute("subjects", subjects);
+		m.addAttribute("subjectsNotTaught", subjectsNotTaught);
+		return "teacher/addSubject_teacher";
 	}
+
+	@GetMapping("addSubject/{teacherId}/{subjectId}")
+	public String addSubject(@PathVariable long teacherId, @PathVariable long subjectId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		Subject subject = this.subjectRepository.findOne(subjectId);		
+		subject.getTeacher().add(teacher);
+		this.subjectRepository.save(subject);
+		return "redirect:/teacher/addSubject/{teacherId}";
+	}	
+
 	
 }
