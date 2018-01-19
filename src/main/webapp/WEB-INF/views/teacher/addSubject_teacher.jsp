@@ -15,7 +15,7 @@
 		<legend>Teacher: ${teacher.firstName}  ${teacher.lastName}</legend>
 		</br>
 		<legend>All taught subjects  </legend>
-		<%@ include file="../jspf/subjects.jspf"%>
+		<%@ include file="../jspf/teacher_subjects.jspf"%>
 
 		<legend>All subjects to add </legend>
 

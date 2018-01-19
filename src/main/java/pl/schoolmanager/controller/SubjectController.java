@@ -79,7 +79,7 @@ public class SubjectController {
 		this.subjectRepository.delete(subjectId);
 		return "index"; // to decide where to return
 	}
-
+	
 	// SHOW ALL
 	@ModelAttribute("availableSubjects")
 	public List<Subject> getSubject() {

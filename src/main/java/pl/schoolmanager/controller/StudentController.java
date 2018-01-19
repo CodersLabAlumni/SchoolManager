@@ -69,7 +69,7 @@ public class StudentController {
 	}
 
 	// DELETE
-	@DeleteMapping("/delete/{studentId}")
+	@GetMapping("/delete/{studentId}")
 	public String deleteStudent(@PathVariable long studentId) {
 		this.studentRepository.delete(studentId);
 		return "index"; // to decide where to return

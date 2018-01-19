@@ -15,7 +15,7 @@
 		<legend>Division: ${division.name} </legend>
 		</br>
 		<legend>All subjects in division </legend>
-		<%@ include file="../jspf/subjects.jspf"%>
+		<%@ include file="../jspf/division_subjects.jspf"%>
 
 		<legend>All subjects to add </legend>
 
