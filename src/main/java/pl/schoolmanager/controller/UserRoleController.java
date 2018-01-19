@@ -26,8 +26,6 @@ import pl.schoolmanager.repository.UserRoleRepository;
 public class UserRoleController {
 
 	@Autowired
-	private UserRepository userRepo;
-	@Autowired
 	private UserRoleRepository userRoleRepo;
 
 	// CREATE
@@ -46,11 +44,11 @@ public class UserRoleController {
 		return "redirect:/userrole/all"; // to decide where to return
 	}
 	// READ
-	@GetMapping("/view/{userId}")
-	public String viewStudent(Model m, @PathVariable long userId) {
-		User user = this.userRepo.findOne(userId);
-		m.addAttribute("user", user);
-		return "userrole/show_user"; // view to be developed
+	@GetMapping("/view/{userRoleId}")
+	public String viewUserRolet(Model m, @PathVariable long userRoleId) {
+		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
+		m.addAttribute("userRole", userRole);
+		return "userrole/show_userrole"; // view to be developed
 	}
 
 	// UPDATE
@@ -73,21 +71,21 @@ public class UserRoleController {
 
 	// DELETE
 	@GetMapping("/delete/{userRoleId}")
-	public String deleteStudent(@PathVariable long userRoleId) {
+	public String deleteUserRole(@PathVariable long userRoleId) {
 		this.userRoleRepo.delete(userRoleId);
-		return "index"; // to decide where to return
+		return "redirect:/userrole/all"; // to decide where to return
 	}
 
 	// SHOW ALL
 	@GetMapping("/all")
-	public String all(Model m) {
-		return "userrole/all_users";
+	public String allUserRoles(Model m) {
+		return "userrole/all_userroles";
 	}
 	
 	//Model Attributes
-	@ModelAttribute("availableUsers")
-	public List<User> getUsers() {
-		return this.userRepo.findAll();
+	@ModelAttribute("availableUserRoles")
+	public List<UserRole> getUserRoles() {
+		return this.userRoleRepo.findAll();
 	}
 	
 }
