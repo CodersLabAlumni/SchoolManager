@@ -18,24 +18,27 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
 
+import pl.schoolmanager.validator.EditUsernameValidator;
+import pl.schoolmanager.validator.NewUsernameValidator;
+
 @Entity
 @Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	@NotNull
-	@NotEmpty
-	@Size(min=5, max=25)
+	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@Size(min=5, max=25, groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String username;
-	@NotNull
-	@NotEmpty
-	@Size(min=5, max=100)
+	@NotNull(groups = NewUsernameValidator.class)
+	@NotEmpty(groups = NewUsernameValidator.class)
+	@Size(min=5, max=100, groups = NewUsernameValidator.class)
 	private String password;
-	@NotNull
-	@NotEmpty
-	@Email
+	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
