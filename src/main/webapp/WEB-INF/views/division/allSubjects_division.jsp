@@ -17,7 +17,7 @@
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
 		
-		
+		<%@ include file="../jspf/division_subjects.jspf"%>
 
 
 
