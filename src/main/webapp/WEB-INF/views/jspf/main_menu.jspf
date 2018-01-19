@@ -65,7 +65,7 @@
 				<div class="dropdown-menu" x-placement="bottom-start"
 					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
 					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/userrole/all">All users</a>
+						href="${pageContext.request.contextPath}/user/all">All users</a>
 				</div></li>
 
 		</ul>

@@ -20,7 +20,8 @@
 					<th scope="col">ID</th>
 					<th scope="col">USERNAME</th>
 					<th scope="col">EMAIL</th>
-					<th scope="col">ROLES</th>
+					<th scope="col">USER MENU</th>
+					<th scope="col">ROLES MENU</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,6 +29,7 @@
 					<td scope="row"><c:out value="${user.id}" /></td>
 					<td><c:out value="${user.username}" /></td>
 					<td><c:out value="${user.email}" /></td>
+
 					<td>
 						<div class="btn-group">
 							<div class="btn-group">
@@ -35,11 +37,11 @@
 									data-toggle="dropdown"></button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item"
-										href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View
+										href="${pageContext.request.contextPath}/user/view/${user.id}">View
 										details</a> <a class="dropdown-item"
-										href="${pageContext.request.contextPath}/userrole/update/${userRole.id}">Update</a>
+										href="${pageContext.request.contextPath}/user/update/${user.id}">Update</a>
 									<a class="dropdown-item"
-										href="${pageContext.request.contextPath}/userrole/delete/${userRole.id}">Delete</a>
+										href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
 								</div>
 							</div>
 						</div>
