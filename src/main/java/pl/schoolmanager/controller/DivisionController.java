@@ -35,9 +35,10 @@ public class DivisionController {
 
 	@Autowired
 	private SubjectRepository subjectRepository;
-	
+
 	@Autowired
 	private MarkRepository markRepository;
+
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -149,6 +150,7 @@ public class DivisionController {
 		return "redirect:/division/addSubject/{divisionId}";
 	}
 
+
 	// ALL STUDENTS IN DIVISION
 	@GetMapping("/inside/students/{divisionId}")
 	public String studentsInsideDivision(Model m, @PathVariable long divisionId) {
@@ -186,6 +188,7 @@ public class DivisionController {
 		return "division/allStudentsMarks_division";
 	}
 	
+
 	// SHOW ALL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getDivisions() {
