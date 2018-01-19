@@ -24,37 +24,53 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr class="table-light">
-						<td scope="row"><c:out value="${user.id}" /></td>
-						<td><c:out value="${user.username}" /></td>
-						<td><c:out value="${user.email}" /></td>
-						<td>
-							<table>
-								<c:forEach items="${user.userRoles}" var="userRole">
-									<tr>
-										<td><c:out value="${userRole.userRole}"></c:out></td>
-										<td>Placeholder for school info</td>
-										<td>
+				<tr class="table-light">
+					<td scope="row"><c:out value="${user.id}" /></td>
+					<td><c:out value="${user.username}" /></td>
+					<td><c:out value="${user.email}" /></td>
+					<td>
+						<div class="btn-group">
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary dropdown-toggle"
+									data-toggle="dropdown"></button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item"
+										href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View
+										details</a> <a class="dropdown-item"
+										href="${pageContext.request.contextPath}/userrole/update/${userRole.id}">Update</a>
+									<a class="dropdown-item"
+										href="${pageContext.request.contextPath}/userrole/delete/${userRole.id}">Delete</a>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						<table>
+							<c:forEach items="${user.userRoles}" var="userRole">
+								<tr>
+									<td><c:out value="${userRole.userRole}"></c:out></td>
+									<td>Placeholder for school info</td>
+									<td>
+										<div class="btn-group">
 											<div class="btn-group">
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-primary dropdown-toggle"
-														data-toggle="dropdown"></button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item"
-															href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View
-															details</a> <a class="dropdown-item"
-															href="${pageContext.request.contextPath}/userrole/update/${userRole.id}">Update</a>
-														<a class="dropdown-item"
-															href="${pageContext.request.contextPath}/userrole/delete/${userRole.id}">Delete</a>
-													</div>
+												<button type="button"
+													class="btn btn-primary dropdown-toggle"
+													data-toggle="dropdown"></button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item"
+														href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View
+														details</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/userrole/update/${userRole.id}">Update</a>
+													<a class="dropdown-item"
+														href="${pageContext.request.contextPath}/userrole/delete/${userRole.id}">Delete</a>
 												</div>
 											</div>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
-					</tr>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+				</tr>
 			</tbody>
 		</table>
 
