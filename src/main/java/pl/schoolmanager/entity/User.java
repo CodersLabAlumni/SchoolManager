@@ -1,37 +1,53 @@
 package pl.schoolmanager.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
 
+import pl.schoolmanager.validator.EditUsernameValidator;
+import pl.schoolmanager.validator.NewUsernameValidator;
+
 @Entity
+@Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	@NotNull
-	@NotEmpty
-	@Size(min=5, max=25)
+	private long id;
+	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@Size(min=5, max=25, groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String username;
-	@NotNull
-	@NotEmpty
-	@Size(min=5, max=100)
+	@NotNull(groups = NewUsernameValidator.class)
+	@NotEmpty(groups = NewUsernameValidator.class)
+	@Size(min=5, max=100, groups = NewUsernameValidator.class)
 	private String password;
-	@NotNull
-	@NotEmpty
+	@Transient
+	private String confirmPassword;
+	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
-	private String userRole;
-	
+	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
+	private List<UserRole> userRoles;
+
 	public User() {
 		super();
 	}
@@ -39,14 +55,14 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username  + ", email=" + email
-				+ ", enabled=" + enabled + ", userRole=" + userRole + "]";
+				+ ", enabled=" + enabled + "]";
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -90,12 +106,20 @@ public class User {
 		this.email = email;
 	}
 
-	public String getUserRole() {
-		return userRole;
+	public List<UserRole> getUserRoles() {
+		return userRoles;
 	}
 
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 }
