@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.User;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
 import pl.schoolmanager.validator.EditUsernameValidator;
+import pl.schoolmanager.validator.NewUsernameValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -41,13 +43,21 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	public String createUserPost(@Valid @ModelAttribute User user, BindingResult bindingResult, Model m) {
+	public String createUserPost(@Validated(NewUsernameValidator.class) User user, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "user/new_user"; // view to be developed
+			return "redirect:/user/new_user";
+		} else {
+			UserRole userRole = new UserRole();
+			user.setEnabled(true);
+			userRole.setUsername(user.getUsername());
+			userRole.setUser(user);
+			userRole.setUserRole("ROLE_USER");
+			this.userRepo.save(user);
+			this.userRoleRepo.save(userRole);
+			return "redirect:/user/all";
 		}
-		this.userRepo.save(user);
-		return "redirect:/user/all";
 	}
+	
 	// READ
 	@GetMapping("/view/{userId}")
 	public String viewUser(Model m, @PathVariable long userId) {
@@ -63,7 +73,7 @@ public class UserController {
 		m.addAttribute("user", user);
 		HttpSession session = SessionManager.session();
 		session.setAttribute("password", user.getPassword());
-		return "user/new_user"; // view to be developed
+		return "user/edit_user"; // view to be developed
 	}
 
 	@PostMapping("/update/{id}")
@@ -71,7 +81,7 @@ public class UserController {
 	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute User user, BindingResult bindingResult,
 			@PathVariable long id) {
 		if (bindingResult.hasErrors()) {
-			return "user/new_user"; // view to be developed
+			return "user/edit_user"; // view to be developed
 		}
 		HttpSession session = SessionManager.session();
 		user.setPasswordEncrypted(session.getAttribute("password").toString());

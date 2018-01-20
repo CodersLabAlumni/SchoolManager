@@ -42,12 +42,6 @@
 					Blocked:
 					<form:radiobutton path="enabled" value="false" />
 				</div>
-				<div>
-					Password:
-					<form:password path="password" />
-					<form:errors path="password" class="text-danger" />
-
-				</div>
 				<br />
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
