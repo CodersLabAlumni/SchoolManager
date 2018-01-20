@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +42,8 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	public String createUserPost(@Validated(NewUsernameValidator.class) User user, BindingResult bindingResult, Model m) {
+	public String createUserPost(@Validated(NewUsernameValidator.class) User user, BindingResult bindingResult, 
+								Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:/user/new_user";
 		} else {
@@ -78,8 +78,8 @@ public class UserController {
 
 	@PostMapping("/update/{id}")
 	@Transactional
-	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute User user, BindingResult bindingResult,
-			@PathVariable long id) {
+	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute User user, 
+			BindingResult bindingResult, @PathVariable long id) {
 		if (bindingResult.hasErrors()) {
 			return "user/edit_user"; // view to be developed
 		}

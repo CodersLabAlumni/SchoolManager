@@ -11,9 +11,8 @@
 <body>
 	<%@ include file="../jspf/main_menu.jspf"%>
 
-	<div class="jumbotron">
-		<legend>All Users</legend>
-
+	<div class="container">
+		<h3 class="text-center">The following user...</h3>
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
@@ -27,21 +26,40 @@
 					<td scope="row"><c:out value="${user.id}" /></td>
 					<td><c:out value="${user.username}" /></td>
 					<td><c:out value="${user.email}" /></td>
-
 				</tr>
 			</tbody>
 		</table>
 
-		<div>
-			<form:form method="post">
-				<h4>Please provide new password for this user:</h4>
-				Password:
-				<input type="password" name="password1" />
-				Confirm password:
-				<input type="password" name="password2" />
-				<h5><c:out value="${msg}"></c:out></h5>
-				<input type="submit" value="Change password" class="btn btn-primary"/>
-			</form:form>
+		<h3 class="text-center">...have the following user roles
+			assigned:</h3>
+
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Role</th>
+					<th>School</th>
+				</tr>
+			</thead>
+			<c:forEach items="${user.userRoles}" var="userRole">
+				<tr>
+					<td><c:out value="${userRole.userRole}"></c:out></td>
+					<td>Placeholder for school info</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		<div class="form-group">
+			<form method="post">
+				<select id="selectedRole" name="selectedRole">
+				<c:forEach items="${userRolesForSelect}" var="userRoleText">
+					<option value="${userRoleText}"><c:out value="${userRoleText}"/></option>
+				</c:forEach>
+				</select> <br /> 
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+				<input type="submit" class="btn btn-primary">
+
+			</form>
 		</div>
 	</div>
 	<%@ include file="../jspf/footer.jspf"%>

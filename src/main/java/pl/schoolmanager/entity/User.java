@@ -42,7 +42,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private boolean enabled;
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
 	public User() {

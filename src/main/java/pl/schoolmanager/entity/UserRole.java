@@ -1,5 +1,8 @@
 package pl.schoolmanager.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +25,7 @@ public class UserRole {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
+	//placeholder for school information
 
 	public UserRole() {
 		super();
@@ -57,6 +61,17 @@ public class UserRole {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public static List<String> getRolesForSelect() {
+		List<String> allRoles = new ArrayList<>();
+		allRoles.add("ROLE_ADMIN");
+		allRoles.add("ROLE_USER");
+		allRoles.add("ROLE_SCHOOLADMIN");
+		allRoles.add("ROLE_TEACHER");
+		allRoles.add("ROLE_STUDENT");
+		allRoles.add("ROLE_PARENT");
+		return allRoles;
 	}
 
 }

@@ -34,17 +34,18 @@
 							<div class="btn-group">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
+										data-toggle="dropdown">Actions</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/view/${user.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/user/update/${user.id}">Update</a>
+											details</a>
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/changepassword/${user.id}">
-											Change password</a>
-										<a class="dropdown-item"
+											Change password</a> <a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/userrole/create/${user.id}">Add
+											user role</a>
 									</div>
 								</div>
 							</div>
@@ -60,7 +61,7 @@
 												<div class="btn-group">
 													<button type="button"
 														class="btn btn-primary dropdown-toggle"
-														data-toggle="dropdown"></button>
+														data-toggle="dropdown">Actions</button>
 													<div class="dropdown-menu">
 														<a class="dropdown-item"
 															href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View

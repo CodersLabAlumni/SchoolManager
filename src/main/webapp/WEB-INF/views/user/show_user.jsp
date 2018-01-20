@@ -38,10 +38,13 @@
 								<div class="dropdown-menu">
 									<a class="dropdown-item"
 										href="${pageContext.request.contextPath}/user/view/${user.id}">View
-										details</a> <a class="dropdown-item"
-										href="${pageContext.request.contextPath}/user/update/${user.id}">Update</a>
+										details</a>
 									<a class="dropdown-item"
 										href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
+									<a class="btn btn-primary"
+										href="${pageContext.request.contextPath}/userrole/create/${user.id}">
+										Add user role</a>
+
 								</div>
 							</div>
 						</div>
