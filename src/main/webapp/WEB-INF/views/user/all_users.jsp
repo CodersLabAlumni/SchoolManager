@@ -37,9 +37,6 @@
 										data-toggle="dropdown">Actions</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/user/view/${user.id}">View
-											details</a>
-										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/changepassword/${user.id}">
 											Change password</a> <a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
@@ -63,10 +60,6 @@
 														class="btn btn-primary dropdown-toggle"
 														data-toggle="dropdown">Actions</button>
 													<div class="dropdown-menu">
-														<a class="dropdown-item"
-															href="${pageContext.request.contextPath}/userrole/view/${userRole.id}">View
-															details</a> <a class="dropdown-item"
-															href="${pageContext.request.contextPath}/userrole/update/${userRole.id}">Update</a>
 														<a class="dropdown-item"
 															href="${pageContext.request.contextPath}/userrole/delete/${userRole.id}">Delete</a>
 													</div>
