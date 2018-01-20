@@ -105,9 +105,17 @@ public class UserController {
 
 	// DELETE
 	@GetMapping("/delete/{userId}")
-	public String deleteUser(@PathVariable long userId) {
+	public String deleteUser(@PathVariable long userId, Model m) {
+		User user = this.userRepo.findOne(userId);
+		m.addAttribute("user", user);
+		return "user/confirm_delete"; // to decide where to return
+	}
+	
+	@PostMapping("/delete/{userId}")
+	public String deleteUserPost(@PathVariable long userId, Model m) {
 		this.userRepo.delete(userId);
-		return "redirect:/user/all"; // to decide where to return
+		return "redirect:/user/all";
+		
 	}
 
 	// SHOW ALL
