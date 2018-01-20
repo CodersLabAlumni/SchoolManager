@@ -41,6 +41,9 @@
 											details</a> <a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/update/${user.id}">Update</a>
 										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/user/changepassword/${user.id}">
+											Change password</a>
+										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
 									</div>
 								</div>

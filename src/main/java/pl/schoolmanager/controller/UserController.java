@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.User;
@@ -78,6 +79,28 @@ public class UserController {
 		this.userRepo.save(user);
 		this.userRoleRepo.updateWithUsernameByUserId(id, user.getUsername());
 		return "redirect:/user/all"; // to decide where to return
+	}
+	
+	//CHANGE USER PASSWORD
+	@GetMapping("/changepassword/{userId}")
+	public String changePassword(@PathVariable long userId, Model m) {
+		User user = userRepo.findOne(userId);
+		m.addAttribute("user", user);
+		return "user/change_pass";
+	}
+	
+	@PostMapping("/changepassword/{userId}")
+	public String changePasswordPost(@RequestParam("password1") String password1, Model m,
+									@RequestParam("password2") String password2, @PathVariable long userId) {
+		User user = userRepo.findOne(userId);
+		if (!password1.equals(password2)) {
+			m.addAttribute("msg", "Both passwords must match!");
+			m.addAttribute("user", user);
+			return "user/change_pass";
+		}
+		user.setPassword(password1);
+		userRepo.save(user);
+		return "redirect:/user/all";
 	}
 
 	// DELETE
