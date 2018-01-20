@@ -31,15 +31,12 @@
 		
 		<div class="form-group">Password: <form:password path="password" cssClass="form-control"/>
 		<form:errors path="password" /></div>
+				<div class="form-group">Confirm password: <form:password path="confirmPassword" cssClass="form-control"/>
+		<form:errors path="confirmPassword" /></div>
+		
 		<input type="submit" class="btn btn-primary" value="Register new user">
 		</form:form><br /> 
 		<h3><c:out value="${msg}"></c:out></h3>
-		</div>
-		<div>
-			<h4>New accounts need to be activated by administrator, please use contact details
-			 below to notify administrator that you created new account. Include your
-			  location in the email. Please be aware it may take up to 48
-			  hours to activate new account (normally less than 24 hours).</h4>
 		</div>
 	</div>
 <%@ include file="../jspf/footer.jspf"%>

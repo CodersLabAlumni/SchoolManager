@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,6 +37,8 @@ public class User {
 	@NotEmpty(groups = NewUsernameValidator.class)
 	@Size(min=5, max=100, groups = NewUsernameValidator.class)
 	private String password;
+	@Transient
+	private String confirmPassword;
 	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
@@ -111,4 +114,12 @@ public class User {
 		this.userRoles = userRoles;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 }

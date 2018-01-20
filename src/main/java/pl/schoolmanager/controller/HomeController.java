@@ -51,16 +51,19 @@ public class HomeController {
 	public String registerPost(@Valid @ModelAttribute User user, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:register";
-		} else {
-			UserRole userRole = new UserRole();
-			user.setEnabled(true);
-			userRole.setUsername(user.getUsername());
-			userRole.setUser(user);
-			userRole.setUserRole("ROLE_USER");
-			this.userRepo.save(user);
-			this.userRoleRepo.save(userRole);
-			return "redirect:/login";
 		}
+		if (!user.isPasswordCorrent(user.getConfirmPassword())) {
+			m.addAttribute("msg", "Please make sure that both passwords match!");
+			return "home/register";
+		}
+		UserRole userRole = new UserRole();
+		user.setEnabled(true);
+		userRole.setUsername(user.getUsername());
+		userRole.setUser(user);
+		userRole.setUserRole("ROLE_USER");
+		this.userRepo.save(user);
+		this.userRoleRepo.save(userRole);
+		return "redirect:/login";
 	}
 
 	@GetMapping("403")
