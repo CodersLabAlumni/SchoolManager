@@ -35,19 +35,7 @@
 						<form:errors path="email" class="text-danger" />
 					</div>
 				</div>
-				
-				<!--  
-				<div class="form-group">
-					<label for="inputPassword" class="col-lg-2 control-label">Password
-					</label>
-					<div class="col-lg-10">
-						<form:input class="form-control" id="inputPassword"
-							placeholder="Password" type="password" path="password" />
-						<form:errors path="password" class="text-danger" />
-					</div>
-				</div>
-				-->
-				
+
 				<div>
 					Account type: Enabled:
 					<form:radiobutton path="enabled" value="true" />
