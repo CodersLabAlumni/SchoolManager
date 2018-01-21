@@ -80,6 +80,27 @@ public class SchoolController {
 		
 		//ADD DIVISION TO SCHOOL
 		@GetMapping("/addDivision/{schoolId}")
+		public String addDivision(Model m, @PathVariable long schoolId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			List<Division> schoolDivisions = this.divisionRepository.findAllBySchoolId(schoolId);
+			List<Division> freeDivisions = this.divisionRepository.findAllBySchoolIdIsNull();
+			m.addAttribute("school", school);
+			m.addAttribute("schoolDivisions", schoolDivisions);
+			m.addAttribute("freeDivisions", freeDivisions);
+			return "school/addDivision_school";
+		}
+		
+		@GetMapping("addDivision/{schoolId}/{divisionId}")
+		public String addDivision(@PathVariable long schoolId, @PathVariable long divisionId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			Division division = this.divisionRepository.findOne(divisionId);
+			division.setSchool(school);
+			this.divisionRepository.save(division);
+			return "redirect:/school/addDivision/{schoolId}";
+		}
+		
+		//ADD SUBJECT TO SCHOOL
+		@GetMapping("/addSubject/{schoolId}")
 		public String addSubject(Model m, @PathVariable long schoolId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			List<Division> schoolDivisions = this.divisionRepository.findAllBySchoolId(schoolId);
@@ -90,8 +111,15 @@ public class SchoolController {
 			return "school/addDivision_school";
 		}
 		
-//		@GetMapping("/addSubject/{schoolId}")
-//		
+		@GetMapping("addDivision/{schoolId}/{divisionId}")
+		public String addSubject(@PathVariable long schoolId, @PathVariable long divisionId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			Division division = this.divisionRepository.findOne(divisionId);
+			division.setSchool(school);
+			this.divisionRepository.save(division);
+			return "redirect:/school/addDivision/{schoolId}";
+		}
+		
 //		@GetMapping("/addStudent/{schoolId}")
 //		
 //		@GetMapping("/addTeacher/{schoolId}")
