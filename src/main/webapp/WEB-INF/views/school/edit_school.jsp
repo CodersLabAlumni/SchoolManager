@@ -13,29 +13,29 @@
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="division"
+		<form:form method="post" modelAttribute="school"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Edit division</legend>
+				<legend>Add new school</legend>
 				<div class="form-group">
-					<label for="inputDivisionName" class="col-lg-2 control-label">Name</label>
+					<label for="inputSchoolName" class="col-lg-2 control-label">Name</label>
 					<div class="col-lg-10">
-						<form:input class="form-control" id="inputDivisionName"
-							placeholder="Division name" type="text" path="name" />
+						<form:input class="form-control" id="inputSchoolName"
+							placeholder="School name" type="text" path="name" />
 						<form:errors path="name" class="text-danger" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="textArea" class="col-lg-2 control-label">Division
-						description</label>
+					<label for="inputSchoolType" class="col-lg-2 control-label">Type</label>
 					<div class="col-lg-10">
-						<form:textarea class="form-control" rows="3" id="textArea"
-							path="description" />
-						</textarea>
-						<form:errors path="description" />
+						<form:input class="form-control" id="inputSchoolType"
+							placeholder="School type (eg. kindergarden, high-school, etc.)"
+							type="text" path="type" />
+						<form:errors path="type" class="text-danger" />
 					</div>
 				</div>
+
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
 				type="button" class="btn btn-secondary" value="Cancel" />
