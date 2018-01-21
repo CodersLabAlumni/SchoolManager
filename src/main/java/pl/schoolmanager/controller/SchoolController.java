@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.SchoolRepository;
+import pl.schoolmanager.repository.SubjectRepository;
 
 @Controller
 @RequestMapping("/school")
@@ -28,6 +30,9 @@ public class SchoolController {
 	
 	@Autowired
 	private DivisionRepository divisionRepository;
+	
+	@Autowired
+	private SubjectRepository subjectRepository;
 	
 	//CREATE
 		@GetMapping("/create")
@@ -103,21 +108,21 @@ public class SchoolController {
 		@GetMapping("/addSubject/{schoolId}")
 		public String addSubject(Model m, @PathVariable long schoolId) {
 			School school = this.schoolRepository.findOne(schoolId);
-			List<Division> schoolDivisions = this.divisionRepository.findAllBySchoolId(schoolId);
-			List<Division> freeDivisions = this.divisionRepository.findAllBySchoolIdIsNull();
+			List<Subject> schoolSubjects = this.subjectRepository.findAllBySchoolId(schoolId);
+			List<Subject> freeSubjects = this.subjectRepository.findAllBySchoolIdIsNull();
 			m.addAttribute("school", school);
-			m.addAttribute("schoolDivisions", schoolDivisions);
-			m.addAttribute("freeDivisions", freeDivisions);
-			return "school/addDivision_school";
+			m.addAttribute("schoolSubjects", schoolSubjects);
+			m.addAttribute("freeSubjects", freeSubjects);
+			return "school/addSubject_school";
 		}
 		
-		@GetMapping("addDivision/{schoolId}/{divisionId}")
-		public String addSubject(@PathVariable long schoolId, @PathVariable long divisionId) {
+		@GetMapping("addDivision/{schoolId}/{subjectId}")
+		public String addSubject(@PathVariable long schoolId, @PathVariable long subjectId) {
 			School school = this.schoolRepository.findOne(schoolId);
-			Division division = this.divisionRepository.findOne(divisionId);
-			division.setSchool(school);
-			this.divisionRepository.save(division);
-			return "redirect:/school/addDivision/{schoolId}";
+			Subject subject = this.subjectRepository.findOne(subjectId);
+			subject.setSchool(school);
+			this.subjectRepository.save(subject);
+			return "redirect:/school/addSubject/{schoolId}";
 		}
 		
 //		@GetMapping("/addStudent/{schoolId}")
