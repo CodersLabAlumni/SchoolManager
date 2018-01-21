@@ -27,7 +27,8 @@
 				<c:forEach items="${availableDivisions}" var="division">
 					<tr class="table-light">
 						<td scope="row"><c:out value="${division.id}" /></td>
-						<td><a href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
 						<td><c:out value="${division.description}" /></td>
 						<td>
 							<div class="btn-group">
@@ -43,9 +44,10 @@
 											href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add Student</a>
-											<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add Subject</a>
+											href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add
+											Student</a> <a class="dropdown-item"
+											href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
+											Subject</a>
 									</div>
 								</div>
 							</div>

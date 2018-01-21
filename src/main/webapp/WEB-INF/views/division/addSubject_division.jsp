@@ -49,8 +49,8 @@
 								</div>
 							</div>
 						</td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/division/addSubject/${division.id}/${subject.id}">Add</a>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/division/addSubject/${division.id}/${subject.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -61,7 +61,8 @@
 
 
 
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/division/all">Return</a>
+		<a class="btn btn-secondary"
+			href="${pageContext.request.contextPath}/division/all">Return</a>
 
 	</div>
 

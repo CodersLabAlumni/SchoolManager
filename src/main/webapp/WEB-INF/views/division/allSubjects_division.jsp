@@ -13,11 +13,11 @@
 
 	<div class="jumbotron">
 		<legend>Division: ${division.name} </legend>
-		
+
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
-		
-				<table class="table table-bordered">
+
+		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
@@ -40,10 +40,7 @@
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/update/${subject.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/delete/${subject.id}">Delete</a>
+											details</a>
 									</div>
 								</div>
 							</div>
@@ -54,7 +51,8 @@
 		</table>
 
 
-	<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+
 				<c:forEach items="${studentsNotInDivision}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
@@ -50,8 +50,8 @@
 								</div>
 							</div>
 						</td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/division/addStudent/${division.id}/${student.id}">Add</a>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/division/addStudent/${division.id}/${student.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -62,7 +62,8 @@
 
 
 
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/division/all">Return</a>
+		<a class="btn btn-secondary"
+			href="${pageContext.request.contextPath}/division/all">Return</a>
 
 	</div>
 

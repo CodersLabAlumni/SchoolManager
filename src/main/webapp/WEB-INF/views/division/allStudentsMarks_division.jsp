@@ -12,7 +12,8 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Division: ${division.name} ; Subject: ${subject.name} </legend>
+		<legend>Division: ${division.name} ; Subject: ${subject.name}
+		</legend>
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
 
@@ -35,13 +36,13 @@
 						<td><c:forEach items="${marks}" var="mark">
 								<c:choose>
 									<c:when test="${mark.student.id == student.id}">
-									<a href="${pageContext.request.contextPath}/mark/update/${mark.id}?subject=${subject.id}&student=${student.id}">${mark.value}</a> ,
-		
+										<a
+											href="${pageContext.request.contextPath}/mark/update/${mark.id}?subject=${subject.id}&student=${student.id}">${mark.value}</a> ,
 									</c:when>
 								</c:choose>
 							</c:forEach></td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/mark/create?subject=${subject.id}&student=${student.id}">Add</a>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/mark/create?subject=${subject.id}&student=${student.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
