@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+	<div class="collapse navbar-collapse" id="navbarColor02">
+		<ul class="navbar-nav mr-auto">
+
+
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Subjects</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<c:forEach items="${subjects}" var="subject">
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/division/inside/marks/${divisionId}/${subject.id}">${subject.name}</a>
+					</c:forEach>
+				</div></li>
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Option</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/division/inside/subjects/${divisionId}">All subjects
+						in division</a>
+						<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/division/inside/students/${divisionId}">All students
+						in division</a>
+				</div></li>
+
+		</ul>
+	</div>
+</nav>

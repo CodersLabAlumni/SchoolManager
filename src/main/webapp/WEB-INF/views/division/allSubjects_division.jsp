@@ -12,7 +12,10 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>All Divisions</legend>
+		<legend>Division: ${division.name} </legend>
+
+		<%@ include file="../jspf/division_menu.jspf"%>
+		</br>
 
 		<table class="table table-bordered">
 			<thead>
@@ -24,12 +27,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${availableDivisions}" var="division">
+				<c:forEach items="${subjects}" var="subject">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${division.id}" /></td>
-						<td><a
-							href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
-						<td><c:out value="${division.description}" /></td>
+						<td scope="row"><c:out value="${subject.id}" /></td>
+						<td><c:out value="${subject.name}" /></td>
+						<td><c:out value="${subject.description}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -37,17 +39,8 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/view/${division.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/update/${division.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add
-											Student</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
-											Subject</a>
+											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											details</a>
 									</div>
 								</div>
 							</div>
@@ -58,6 +51,8 @@
 		</table>
 
 
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

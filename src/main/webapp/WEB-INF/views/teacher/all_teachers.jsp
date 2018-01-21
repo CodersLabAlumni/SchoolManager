@@ -12,7 +12,7 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		
+
 		<legend>All Teachers</legend>
 
 		<table class="table table-bordered">
@@ -44,6 +44,11 @@
 											href="${pageContext.request.contextPath}/teacher/update/${teacher.id}">Update</a>
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/teacher/delete/${teacher.id}">Delete</a>
+										<div class="dropdown-divider"></div>
+										 <a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}">Add
+											Subject</a>
+
 									</div>
 								</div>
 							</div>

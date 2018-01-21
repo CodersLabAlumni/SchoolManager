@@ -12,24 +12,31 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>All Divisions</legend>
+		<legend>Division: ${division.name} </legend>
+		</br>
+		<legend>All students in division </legend>
+		<%@ include file="../jspf/division_students.jspf"%>
+
+		<legend>All students to add </legend>
+
 
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
-					<th scope="col">NAME</th>
-					<th scope="col">DESCRIPTION</th>
+					<th scope="col">FIRST NAME</th>
+					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
+					<th scope="col">ADD</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${availableDivisions}" var="division">
+
+				<c:forEach items="${studentsNotInDivision}" var="student">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${division.id}" /></td>
-						<td><a
-							href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
-						<td><c:out value="${division.description}" /></td>
+						<td><c:out value="${student.id}" /></td>
+						<td><c:out value="${student.firstName}" /></td>
+						<td><c:out value="${student.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -37,20 +44,14 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/view/${division.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/update/${division.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add
-											Student</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
-											Subject</a>
+											href="${pageContext.request.contextPath}/student/view/${student.id}">View
+											details</a>
 									</div>
 								</div>
 							</div>
+						</td>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/division/addStudent/${division.id}/${student.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -58,8 +59,15 @@
 		</table>
 
 
+
+
+
+		<a class="btn btn-secondary"
+			href="${pageContext.request.contextPath}/division/all">Return</a>
+
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
+
 </body>
 </html>
