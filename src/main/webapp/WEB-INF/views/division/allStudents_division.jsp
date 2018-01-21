@@ -16,12 +16,46 @@
 		
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
-		
-		<%@ include file="../jspf/division_students.jspf"%>
 
+	<table class="table table-bordered">
+		<thead>
+			<tr class="table-light">
+				<th scope="col">ID</th>
+				<th scope="col">FIRST NAME</th>
+				<th scope="col">LAST NAME</th>
+				<th scope="col">OPTION</th>
+			</tr>
+		</thead>
+		<tbody>
 
-
-	<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+			<c:forEach items="${students}" var="student">
+				<tr class="table-light">
+					<td><c:out value="${student.id}" /></td>
+					<td><c:out value="${student.firstName}" /></td>
+					<td><c:out value="${student.lastName}" /></td>
+					<td>
+						<div class="btn-group">
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary dropdown-toggle"
+									data-toggle="dropdown"></button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item"
+										href="${pageContext.request.contextPath}/student/view/${student.id}">View
+										details</a> <a class="dropdown-item"
+										href="${pageContext.request.contextPath}/student/update/${student.id}">Update</a>
+									<a class="dropdown-item"
+										href="${pageContext.request.contextPath}/student/delete/${student.id}">Delete</a>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	<input action="action" onclick="window.history.go(-1); return false;"
+		type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
