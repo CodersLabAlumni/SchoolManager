@@ -151,15 +151,6 @@ public class SchoolController {
 		public String addStudent(@PathVariable long schoolId, @PathVariable long studentId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			Student student = this.studentRepository.findOne(studentId);
-//			Set<Student> students = school.getStudent();
-//			students.add(student);
-//			school.setStudent(students);
-//			this.schoolRepository.save(school);
-/*			List<Student> students = school.getStudent();
-			students.add(student);
-			school.setStudent(students);*/
-//			school.getStudent().add(student);
-//			this.schoolRepository.save(school);
 			student.getSchool().add(school);
 			this.studentRepository.save(student);
 			return "redirect:/school/addStudent/{schoolId}";

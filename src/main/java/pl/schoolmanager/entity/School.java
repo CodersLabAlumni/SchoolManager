@@ -41,8 +41,8 @@ public class School {
 	@ManyToMany (mappedBy = "school", fetch = FetchType.EAGER)
 	private Set<Student> student;
 	
-	@ManyToMany (mappedBy = "school")
-	private List<Teacher> teacher = new ArrayList<>();
+	@ManyToMany (mappedBy = "school", fetch = FetchType.EAGER)
+	private Set<Teacher>teacher;
 
 	public School() {
 		super();
@@ -88,19 +88,11 @@ public class School {
 		this.subject = subject;
 	}
 
-/*	public List<Student> getStudent() {
-		return student;
-	}
-
-	public void setStudent(List<Student> student) {
-		this.student = student;
-	}*/
-
-	public List<Teacher> getTeacher() {
+	public Set<Teacher> getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(List<Teacher> teacher) {
+	public void setTeacher(Set<Teacher> teacher) {
 		this.teacher = teacher;
 	}
 

@@ -135,14 +135,6 @@ public class Student {
 		this.school = school;
 	}
 
-/*	public List<School> getSchool() {
-		return school;
-	}
-
-	public void setSchool(List<School> school) {
-		this.school = school;
-	}*/
-
 	
 	
 }

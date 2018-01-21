@@ -2,6 +2,7 @@ package pl.schoolmanager.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Teacher {
 	List <Subject> subject = new ArrayList<>();
 	
 	@ManyToMany
-	private List<School> school = new ArrayList<>();
+	private Set<School> school;
 	
 	
 	public Teacher() {
@@ -116,14 +117,17 @@ public class Teacher {
 	}
 
 
-	public List<School> getSchool() {
+	public Set<School> getSchool() {
 		return school;
 	}
 
 
-	public void setSchool(List<School> school) {
+	public void setSchool(Set<School> school) {
 		this.school = school;
 	}
+
+
+
 
 	
 }
