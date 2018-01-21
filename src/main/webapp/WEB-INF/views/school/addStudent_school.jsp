@@ -14,23 +14,24 @@
 	<div class="jumbotron">
 		<legend>School: ${school.name}, ${school.type}</legend>
 		</br>
-		<legend>All subjects in this school  </legend>
+		<legend>All students in school </legend>
 
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
-					<th scope="col">NAME</th>
-					<th scope="col">DESCRIPTION</th>
+					<th scope="col">FIRST NAME</th>
+					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${schoolSubjects}" var="subject">
+
+				<c:forEach items="${schoolStudents}" var="student">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${subject.id}" /></td>
-						<td><c:out value="${subject.name}" /></td>
-						<td><c:out value="${subject.description}" /></td>
+						<td><c:out value="${student.id}" /></td>
+						<td><c:out value="${student.firstName}" /></td>
+						<td><c:out value="${student.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -38,7 +39,7 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											href="${pageContext.request.contextPath}/student/view/${student.id}">View
 											details</a>
 									</div>
 								</div>
@@ -49,26 +50,26 @@
 			</tbody>
 		</table>
 
-
-		<legend>All subjects to add </legend>
+		<legend>All students to add </legend>
 
 
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
-					<th scope="col">NAME</th>
-					<th scope="col">DESCRIPTION</th>
+					<th scope="col">FIRST NAME</th>
+					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
 					<th scope="col">ADD</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${freeSubjects}" var="subject">
+
+				<c:forEach items="${notSchoolStudents}" var="student">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${subject.id}" /></td>
-						<td><c:out value="${subject.name}" /></td>
-						<td><c:out value="${subject.description}" /></td>
+						<td><c:out value="${student.id}" /></td>
+						<td><c:out value="${student.firstName}" /></td>
+						<td><c:out value="${student.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -76,14 +77,14 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											href="${pageContext.request.contextPath}/student/view/${student.id}">View
 											details</a>
 									</div>
 								</div>
 							</div>
 						</td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/school/addSubject/${school.id}/${subject.id}">Add</a>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/school/addStudent/${school.id}/${student.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -94,7 +95,8 @@
 
 
 
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/school/all">Return</a>
+		<a class="btn btn-secondary"
+			href="${pageContext.request.contextPath}/school/all">Return</a>
 
 	</div>
 

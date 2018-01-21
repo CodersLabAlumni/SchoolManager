@@ -24,7 +24,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${availableSchools}" var="school">
+				<c:forEach items="${schools}" var="school">
 					<tr class="table-light">
 						<td scope="row"><c:out value="${school.id}" /></td>
 						<td><c:out value="${school.name}" /></td>
