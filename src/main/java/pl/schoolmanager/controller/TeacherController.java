@@ -39,16 +39,16 @@ public class TeacherController {
 	@GetMapping("/create")
 	public String createTeacher(Model m) {
 		m.addAttribute("teacher", new Teacher());
-		return "teacher/new_teacher"; // view to be developed
+		return "teacher/new_teacher";
 	}
 
 	@PostMapping("/create")
 	public String createTeacherPost(@Valid @ModelAttribute Teacher teacher, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "teacher/new_teacher"; // view to be developed
+			return "teacher/new_teacher";
 		}
 		this.teacherRepository.save(teacher);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// READ
@@ -56,7 +56,7 @@ public class TeacherController {
 	public String viewTeacher(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		m.addAttribute("teacher", teacher);
-		return "teacher/show_teacher"; // view to be developed
+		return "teacher/show_teacher";
 	}
 
 	// UPDATE
@@ -64,25 +64,25 @@ public class TeacherController {
 	public String updateTeacher(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		m.addAttribute("teacher", teacher);
-		return "teacher/edit_teacher"; // view to be developed
+		return "teacher/edit_teacher";
 	}
 
 	@PostMapping("/update/{teacherId}")
 	public String updateTeacherPost(@Valid @ModelAttribute Teacher teacher, BindingResult bindingResult,
 			@PathVariable long teacherId) {
 		if (bindingResult.hasErrors()) {
-			return "teacher/edit_teacher"; // view to be developed
+			return "teacher/edit_teacher";
 		}
 		teacher.setId(teacherId);
 		this.teacherRepository.save(teacher);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// DELETE
 	@GetMapping("/delete/{teacherId}")
 	public String deleteTeacher(@PathVariable long teacherId) {
 		this.teacherRepository.delete(teacherId);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// SHOW ALL

@@ -49,16 +49,16 @@ public class DivisionController {
 	@GetMapping("/create")
 	public String createDivision(Model m) {
 		m.addAttribute("division", new Division());
-		return "division/new_division"; // view to be developed
+		return "division/new_division";
 	}
 
 	@PostMapping("/create")
 	public String createDivisionPost(@Valid @ModelAttribute Division division, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "division/new_division"; // view to be developed
+			return "division/new_division";
 		}
 		this.divisionRepository.save(division);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// READ
@@ -66,7 +66,7 @@ public class DivisionController {
 	public String viewDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
 		m.addAttribute("division", division);
-		return "division/show_division"; // view to be developed
+		return "division/show_division";
 	}
 
 	// UPDATE
@@ -74,25 +74,25 @@ public class DivisionController {
 	public String updateDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
 		m.addAttribute("division", division);
-		return "division/edit_division"; // view to be developed
+		return "division/edit_division";
 	}
 
 	@PostMapping("/update/{divisionId}")
 	public String updateDivisionPost(@Valid @ModelAttribute Division division, BindingResult bindingResult,
 			@PathVariable long divisionId) {
 		if (bindingResult.hasErrors()) {
-			return "division/edit_division"; // view to be developed
+			return "division/edit_division";
 		}
 		division.setId(divisionId);
 		this.divisionRepository.save(division);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// DELETE
 	@GetMapping("/delete/{divisionId}")
 	public String deleteDivision(@PathVariable long divisionId) {
 		this.divisionRepository.delete(divisionId);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// INSIDE DIVISION

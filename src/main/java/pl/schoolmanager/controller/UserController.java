@@ -38,7 +38,7 @@ public class UserController {
 	@GetMapping("/create")
 	public String createUser(Model m) {
 		m.addAttribute("user", new User());
-		return "user/new_user"; // view to be developed
+		return "user/new_user";
 	}
 
 	@PostMapping("/create")
@@ -63,7 +63,7 @@ public class UserController {
 	public String viewUser(Model m, @PathVariable long userId) {
 		User user = this.userRepo.findOne(userId);
 		m.addAttribute("user", user);
-		return "user/show_user"; // view to be developed
+		return "user/show_user";
 	}
 
 	// UPDATE
@@ -73,7 +73,7 @@ public class UserController {
 		m.addAttribute("user", user);
 		HttpSession session = SessionManager.session();
 		session.setAttribute("password", user.getPassword());
-		return "user/edit_user"; // view to be developed
+		return "user/edit_user";
 	}
 
 	@PostMapping("/update/{id}")
@@ -81,14 +81,14 @@ public class UserController {
 	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute User user, 
 			BindingResult bindingResult, @PathVariable long id) {
 		if (bindingResult.hasErrors()) {
-			return "user/edit_user"; // view to be developed
+			return "user/edit_user";
 		}
 		HttpSession session = SessionManager.session();
 		user.setPasswordEncrypted(session.getAttribute("password").toString());
 		session.setAttribute("password", null);
 		this.userRepo.save(user);
 		this.userRoleRepo.updateWithUsernameByUserId(id, user.getUsername());
-		return "redirect:/user/all"; // to decide where to return
+		return "redirect:/user/all";
 	}
 	
 	//CHANGE USER PASSWORD
@@ -118,7 +118,7 @@ public class UserController {
 	public String deleteUser(@PathVariable long userId, Model m) {
 		User user = this.userRepo.findOne(userId);
 		m.addAttribute("user", user);
-		return "user/confirm_delete"; // to decide where to return
+		return "user/confirm_delete";
 	}
 	
 	@PostMapping("/delete/{userId}")

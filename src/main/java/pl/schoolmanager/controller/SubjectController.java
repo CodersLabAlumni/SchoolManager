@@ -34,16 +34,16 @@ public class SubjectController {
 	@GetMapping("/create")
 	public String createSubject(Model m) {
 		m.addAttribute("subject", new Subject());
-		return "subject/new_subject"; // view to be developed
+		return "subject/new_subject";
 	}
 
 	@PostMapping("/create")
 	public String createSubjectPost(@Valid @ModelAttribute Subject subject, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "subject/new_subject"; // view to be developed
+			return "subject/new_subject";
 		}
 		this.subjectRepository.save(subject);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// READ
@@ -51,7 +51,7 @@ public class SubjectController {
 	public String viewSubject(Model m, @PathVariable long subjectId) {
 		Subject subject = this.subjectRepository.findOne(subjectId);
 		m.addAttribute("subject", subject);
-		return "subject/show_subject"; // view to be developed
+		return "subject/show_subject";
 	}
 
 	// UPDATE
@@ -59,25 +59,25 @@ public class SubjectController {
 	public String updateSubject(Model m, @PathVariable long subjectId) {
 		Subject subject = this.subjectRepository.findOne(subjectId);
 		m.addAttribute("subject", subject);
-		return "subject/edit_subject"; // view to be developed
+		return "subject/edit_subject";
 	}
 
 	@PostMapping("/update/{subjectId}")
 	public String updateSubjectPost(@Valid @ModelAttribute Subject subject, BindingResult bindingResult,
 			@PathVariable long subjectId) {
 		if (bindingResult.hasErrors()) {
-			return "subject/edit_subject"; // view to be developed
+			return "subject/edit_subject";
 		}
 		subject.setId(subjectId);
 		this.subjectRepository.save(subject);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// DELETE
 	@GetMapping("/delete/{subjectId}")
 	public String deleteSubject(@PathVariable long subjectId) {
 		this.subjectRepository.delete(subjectId);
-		return "index"; // to decide where to return
+		return "index";
 	}
 	
 	// SHOW ALL

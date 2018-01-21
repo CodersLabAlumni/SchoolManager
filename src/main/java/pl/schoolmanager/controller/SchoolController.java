@@ -28,16 +28,16 @@ public class SchoolController {
 		@GetMapping("/create")
 		public String createSchool(Model m) {
 			m.addAttribute("school", new School());
-			return "school/new_school"; //view to be developed
+			return "school/new_school";
 		}
 		
 		@PostMapping("/create")
 		public String createSchoolPost(@Valid @ModelAttribute School school, BindingResult bindingResult, Model m) {
 			if (bindingResult.hasErrors()) {
-				return "school/new_school"; //view to be developed
+				return "school/new_school";
 			}
 			this.schoolRepository.save(school);
-			return "index"; //to decide where to return
+			return "index";
 		}
 		
 		//READ
@@ -45,7 +45,7 @@ public class SchoolController {
 		public String viewSchool(Model m, @PathVariable long schoolId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			m.addAttribute("school", school);
-			return "school/show_school"; //view to be developed
+			return "school/show_school";
 		}
 		
 		//UPDATE
@@ -53,24 +53,24 @@ public class SchoolController {
 		public String updateSchool(Model m, @PathVariable long schoolId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			m.addAttribute("school", school);
-			return "school/edit_school"; //view to be developed
+			return "school/edit_school";
 		}
 		
 		@PostMapping("/update/{schoolId}")
 		public String updateSchoolPost(@Valid @ModelAttribute School school, BindingResult bindingResult, @PathVariable long schoolId) {
 			if (bindingResult.hasErrors()) {
-				return "school/edit_school"; //view to be developed
+				return "school/edit_school";
 			}
 			school.setId(schoolId);
 			this.schoolRepository.save(school);
-			return "index"; //to decide where to return
+			return "index";
 		}
 		
 		//DELETE
 		@GetMapping("/delete/{schoolId}")
 		public String deleteSchool(@PathVariable long schoolId) {
 			this.schoolRepository.delete(schoolId);
-			return "index"; //to decide where to return
+			return "index";
 		}
 		
 		//SHOW ALL
