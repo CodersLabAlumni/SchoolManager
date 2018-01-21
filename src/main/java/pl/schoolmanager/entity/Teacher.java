@@ -40,6 +40,9 @@ public class Teacher {
 	@ManyToMany (mappedBy = "teacher")
 	List <Subject> subject = new ArrayList<>();
 	
+	@ManyToMany
+	private List<School> school = new ArrayList<>();
+	
 	
 	public Teacher() {
 		super();
@@ -110,6 +113,16 @@ public class Teacher {
 	public String toString() {
 		return "Teacher [id=" + id + ", password=" + password + ", email=" + email + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", student=" + "]";
+	}
+
+
+	public List<School> getSchool() {
+		return school;
+	}
+
+
+	public void setSchool(List<School> school) {
+		this.school = school;
 	}
 
 	

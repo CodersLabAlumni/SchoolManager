@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -47,6 +48,9 @@ public class Student {
 
 	@OneToMany (mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	List <Mark> mark = new ArrayList<>();
+	
+	@ManyToMany
+	private List<School> school = new ArrayList<>();
 	
 	
 	public Student() {
@@ -122,4 +126,13 @@ public class Student {
 		this.mark = mark;
 	}
 
+	public List<School> getSchool() {
+		return school;
+	}
+
+	public void setSchool(List<School> school) {
+		this.school = school;
+	}
+
+	
 }

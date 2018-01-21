@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,6 +29,10 @@ public class Subject {
 	private String name;
 
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name = "school_id")
+	private School school;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	List<Division> division = new ArrayList<>();
@@ -95,4 +101,13 @@ public class Subject {
 		this.teacher = teacher;
 	}
 
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
+
+	
 }
