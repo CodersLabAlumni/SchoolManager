@@ -19,6 +19,7 @@ import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.StudentRepository;
@@ -139,8 +140,8 @@ public class SchoolController {
 		@GetMapping("/addStudent/{schoolId}")
 		public String addStudent(Model m, @PathVariable long schoolId) {
 			School school = this.schoolRepository.findOne(schoolId);
-			List<Student> schoolStudents = this.studentRepository.findAllBySchoolId(schoolId);
-			List<Student> notSchoolStudents = this.studentRepository.findAllBySchoolIdIsNullOrSchoolIdIsNot(schoolId);
+			Set<Student> schoolStudents = this.studentRepository.findAllBySchoolId(schoolId);
+			Set<Student> notSchoolStudents = this.studentRepository.findAllBySchoolIdIsNullOrSchoolIdIsNot(schoolId);
 			m.addAttribute("school", school);
 			m.addAttribute("schoolStudents", schoolStudents);
 			m.addAttribute("notSchoolStudents", notSchoolStudents);
@@ -158,6 +159,24 @@ public class SchoolController {
 		
 		//ADD TEACHER TO SCHOOL
 		@GetMapping("/addTeacher/{schoolId}")
+		public String addTeacher(Model m, @PathVariable long schoolId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			Set<Teacher> schoolTeachers = this.teacherRepository.findAllBySchoolId(schoolId);
+			Set<Teacher> notSchoolTeachers = this.teacherRepository.findAllBySchoolIdIsNullOrSchoolIdIsNot(schoolId);
+			m.addAttribute("school", school);
+			m.addAttribute("schoolTeachers", schoolTeachers);
+			m.addAttribute("notSchoolTeachers", notSchoolTeachers);
+			return "school/addTeacher_school";
+		}
+		
+		@GetMapping("addTeacher/{schoolId}/{studentId}")
+		public String addTeacher(@PathVariable long schoolId, @PathVariable long teacherId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			Teacher teacher = this.teacherRepository.findOne(teacherId);
+			teacher.getSchool().add(school);
+			this.teacherRepository.save(teacher);
+			return "redirect:/school/addTeacher/{schoolId}";
+		}
 		
 		//SHOW ALL
 		@ModelAttribute("availableSchools")
