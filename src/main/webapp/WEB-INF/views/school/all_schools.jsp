@@ -41,6 +41,19 @@
 											href="${pageContext.request.contextPath}/school/update/${school.id}">Update</a>
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/school/delete/${school.id}">Delete</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/school/addDivision/${school.id}">Add
+											Division</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/school/addSubject/${school.id}">Add
+											Subject</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/school/addStudent/${school.id}">Add
+											Student</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/school/addTeacher/${school.id}">Add
+											Teacher</a>
 									</div>
 								</div>
 							</div>

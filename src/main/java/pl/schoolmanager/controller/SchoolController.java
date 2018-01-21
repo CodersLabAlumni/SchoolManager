@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
+import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 
 @Controller
@@ -23,6 +25,9 @@ public class SchoolController {
 
 	@Autowired
 	private SchoolRepository schoolRepository;
+	
+	@Autowired
+	private DivisionRepository divisionRepository;
 	
 	//CREATE
 		@GetMapping("/create")
@@ -72,6 +77,24 @@ public class SchoolController {
 			this.schoolRepository.delete(schoolId);
 			return "index";
 		}
+		
+		//ADD DIVISION TO SCHOOL
+		@GetMapping("/addDivision/{schoolId}")
+		public String addSubject(Model m, @PathVariable long schoolId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			List<Division> schoolDivisions = this.divisionRepository.findAllBySchoolId(schoolId);
+			List<Division> freeDivisions = this.divisionRepository.findAllBySchoolIdIsNull();
+			m.addAttribute("school", school);
+			m.addAttribute("schoolDivisions", schoolDivisions);
+			m.addAttribute("freeDivisions", freeDivisions);
+			return "school/addDivision_school";
+		}
+		
+//		@GetMapping("/addSubject/{schoolId}")
+//		
+//		@GetMapping("/addStudent/{schoolId}")
+//		
+//		@GetMapping("/addTeacher/{schoolId}")
 		
 		//SHOW ALL
 		@ModelAttribute("availableSchools")
