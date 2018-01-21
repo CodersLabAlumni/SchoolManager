@@ -29,16 +29,16 @@ public class StudentController {
 	@GetMapping("/create")
 	public String createStudent(Model m) {
 		m.addAttribute("student", new Student());
-		return "student/new_student"; // view to be developed
+		return "student/new_student";
 	}
 
 	@PostMapping("/create")
 	public String createStudentPost(@Valid @ModelAttribute Student student, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "student/new_student"; // view to be developed
+			return "student/new_student";
 		}
 		this.studentRepository.save(student);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// READ
@@ -46,7 +46,7 @@ public class StudentController {
 	public String viewStudent(Model m, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
 		m.addAttribute("student", student);
-		return "student/show_student"; // view to be developed
+		return "student/show_student";
 	}
 
 	// UPDATE
@@ -54,25 +54,25 @@ public class StudentController {
 	public String updateStudent(Model m, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
 		m.addAttribute("student", student);
-		return "student/edit_student"; // view to be developed
+		return "student/edit_student";
 	}
 
 	@PostMapping("/update/{studentId}")
 	public String updateStudentPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
 			@PathVariable long studentId) {
 		if (bindingResult.hasErrors()) {
-			return "student/edit_student"; // view to be developed
+			return "student/edit_student";
 		}
 		student.setId(studentId);
 		this.studentRepository.save(student);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// DELETE
 	@GetMapping("/delete/{studentId}")
 	public String deleteStudent(@PathVariable long studentId) {
 		this.studentRepository.delete(studentId);
-		return "index"; // to decide where to return
+		return "index";
 	}
 
 	// SHOW ALL

@@ -46,13 +46,13 @@ public class MarkController {
 		mark.setSubject(thisSubject);
 		mark.setStudent(thisStudent);
 		m.addAttribute("mark", mark);
-		return "mark/new_mark"; //view to be developed
+		return "mark/new_mark";
 	}
 	
 	@PostMapping("/create")
 	public String createMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "mark/new_mark"; //view to be developed
+			return "mark/new_mark";
 		}
 		this.markRepository.save(mark);
 		Long divisionId = mark.getStudent().getDivision().getId();
@@ -65,7 +65,7 @@ public class MarkController {
 	public String viewMark(Model m, @PathVariable long markId) {
 		Mark mark = this.markRepository.findOne(markId);
 		m.addAttribute("mark", mark);
-		return "mark/show_mark"; //view to be developed
+		return "mark/show_mark";
 	}
 	
 	//UPDATE
@@ -73,13 +73,13 @@ public class MarkController {
 	public String updateMark(@RequestParam long subject, @RequestParam long student, Model m, @PathVariable long markId) {
 		Mark mark = this.markRepository.findOne(markId);
 		m.addAttribute("mark", mark);
-		return "mark/edit_mark"; //view to be developed
+		return "mark/edit_mark";
 	}
 	
 	@PostMapping("/update/{markId}")
 	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, @PathVariable long markId) {
 		if (bindingResult.hasErrors()) {
-			return "mark/edit_mark"; //view to be developed
+			return "mark/edit_mark";
 		}
 		mark.setId(markId);
 		
@@ -87,14 +87,14 @@ public class MarkController {
 		this.markRepository.save(mark);
 		Long divisionId = mark.getStudent().getDivision().getId();
 		Long subjectId = mark.getSubject().getId();
-		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId; //to decide where to return
+		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
 	}
 	
 	//DELETE
 	@DeleteMapping("/delete/{markId}")
 	public String deleteMark(@PathVariable long markId) {
 		this.markRepository.delete(markId);
-		return "index"; //to decide where to return
+		return "index";
 	}
 	
 	//SHOW ALL

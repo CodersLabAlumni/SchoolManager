@@ -38,7 +38,7 @@ public class UserRoleController {
 		User user = this.userRepo.findOne(userId);
 		m.addAttribute("user", user);
 		m.addAttribute("userRole", new UserRole());
-		return "userrole/new_userrole"; // view to be developed
+		return "userrole/new_userrole";
 	}
 
 	@PostMapping("/create/{userId}")
@@ -50,7 +50,7 @@ public class UserRoleController {
 		userRole.setUserRole(selectedRole);
 		userRole.setUsername(user.getUsername());
 		userRoleRepo.save(userRole);
-		return "redirect:/user/all"; // to decide where to return
+		return "redirect:/user/all";
 	}
 
 	// READ
@@ -58,7 +58,7 @@ public class UserRoleController {
 	public String viewUserRolet(Model m, @PathVariable long userRoleId) {
 		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
 		m.addAttribute("userRole", userRole);
-		return "userrole/show_userrole"; // view to be developed
+		return "userrole/show_userrole";
 	}
 
 	// UPDATE
@@ -66,17 +66,17 @@ public class UserRoleController {
 	public String updateUserRole(Model m, @PathVariable long userRoleId) {
 		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
 		m.addAttribute("userRole", userRole);
-		return "userrole/new_userrole"; // view to be developed
+		return "userrole/new_userrole";
 	}
 
 	@PostMapping("/update/{userRoleId}")
 	public String updateUserRolePost(@Valid @ModelAttribute UserRole userRole, BindingResult bindingResult,
 			@PathVariable long userRoleId) {
 		if (bindingResult.hasErrors()) {
-			return "userrole/new_userrole"; // view to be developed
+			return "userrole/new_userrole";
 		}
 		this.userRoleRepo.save(userRole);
-		return "redirect:/userrole/all"; // to decide where to return
+		return "redirect:/userrole/all";
 	}
 
 	// DELETE
@@ -86,7 +86,7 @@ public class UserRoleController {
 		User user = userRoleToDelete.getUser();
 		m.addAttribute("userRoleToDelete", userRoleToDelete);
 		m.addAttribute("user", user);
-		return "userrole/confirm_delete"; // to decide where to return
+		return "userrole/confirm_delete";
 	}
 	
 	@PostMapping("/delete/{userRoleId}")

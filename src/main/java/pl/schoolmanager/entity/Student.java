@@ -2,6 +2,7 @@ package pl.schoolmanager.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,8 +50,8 @@ public class Student {
 	@OneToMany (mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	List <Mark> mark = new ArrayList<>();
 	
-	@ManyToMany
-	private List<School> school = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<School> school;
 	
 	
 	public Student() {
@@ -126,13 +127,14 @@ public class Student {
 		this.mark = mark;
 	}
 
-	public List<School> getSchool() {
+	public Set<School> getSchool() {
 		return school;
 	}
 
-	public void setSchool(List<School> school) {
+	public void setSchool(Set<School> school) {
 		this.school = school;
 	}
 
+	
 	
 }

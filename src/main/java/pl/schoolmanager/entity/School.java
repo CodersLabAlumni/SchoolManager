@@ -2,9 +2,11 @@ package pl.schoolmanager.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,10 +39,10 @@ public class School {
 	private List<Subject> subject = new ArrayList<>();
 	
 	@ManyToMany (mappedBy = "school")
-	private List<Student> student = new ArrayList<>();
+	private Set<Student> student;
 	
 	@ManyToMany (mappedBy = "school")
-	private List<Teacher> teacher = new ArrayList<>();
+	private Set<Teacher>teacher;
 
 	public School() {
 		super();
@@ -86,21 +88,22 @@ public class School {
 		this.subject = subject;
 	}
 
-	public List<Student> getStudent() {
-		return student;
-	}
-
-	public void setStudent(List<Student> student) {
-		this.student = student;
-	}
-
-	public List<Teacher> getTeacher() {
+	public Set<Teacher> getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(List<Teacher> teacher) {
+	public void setTeacher(Set<Teacher> teacher) {
 		this.teacher = teacher;
 	}
+
+	public Set<Student> getStudent() {
+		return student;
+	}
+
+	public void setStudent(Set<Student> student) {
+		this.student = student;
+	}
+	
 	
 	
 }
