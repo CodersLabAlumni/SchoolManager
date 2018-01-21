@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.SchoolRepository;
+import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
+import pl.schoolmanager.repository.TeacherRepository;
 
 @Controller
 @RequestMapping("/school")
@@ -33,6 +36,12 @@ public class SchoolController {
 	
 	@Autowired
 	private SubjectRepository subjectRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	@Autowired
+	private TeacherRepository teacherRepository;
 	
 	//CREATE
 		@GetMapping("/create")
@@ -116,7 +125,7 @@ public class SchoolController {
 			return "school/addSubject_school";
 		}
 		
-		@GetMapping("addDivision/{schoolId}/{subjectId}")
+		@GetMapping("addSubject/{schoolId}/{subjectId}")
 		public String addSubject(@PathVariable long schoolId, @PathVariable long subjectId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			Subject subject = this.subjectRepository.findOne(subjectId);
@@ -125,9 +134,29 @@ public class SchoolController {
 			return "redirect:/school/addSubject/{schoolId}";
 		}
 		
-//		@GetMapping("/addStudent/{schoolId}")
-//		
-//		@GetMapping("/addTeacher/{schoolId}")
+		//ADD STUDENT TO SCHOOL
+		@GetMapping("/addStudent/{schoolId}")
+		public String addStudent(Model m, @PathVariable long schoolId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			List<Student> schoolStudents = this.studentRepository.findAllBySchoolId(schoolId);
+			List<Student> notSchoolStudents = this.studentRepository.findAllByTeacherIdIsNullOrTeacherIdIsNot(schoolId);
+			m.addAttribute("school", school);
+			m.addAttribute("schoolStudents", schoolStudents);
+			m.addAttribute("notSchoolStudents", notSchoolStudents);
+			return "school/addStudent_school";
+		}
+		
+		@GetMapping("addStudent/{schoolId}/{studentId}")
+		public String addStudent(@PathVariable long schoolId, @PathVariable long studentId) {
+			School school = this.schoolRepository.findOne(schoolId);
+			Student student = this.studentRepository.findOne(studentId);
+			student.getSchool().add(school);
+			this.studentRepository.save(student);
+			return "redirect:/school/addStudent/{schoolId}";
+		}
+		
+		//ADD TEACHER TO SCHOOL
+		@GetMapping("/addTeacher/{schoolId}")
 		
 		//SHOW ALL
 		@ModelAttribute("availableSchools")
