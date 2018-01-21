@@ -12,8 +12,7 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Division: ${division.name} </legend>
-		<legend>Subject: ${subject.name} </legend>
+		<legend>Division: ${division.name} ; Subject: ${subject.name} </legend>
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
 
@@ -24,10 +23,10 @@
 					<th scope="col">FIRST NAME</th>
 					<th scope="col">LAST NAME</th>
 					<th scope="col">MARKS</th>
+					<th scope="col">ADD</th>
 				</tr>
 			</thead>
 			<tbody>
-
 				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
@@ -36,10 +35,13 @@
 						<td><c:forEach items="${marks}" var="mark">
 								<c:choose>
 									<c:when test="${mark.student.id == student.id}">
-										<c:out value="${mark.value}" />
+										<c:out value="${mark.value} ," />
 									</c:when>
 								</c:choose>
 							</c:forEach></td>
+						<td>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/mark/create?subject=${subject.id}&student=${student.id}">Add</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

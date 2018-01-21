@@ -14,9 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.entity.Mark;
+import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.repository.MarkRepository;
+import pl.schoolmanager.repository.StudentRepository;
+import pl.schoolmanager.repository.SubjectRepository;
 
 @Controller
 @RequestMapping("/mark")
@@ -25,10 +30,22 @@ public class MarkController {
 	@Autowired
 	private MarkRepository markRepository;
 	
-	//CREATE
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private SubjectRepository subjectRepository;
+	
+	
+	//CREATE FOR
 	@GetMapping("/create")
-	public String createMark(Model m) {
-		m.addAttribute("mark", new Mark());
+	public String createMark(@RequestParam long subject, @RequestParam long student, Model m) {
+		Subject thisSubject = this.subjectRepository.findOne(subject);
+		Student thisStudent = this.studentRepository.findOne(student);
+		Mark mark = new Mark();
+		mark.setSubject(thisSubject);
+		mark.setStudent(thisStudent);
+		m.addAttribute("mark", mark);
 		return "mark/new_mark"; //view to be developed
 	}
 	
@@ -38,7 +55,9 @@ public class MarkController {
 			return "mark/new_mark"; //view to be developed
 		}
 		this.markRepository.save(mark);
-		return "index"; //to decide where to return
+		Long divisionId = mark.getStudent().getDivision().getId();
+		Long subjectId = mark.getSubject().getId();
+		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
 	}
 	
 	//READ

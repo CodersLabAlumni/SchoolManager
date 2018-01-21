@@ -150,7 +150,6 @@ public class DivisionController {
 		return "redirect:/division/addSubject/{divisionId}";
 	}
 
-
 	// ALL STUDENTS IN DIVISION
 	@GetMapping("/inside/students/{divisionId}")
 	public String studentsInsideDivision(Model m, @PathVariable long divisionId) {
@@ -173,17 +172,18 @@ public class DivisionController {
 		return "division/allSubjects_division";
 	}
 
-
 	// ALL MARKS IN SUBJECT IN DIVISION
 	@GetMapping("/inside/marks/{divisionId}/{subjectId}")
 	public String subjectsMarksInsideDivision(Model m, @PathVariable long divisionId, @PathVariable long subjectId) {
 		Division division = this.divisionRepository.findOne(divisionId);
 		List<Mark> marks = this.markRepository.findAllBySubjectId(subjectId);
 		List<Student> students = this.studentRepository.findAllByDivisionId(divisionId);
+		List<Subject> subjects = this.subjectRepository.findAllByDivisionId(divisionId);
 		Subject subject = this.subjectRepository.findOne(subjectId);
 		m.addAttribute("division", division);
 		m.addAttribute("students", students);
 		m.addAttribute("marks", marks);
+		m.addAttribute("subjects", subjects);
 		m.addAttribute("subject", subject);
 		return "division/allStudentsMarks_division";
 	}

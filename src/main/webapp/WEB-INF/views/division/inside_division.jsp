@@ -13,15 +13,18 @@
 
 	<div class="jumbotron">
 		<legend>Division: ${division.name} </legend>
-		
+
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
-		
-		
+
+
+		<H2>Division main page with - typical information panel</H2>
 
 
 
-	<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
