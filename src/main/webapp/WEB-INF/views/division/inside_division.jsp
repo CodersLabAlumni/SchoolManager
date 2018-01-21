@@ -17,11 +17,7 @@
 		<%@ include file="../jspf/division_menu.jspf"%>
 		</br>
 
-
-		<H2>Division main page with - typical information panel</H2>
-
-
-
+		<h2>Division main page with - typical information panel</h2>
 
 		<input action="action" onclick="window.history.go(-1); return false;"
 			type="button" class="btn btn-secondary" value="Return" />

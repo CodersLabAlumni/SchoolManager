@@ -69,8 +69,8 @@ public class MarkController {
 	}
 	
 	//UPDATE
-	@GetMapping("/update/{markId}")
-	public String updateMark(Model m, @PathVariable long markId) {
+	@GetMapping("/update/{markId}")	
+	public String updateMark(@RequestParam long subject, @RequestParam long student, Model m, @PathVariable long markId) {
 		Mark mark = this.markRepository.findOne(markId);
 		m.addAttribute("mark", mark);
 		return "mark/edit_mark"; //view to be developed
@@ -82,8 +82,12 @@ public class MarkController {
 			return "mark/edit_mark"; //view to be developed
 		}
 		mark.setId(markId);
+		
+		
 		this.markRepository.save(mark);
-		return "index"; //to decide where to return
+		Long divisionId = mark.getStudent().getDivision().getId();
+		Long subjectId = mark.getSubject().getId();
+		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId; //to decide where to return
 	}
 	
 	//DELETE

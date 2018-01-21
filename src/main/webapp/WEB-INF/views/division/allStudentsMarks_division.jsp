@@ -35,7 +35,8 @@
 						<td><c:forEach items="${marks}" var="mark">
 								<c:choose>
 									<c:when test="${mark.student.id == student.id}">
-										<c:out value="${mark.value} ," />
+									<a href="${pageContext.request.contextPath}/mark/update/${mark.id}?subject=${subject.id}&student=${student.id}">${mark.value}</a> ,
+		
 									</c:when>
 								</c:choose>
 							</c:forEach></td>
