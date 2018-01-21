@@ -169,7 +169,7 @@ public class SchoolController {
 			return "school/addTeacher_school";
 		}
 		
-		@GetMapping("addTeacher/{schoolId}/{studentId}")
+		@GetMapping("addTeacher/{schoolId}/{teacherId}")
 		public String addTeacher(@PathVariable long schoolId, @PathVariable long teacherId) {
 			School school = this.schoolRepository.findOne(schoolId);
 			Teacher teacher = this.teacherRepository.findOne(teacherId);

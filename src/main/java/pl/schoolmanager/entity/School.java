@@ -38,10 +38,10 @@ public class School {
 	@OneToMany (mappedBy = "school", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Subject> subject = new ArrayList<>();
 	
-	@ManyToMany (mappedBy = "school", fetch = FetchType.EAGER)
+	@ManyToMany (mappedBy = "school")
 	private Set<Student> student;
 	
-	@ManyToMany (mappedBy = "school", fetch = FetchType.EAGER)
+	@ManyToMany (mappedBy = "school")
 	private Set<Teacher>teacher;
 
 	public School() {
