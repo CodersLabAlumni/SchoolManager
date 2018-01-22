@@ -37,6 +37,8 @@
 									data-toggle="dropdown"></button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item"
+										href="${pageContext.request.contextPath}/user/update/${user.id}">
+										Update user</a> <a class="dropdown-item"
 										href="${pageContext.request.contextPath}/user/view/${user.id}">View
 										details</a> <a class="dropdown-item"
 										href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
