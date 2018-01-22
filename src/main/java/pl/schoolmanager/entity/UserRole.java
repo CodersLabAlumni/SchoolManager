@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +27,11 @@ public class UserRole {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
-	//placeholder for school information
+	
+	//school information
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "school_id")
+	private School school;
 
 	public UserRole() {
 		super();
@@ -63,6 +69,14 @@ public class UserRole {
 		this.user = user;
 	}
 	
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
+
 	public static List<String> getRolesForSelect() {
 		List<String> allRoles = new ArrayList<>();
 		allRoles.add("ROLE_ADMIN");

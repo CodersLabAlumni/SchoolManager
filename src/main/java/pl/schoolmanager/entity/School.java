@@ -104,6 +104,8 @@ public class School {
 		this.student = student;
 	}
 	
-	
+	public String getNameForForm() {
+		return this.name + " (" +this.type +")";
+	}
 	
 }

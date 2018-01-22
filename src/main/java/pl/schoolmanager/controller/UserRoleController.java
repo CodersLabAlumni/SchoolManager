@@ -1,6 +1,5 @@
 package pl.schoolmanager.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
-import pl.schoolmanager.repository.StudentRepository;
+import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
 
@@ -31,6 +30,8 @@ public class UserRoleController {
 	private UserRoleRepository userRoleRepo;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private SchoolRepository schoolRepo;
 
 	// CREATE
 	@GetMapping("/create/{userId}")
@@ -42,12 +43,14 @@ public class UserRoleController {
 	}
 
 	@PostMapping("/create/{userId}")
-	public String createUserRolePost(Model m, @PathVariable long userId,
-			@RequestParam("selectedRole") String selectedRole) {
+	public String createUserRolePost(Model m, @PathVariable long userId, 
+									@ModelAttribute UserRole userRole,
+									BindingResult bindingResult ) {
+		if (bindingResult.hasErrors()) {
+			return "userrole/new_userrole";
+		}
 		User user = userRepo.findOne(userId);
-		UserRole userRole = new UserRole();
 		userRole.setUser(user);
-		userRole.setUserRole(selectedRole);
 		userRole.setUsername(user.getUsername());
 		userRoleRepo.save(userRole);
 		return "redirect:/user/all";
@@ -111,6 +114,12 @@ public class UserRoleController {
 	public List<String> userRolesForSelect() {
 		List<String> userRolesForSelect = UserRole.getRolesForSelect();
 		return userRolesForSelect;
+	}
+	
+	@ModelAttribute("availableSchools")
+	public List<School> availableSchools() {
+		List<School> availableSchools = this.schoolRepo.findAll();
+		return availableSchools;
 	}
 
 }
