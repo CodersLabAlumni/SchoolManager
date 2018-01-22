@@ -14,6 +14,7 @@
 		<java.compiler.target>1.8</java.compiler.target>
 		<org.springframework-version>4.3.9.RELEASE</org.springframework-version>
 		<org.hibernate-version>5.2.9.Final</org.hibernate-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
