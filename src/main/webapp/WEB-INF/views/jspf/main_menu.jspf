@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}">School
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/">School
 		Manager</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarColor03" aria-controls="navbarColor03"
@@ -86,5 +86,26 @@
 				</div></li>
 
 		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item"><a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/logout">Logout</a></li>
+			</sec:authorize>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAnonymous()">
+				<li class="nav-item"><a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/login">Login</a></li>
+				<li class="nav-item"><a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/register">Register</a></li>
+			</sec:authorize>
+		</ul>
+
+
+
+
+
+
 	</div>
 </nav>

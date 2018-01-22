@@ -9,26 +9,11 @@
 <title>Homepage</title>
 </head>
 <body>
-<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
-	<!--TODO Consider moving navbar into main_menu.jsp  -->
-	</ul>
-	<ul class="navbar-nav ml-auto">
-		<sec:authorize access="isAuthenticated()">
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/logout">Logout</a></li>
-		</sec:authorize>
-	</ul>
-	<ul class="navbar-nav mr-auto">
-		<sec:authorize access="isAnonymous()">
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/login">Login</a></li>
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/register">Register</a></li>
-		</sec:authorize>
-	</ul>
 
-	<div class="container">
+	<div class="jumbotron">
+
 		<h1>
 			Welcome to School Manager <b><sec:authentication
 					property="principal.username" /> </b>.
@@ -36,13 +21,9 @@
 		<h2>
 			Use top menu to navigate the website
 			</h1>
-			<h3>
-				<a href="${pageContext.request.contextPath}/logout"
-					class="btn btn-primary">Logout</a>
-			</h3>
 	</div>
-	
-	
-<%@ include file="../jspf/footer.jspf"%>	
+
+
+	<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>

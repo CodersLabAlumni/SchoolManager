@@ -9,20 +9,9 @@
 <title>Homepage</title>
 </head>
 <body>
-<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
- 
-			<ul class="navbar-nav mr-auto">
-				<sec:authorize access="isAnonymous()">
-					<li class="nav-item"><a class="btn btn-primary"
-						href="${pageContext.request.contextPath}/login">Login</a></li>
-					<li class="nav-item"><a class="btn btn-primary"
-						href="${pageContext.request.contextPath}/register">Register</a></li>
-				</sec:authorize>
-			</ul>
-
-
-	<div class="container">
+	<div class="jumbotron">
 		<h3>Login to School Manager:</h3>
 		<form:form method="post">
 			<p>
@@ -36,12 +25,12 @@
 			<input type="hidden" 6
 		name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
-			<button type="submit" class="btn">Log in</button>
+			<button type="submit" class="btn btn-primary">Log in</button>
 		</form:form>
 		<br />
 	</div>
 
 	</div>
-<%@ include file="../jspf/footer.jspf"%>
+	<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>
