@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -27,34 +29,34 @@ public class Teacher {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
-	@NotBlank
-	private String password;
-	@NotEmpty
-	@Email
-	@Column(unique = true)
-	private String email;
+//	@NotBlank
+//	private String password;
+//	@NotEmpty
+//	@Email
+//	@Column(unique = true)
+//	private String email;
 	@NotBlank
 	private String firstName;
 	@NotBlank
 	private String lastName;
-	
-	
-	@ManyToMany (mappedBy = "teacher")
-	List <Subject> subject = new ArrayList<>();
-	
+
+	@ManyToMany(mappedBy = "teacher")
+	List<Subject> subject = new ArrayList<>();
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<School> school;
-	
-	
+
+	// relation with user role
+	@OneToOne(fetch = FetchType.EAGER)
+	@MapsId
+	private UserRole userRole;
+
 	public Teacher() {
 		super();
 	}
-	
-	
-	public Teacher(String password, String email, String firstName, String lastName) {
+
+	public Teacher(String firstName, String lastName) {
 		super();
-		setPassword(password);
-		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -65,26 +67,6 @@ public class Teacher {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-	}
-
-	public boolean isPasswordCorrect(String pwd) {
-		return BCrypt.checkpw(pwd, this.password);
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -113,22 +95,24 @@ public class Teacher {
 
 	@Override
 	public String toString() {
-		return "Teacher [id=" + id + ", password=" + password + ", email=" + email + ", firstName=" + firstName
+		return "Teacher [id=" + id  + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", student=" + "]";
 	}
-
 
 	public Set<School> getSchool() {
 		return school;
 	}
 
-
 	public void setSchool(Set<School> school) {
 		this.school = school;
 	}
 
+	public UserRole getUserRole() {
+		return userRole;
+	}
 
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
 
-
-	
 }

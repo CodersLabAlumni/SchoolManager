@@ -14,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,15 +30,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
 	private long id;
-	@NotBlank
-	private String password;
-	@NotEmpty
-	@Email
-	@Column(unique = true)
-	private String email;
 	@NotBlank
 	private String firstName;
 	@NotBlank
@@ -50,18 +44,20 @@ public class Student {
 	@OneToMany (mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	List <Mark> mark = new ArrayList<>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<School> school;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private School school;
 	
+	//relation with user role
+	@OneToOne(fetch = FetchType.EAGER)
+	@MapsId
+	private UserRole userRole;
 	
 	public Student() {
 		super();
 	}
 
-	public Student(String password, String email, String firstName, String lastName) {
+	public Student(String firstName, String lastName) {
 		super();
-		this.password = password;
-		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -73,26 +69,6 @@ public class Student {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-	}
-
-	public boolean isPasswordCorrect(String pwd) {
-		return BCrypt.checkpw(pwd, this.password);
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -126,15 +102,21 @@ public class Student {
 	public void setMark(List<Mark> mark) {
 		this.mark = mark;
 	}
-
-	public Set<School> getSchool() {
+	
+	public School getSchool() {
 		return school;
 	}
 
-	public void setSchool(Set<School> school) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
 
-	
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
 	
 }

@@ -9,7 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
-<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<!--TODO Consider moving navbar into main_menu.jsp  -->
 	</ul>
@@ -33,16 +33,20 @@
 			Welcome to School Manager <b><sec:authentication
 					property="principal.username" /> </b>.
 		</h1>
-		<h2>
-			Use top menu to navigate the website
-			</h1>
-			<h3>
-				<a href="${pageContext.request.contextPath}/logout"
-					class="btn btn-primary">Logout</a>
-			</h3>
+		<h2>Use top menu to navigate the website</h2>
+		<h3>
+			<a href="${pageContext.request.contextPath}/logout"
+				class="btn btn-primary">Logout</a>
+		</h3>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/student/user_student">Open
+				student profile</a>
+		</div>
 	</div>
-	
-	
-<%@ include file="../jspf/footer.jspf"%>	
+
+
+	<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>

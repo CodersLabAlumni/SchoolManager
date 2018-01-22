@@ -41,7 +41,7 @@ public class School {
 	@ManyToMany (mappedBy = "school")
 	private Set<Student> student;
 	
-	@ManyToMany (mappedBy = "school")
+	@OneToMany (mappedBy = "school")
 	private Set<Teacher>teacher;
 
 	public School() {
