@@ -92,7 +92,6 @@
 						</div>
 					</div>
 
-
 					<br />
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
