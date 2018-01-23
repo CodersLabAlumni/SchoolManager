@@ -65,7 +65,7 @@
 		<div>
 
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/school/all">IDDQD</a>
+				href="${pageContext.request.contextPath}/school/all">"Can do anything profile" (for developers)</a>
 		</div>
 
 	</div>
