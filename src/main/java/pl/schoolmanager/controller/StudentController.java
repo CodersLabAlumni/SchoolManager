@@ -61,7 +61,8 @@ public class StudentController {
 	}
 
 	@PostMapping("/user_student")
-	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult, Model m) {
+	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
+										Model m) {
 		if (bindingResult.hasErrors()) {
 			return "student/user_student";
 		}

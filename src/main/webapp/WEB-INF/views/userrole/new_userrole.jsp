@@ -19,6 +19,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">USERNAME</th>
 					<th scope="col">EMAIL</th>
+					<th scope="col">FULL NAME</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,6 +27,7 @@
 					<td scope="row"><c:out value="${user.id}" /></td>
 					<td><c:out value="${user.username}" /></td>
 					<td><c:out value="${user.email}" /></td>
+					<td><c:out value="${user.fullName}" /></td>
 				</tr>
 			</tbody>
 		</table>

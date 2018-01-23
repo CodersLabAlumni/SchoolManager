@@ -20,6 +20,7 @@
 						<th scope="col">ID</th>
 						<th scope="col">USERNAME</th>
 						<th scope="col">EMAIL</th>
+						<th scope="col">FULL NAME</th>
 						<th scope="col">ROLES</th>
 					</tr>
 				</thead>
@@ -28,6 +29,7 @@
 						<td scope="row"><c:out value="${user.id}" /></td>
 						<td><c:out value="${user.username}" /></td>
 						<td><c:out value="${user.email}" /></td>
+						<td><c:out value="${user.fullName}" /></td>
 						<td>
 							<table>
 								<c:forEach items="${user.userRoles}" var="userRole">

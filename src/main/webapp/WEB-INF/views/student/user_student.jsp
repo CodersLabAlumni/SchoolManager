@@ -19,25 +19,6 @@
 				<legend>Add new Student</legend>
 
 				<div class="form-group">
-					<label for="inputFirstName" class="col-lg-2 control-label">First
-						Name</label>
-					<div class="col-lg-10">
-						<form:input class="form-control" id="inputFirstName"
-							placeholder="Enter first name" type="text" path="firstName" />
-						<form:errors path="firstName" class="text-danger" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="inputLastName" class="col-lg-2 control-label">Last
-						Name</label>
-					<div class="col-lg-10">
-						<form:input class="form-control" id="inputLastName"
-							placeholder="Enter last name" type="text" path="lastName" />
-						<form:errors path="lastName" class="text-danger" />
-					</div>
-				</div>
-
-				<div class="form-group">
 					Select school
 					<form:select type="text" path="school" cssClass="form-control">
 						<form:options items="${availableSchools}" itemValue="id"
