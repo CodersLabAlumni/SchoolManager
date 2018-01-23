@@ -22,12 +22,8 @@ public class StudentViewController {
 
 	@GetMapping("/all")
 	public String all(Model m) {
-		return "student_view/all_students";
+		return "student_view/division_students";
 	}
 
-	// SHOW ALL
-	@ModelAttribute("availableStudents")
-	public List<Student> getStudents() {
-		return this.studentRepository.findAll();
-	}
+
 }
