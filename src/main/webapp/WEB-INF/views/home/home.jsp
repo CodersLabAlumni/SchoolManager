@@ -44,6 +44,13 @@
 				href="${pageContext.request.contextPath}/student/user_student">Open
 				student profile</a>
 		</div>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/teacher/user_teacher">Open
+				teacher profile</a>
+		</div>
+
 	</div>
 
 

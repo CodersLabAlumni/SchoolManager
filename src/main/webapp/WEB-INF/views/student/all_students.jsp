@@ -20,6 +20,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">FULL NAME</th>
 					<th scope="col">EMAIL</th>
+					<th scope="col">SCHOOL</th>
 					<th scope="col">OPTION</th>
 				</tr>
 			</thead>
@@ -29,11 +30,12 @@
 						<td scope="row"><c:out value="${student.id}" /></td>
 						<td><c:out value="${student.userRole.user.fullName}" /></td>
 						<td><c:out value="${student.userRole.user.email}" /></td>
+						<td><c:out value="${student.userRole.school.nameForForm}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
+										data-toggle="dropdown">Menu</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/student/view/${student.id}">View

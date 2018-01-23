@@ -19,9 +19,9 @@
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
+					<th scope="col">FULL NAME</th>
 					<th scope="col">EMAIL</th>
-					<th scope="col">FIRST NAME</th>
-					<th scope="col">LAST NAME</th>
+					<th scope="col">SCHOOL</th>
 					<th scope="col">OPTION</th>
 				</tr>
 			</thead>
@@ -29,14 +29,14 @@
 				<c:forEach items="${availableTeachers}" var="teacher">
 					<tr class="table-light">
 						<td scope="row"><c:out value="${teacher.id}" /></td>
-						<td><c:out value="${teacher.email}" /></td>
-						<td><c:out value="${teacher.firstName}" /></td>
-						<td><c:out value="${teacher.lastName}" /></td>
+						<td><c:out value="${teacher.userRole.user.fullName}" /></td>
+						<td><c:out value="${teacher.userRole.user.email}" /></td>
+						<td><c:out value="${teacher.userRole.school.nameForForm}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
+										data-toggle="dropdown">Menu</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/teacher/view/${teacher.id}">View

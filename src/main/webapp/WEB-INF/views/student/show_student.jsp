@@ -12,8 +12,8 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Student details: ${student.firstName}
-			${student.lastName} </legend>
+		<legend>Student details: ${student.userRole.user.firstName}
+			${student.userRole.user.lastName} </legend>
 
 		<table class="table table-bordered">
 			<thead>
@@ -29,15 +29,15 @@
 				</tr>
 				<tr class="table-light">
 					<td>E-mail</td>
-					<td scope="row"><c:out value="${student.email}" /></td>
+					<td scope="row"><c:out value="${student.userRole.user.email}" /></td>
 				</tr>
 				<tr class="table-light">
 					<td>First name</td>
-					<td scope="row"><c:out value="${student.firstName}" /></td>
+					<td scope="row"><c:out value="${student.userRole.user.firstName}" /></td>
 				</tr>
 				<tr class="table-light">
 					<td>Last name</td>
-					<td scope="row"><c:out value="${student.lastName}" /></td>
+					<td scope="row"><c:out value="${student.userRole.user.lastName}" /></td>
 				</tr>
 			</tbody>
 		</table>

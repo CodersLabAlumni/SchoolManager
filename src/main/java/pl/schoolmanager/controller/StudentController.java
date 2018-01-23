@@ -33,8 +33,6 @@ public class StudentController {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
-	private UserRoleRepository userRoleRepo;
-	@Autowired
 	private SchoolRepository schoolRepo;
 
 	// CREATE

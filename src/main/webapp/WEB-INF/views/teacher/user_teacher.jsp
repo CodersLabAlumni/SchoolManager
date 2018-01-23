@@ -13,10 +13,10 @@
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="student"
+		<form:form method="post" modelAttribute="teacher"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Add new Student profile</legend>
+				<legend>Add new Teacher profile</legend>
 
 				<div class="form-group">
 					Select school

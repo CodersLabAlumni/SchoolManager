@@ -55,8 +55,8 @@
 							<table>
 								<c:forEach items="${user.userRoles}" var="userRole">
 									<tr>
-										<td><c:out value="${userRole.userRole}"></c:out></td>
-										<td>Placeholder for school info</td>
+										<td><c:out value="${userRole.userRole}"/></td>
+										<td><c:out value="${userRole.school.nameForForm}"/></td>
 										<td>
 											<div class="btn-group">
 												<div class="btn-group">
