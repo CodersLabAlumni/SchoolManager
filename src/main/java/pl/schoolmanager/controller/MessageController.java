@@ -89,7 +89,7 @@ public class MessageController {
 	
 	// DELETE RECEIVED MESSAGES
 	@GetMapping("/delete/received/{id}")
-	public String deleteGet(@PathVariable long id, Model m) {
+	public String deleteReceivedGet(@PathVariable long id, Model m) {
 		List <Message> receivedMessages= this.messageRepository.findAllByReceiverId(getLoggedUser().getId());
 		Message message = this.messageRepository.findOne(id);
 		m.addAttribute("receivedMessages", receivedMessages);
@@ -100,12 +100,32 @@ public class MessageController {
 	
 	@PostMapping("/delete/received/{id}")
 	@Transactional
-	public String deletePost(@PathVariable long id) {
+	public String deleteReceivedPost(@PathVariable long id) {
 		Message message = this.messageRepository.findOne(id);
 		message.setReceiver(null);
 		this.messageRepository.save(message);
 		return "redirect:/message/recived";
 	}
+
+	// DELETE SENDED MESSAGES
+	@GetMapping("/delete/sended/{id}")
+	public String deleteSendedGet(@PathVariable long id, Model m) {
+		List <Message> sendedMessages= this.messageRepository.findAllBySenderId(getLoggedUser().getId());
+		Message message = this.messageRepository.findOne(id);
+		m.addAttribute("sendedMessages", sendedMessages);
+		m.addAttribute("message", message);
+		m.addAttribute("del", id);
+		return "message/sended_message";
+	}
+	
+	@PostMapping("/delete/sended/{id}")
+	@Transactional
+	public String deleteSendedPost(@PathVariable long id) {
+		Message message = this.messageRepository.findOne(id);
+		message.setSender(null);
+		this.messageRepository.save(message);
+		return "redirect:/message/sended";
+	}	
 	
 	
 	private User getLoggedUser() {
