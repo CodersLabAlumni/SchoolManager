@@ -1,5 +1,7 @@
 package pl.schoolmanager.controller;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -77,7 +79,25 @@ public class StudentController {
 	
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
-	public String StudentFromUser(Model m) {
+	public String StudentFromUser(Principal principa, Model m) {
+/*		String name = principa.getName();
+		List<User> users = this.userRepo.findAll();
+		User thisUser = null;
+		for (User user : users) {
+			if (name.equals(user.getUsername())) {
+				thisUser = user;
+			}
+		}
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = thisUser.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		m.addAttribute("user", thisUser);
+		m.addAttribute("schools", schools.toString());
+		return "test";*/
 		m.addAttribute("student", new Student());
 		return "student/user_student";
 	}
@@ -161,6 +181,21 @@ public class StudentController {
 	public List<School> availableSchools() {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
+	}
+	
+	@ModelAttribute("userSchools")
+	public List<School> userSchools(Principal principal) {
+		User user = getLoggedUser();
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = user.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		return schools;
+/*		m.addAttribute("student", new Student());
+		return "student/user_student";*/
 	}
 
 }
