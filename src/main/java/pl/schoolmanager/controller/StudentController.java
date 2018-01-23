@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.User;
@@ -74,7 +76,10 @@ public class StudentController {
 		userRole.setUser(user);
 		student.setUserRole(userRole);
 		this.studentRepository.save(student);
-		return "redirect:/student/all";
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisStudent", student);
+		s.setAttribute("thisSchool", student.getSchool());
+		return "redirect:/studentView/all";
 	}
 	
 	// Managing exisitng student role
@@ -105,10 +110,10 @@ public class StudentController {
 				thisStudent = s;
 			}
 		}
-		m.addAttribute("thisUserRole", thisUserRole);
-		m.addAttribute("thisStudent", thisStudent);
-		return "test";
-		//return "redirect:/student/all";
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisStudent", thisStudent);
+		s.setAttribute("thisSchool", student.getSchool());
+		return "redirect:/studentView/all";
 	}
 
 	// READ

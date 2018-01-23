@@ -12,9 +12,9 @@
 <%@ include file="jspf/main_menu.jspf"%>
 
 	Student id:
-	<H1> ${thisStudent.division} </H1>
+	<H1> ${thisStudent.division.name} </H1>
 	UserRole id:
-	<H1> ${thisUserRole.id} </H1>
+	<H1> ${thisSchool.name} </H1>
 
 	
 	

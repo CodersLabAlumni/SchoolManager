@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -37,6 +39,7 @@ public class Division {
 	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	List <Student> student = new ArrayList<>();
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany (mappedBy = "division")
 	List <Subject> subject = new ArrayList<>();
 	
