@@ -1,26 +1,19 @@
 package pl.schoolmanager.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "teacher")
-public class Teacher {
+@Table(name = "schooladmin")
+public class SchoolAdmin {
 
 	@Id
 	private long id;
-
-	@ManyToMany(mappedBy = "teacher")
-	List<Subject> subject = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private School school;
@@ -30,7 +23,7 @@ public class Teacher {
 	@MapsId
 	private UserRole userRole;
 
-	public Teacher() {
+	public SchoolAdmin() {
 		super();
 	}
 
@@ -40,14 +33,6 @@ public class Teacher {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public List<Subject> getSubject() {
-		return subject;
-	}
-
-	public void setSubject(List<Subject> subject) {
-		this.subject = subject;
 	}
 
 	public UserRole getUserRole() {
