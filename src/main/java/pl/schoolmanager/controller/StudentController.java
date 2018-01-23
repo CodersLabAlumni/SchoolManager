@@ -80,24 +80,6 @@ public class StudentController {
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Principal principa, Model m) {
-/*		String name = principa.getName();
-		List<User> users = this.userRepo.findAll();
-		User thisUser = null;
-		for (User user : users) {
-			if (name.equals(user.getUsername())) {
-				thisUser = user;
-			}
-		}
-		List<School> schools = new ArrayList<>();
-		List<UserRole> roles = thisUser.getUserRoles();
-		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
-				schools.add(userRole.getSchool());
-			}
-		}
-		m.addAttribute("user", thisUser);
-		m.addAttribute("schools", schools.toString());
-		return "test";*/
 		m.addAttribute("student", new Student());
 		return "student/user_student";
 	}
@@ -109,14 +91,24 @@ public class StudentController {
 			return "student/user_student";
 		}
 		User user = getLoggedUser();
-		UserRole userRole = new UserRole();
-		userRole.setUsername(user.getUsername());
-		userRole.setUserRole("ROLE_STUDENT");
-		userRole.setSchool(student.getSchool());
-		userRole.setUser(user);
-		student.setUserRole(userRole);
-		this.studentRepository.save(student);
-		return "redirect:/student/all";
+		Student thisStudent = null;
+		UserRole thisUserRole = null;
+		List<UserRole> userRoles = user.getUserRoles();
+		for (UserRole userRole : userRoles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT") && userRole.getSchool().getName().equals(student.getSchool().getName())) {
+				thisUserRole = userRole;
+			}
+		}
+		List<Student> students = this.studentRepository.findAll();
+		for (Student s : students) {
+			if (s.getUserRole().getId() == thisUserRole.getId()) {
+				thisStudent = s;
+			}
+		}
+		m.addAttribute("thisUserRole", thisUserRole);
+		m.addAttribute("thisStudent", thisStudent);
+		return "test";
+		//return "redirect:/student/all";
 	}
 
 	// READ
@@ -194,8 +186,6 @@ public class StudentController {
 			}
 		}
 		return schools;
-/*		m.addAttribute("student", new Student());
-		return "student/user_student";*/
 	}
 
 }

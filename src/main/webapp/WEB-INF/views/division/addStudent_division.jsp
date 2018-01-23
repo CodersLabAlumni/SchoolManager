@@ -35,8 +35,8 @@
 				<c:forEach items="${studentsNotInDivision}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
-						<td><c:out value="${student.firstName}" /></td>
-						<td><c:out value="${student.lastName}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">

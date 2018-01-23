@@ -11,8 +11,11 @@
 <body>
 <%@ include file="jspf/main_menu.jspf"%>
 
-	<H1> ${user.firstName} </H1>
-	<H1> ${schools} </H1>
+	Student id:
+	<H1> ${thisStudent.division} </H1>
+	UserRole id:
+	<H1> ${thisUserRole.id} </H1>
+
 	
 	
 <%@ include file="jspf/footer.jspf"%>	
