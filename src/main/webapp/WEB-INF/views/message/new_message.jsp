@@ -53,7 +53,6 @@
 				type="button" class="btn btn-secondary" value="Cancel" />
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form:form>
-
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

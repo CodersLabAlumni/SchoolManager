@@ -31,6 +31,7 @@
 						<td><c:out value="${received.created}" /></td>
 						<td><c:choose>
 								<c:when test="${del eq received.id}">
+								
 									<form:form method="post" modelAttribute="message">
 										<%@ include file="../jspf/delete.jspf"%>
 									</form:form>
