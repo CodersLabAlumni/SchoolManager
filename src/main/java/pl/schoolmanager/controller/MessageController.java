@@ -58,6 +58,8 @@ public class MessageController {
 		}
 		User sender = this.userRepository.findOne(getLoggedUser().getId());
 		message.setSender(sender);
+		message.setSenderDescription(sender.getEmail());
+		message.setReceiverDescription(receiver.getEmail());
 		message.setReceiver(receiver);
 		this.messageRepository.save(message);
 		return "index";

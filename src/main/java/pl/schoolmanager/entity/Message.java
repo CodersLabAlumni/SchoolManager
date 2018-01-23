@@ -34,6 +34,9 @@ public class Message {
 	@Email
 	private String receiverEmail;
 
+	private String receiverDescription;
+	private String senderDescription;
+	
 	private Date created;
 
 	private int checked;
@@ -108,4 +111,25 @@ public class Message {
 		this.checked = checked;
 	}
 
+	public String getReceiverDescription() {
+		return receiverDescription;
+	}
+
+	public void setReceiverDescription(String receiverDescription) {
+		this.receiverDescription = receiverDescription;
+	}
+
+	public String getSenderDescription() {
+		return senderDescription;
+	}
+
+	public void setSenderDescription(String senderDescription) {
+		this.senderDescription = senderDescription;
+	}
+
+
+	
+
+	
+	
 }

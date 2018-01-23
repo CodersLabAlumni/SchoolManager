@@ -26,7 +26,7 @@
 			<tbody>
 				<c:forEach items="${receivedMessages}" var="received">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${received.sender.username}" /></td>
+						<td scope="row"><c:out value="${received.senderDescription}" /></td>
 						<td><c:out value="${received.title}" /></td>
 						<td><c:out value="${received.created}" /></td>
 						<td><c:choose>
