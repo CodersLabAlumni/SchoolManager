@@ -9,10 +9,15 @@
 <title>CONTROL PAGE</title>
 </head>
 <body>
-<%@ include file="jspf/main_menu.jspf"%>
+<%@ include file="jspf/teacher_menu.jspf"%>
 
 	Student id:
-	<H1> ${thisTeacher.school.name} </H1>
+	<H1> ${thisTeacher.id} </H1>
+	UserRole id:
+	<H1> ${thisSchool.name} </H1>
+	
+		Second teacher id:
+	<H1> ${teacher1.id} </H1>
 	UserRole id:
 	<H1> ${thisSchool.name} </H1>
 

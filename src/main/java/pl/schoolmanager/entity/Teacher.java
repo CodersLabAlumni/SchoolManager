@@ -12,6 +12,9 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "teacher")
 public class Teacher {
@@ -19,6 +22,7 @@ public class Teacher {
 	@Id
 	private long id;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany(mappedBy = "teacher")
 	List<Subject> subject = new ArrayList<>();
 
