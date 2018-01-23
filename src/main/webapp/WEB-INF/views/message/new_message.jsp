@@ -24,7 +24,7 @@
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputEmail"
 							aria-describedby="emailHelp" placeholder="Enter email"
-							type="email" path="receiverEmail" />
+							type="email" path="receiverEmail"/>
 						<form:errors path="receiverEmail" class="text-danger" />
 					</div>
 				</div>
@@ -47,10 +47,9 @@
 						<form:errors path="content" />
 					</div>
 				</div>
-
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
-				type="button" class="btn btn-secondary" value="Cancel" />
+				type="button" class="btn btn-secondary" value="Return" />
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form:form>
 	</div>

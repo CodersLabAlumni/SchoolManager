@@ -17,34 +17,51 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
-					<th scope="col">SENDER</th>
+					<th scope="col">FROM</th>
 					<th scope="col">TITLE</th>
 					<th scope="col">DATE</th>
-					<th scope="col">REMOVE</th>
+					<th scope="col">OPTION</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${receivedMessages}" var="received">
-					<tr class="table-light">
-						<td scope="row"><c:out value="${received.senderDescription}" /></td>
-						<td><c:out value="${received.title}" /></td>
-						<td><c:out value="${received.created}" /></td>
-						<td><c:choose>
-								<c:when test="${remove eq received.id}">
+					<c:choose>
+						<c:when test="${received.checked eq 0}">
+							<tr class="table-warning">
+						</c:when>
+						<c:otherwise>
+							<tr class="table-light">
+						</c:otherwise>
+					</c:choose>
+					<td scope="row"><c:out value="${received.senderDescription}" /></td>
+					<td ${style}><c:out value="${received.title}" /></td>
+					<td><c:out value="${received.created}" /></td>
+					<td><c:choose>
+							<c:when test="${remove eq received.id}">
 
-									<form:form method="post" modelAttribute="message">
-										<%@ include file="../jspf/confirm.jspf"%>
-									</form:form>
-								</c:when>
-								<c:otherwise>
-									<a class="btn btn-primary"
-										href="${pageContext.request.contextPath}/message/remove/received/${received.id}">REMOVE</a>
-									<a class="btn btn-primary"
-										href="${pageContext.request.contextPath}/message/view/${received.id}">DETAILS</a>
-								</c:otherwise>
-							</c:choose></td>
+								<form:form method="post" modelAttribute="message">
+									<%@ include file="../jspf/confirm.jspf"%>
+								</form:form>
+							</c:when>
+							<c:otherwise>
+								<div class="btn-group">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle"
+											data-toggle="dropdown"></button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item"
+												href="${pageContext.request.contextPath}/message/view/${received.id}">DETAILS</a>
+											<a class="dropdown-item"
+												href="${pageContext.request.contextPath}/message/remove/received/${received.id}">REMOVE</a>
+										</div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose></td>
 					</tr>
+
 				</c:forEach>
+
 			</tbody>
 		</table>
 

@@ -13,21 +13,24 @@
 
 	<div class="jumbotron">
 
-		<p class="lead" >Sender: ${message.senderDescription}, created: ${message.created}   </p>
-		<p class="lead" >Title: ${message.title}</p>
-		<hr class="my-4">
-		<p class="lead" >${message.content}</p>
 		<p class="lead">
-			<a class="btn btn-primary" href="#" role="button">Show all</a>
+			From: ${message.senderDescription} </br> to:
+			${message.receiverDescription} </br> created: ${message.created}
 		</p>
-
-		
+		<p class="lead">Title: ${message.title}</p>
 		<hr class="my-4">
-		<input
-			action="action" onclick="window.history.go(-1); return false;"
-			type="button" class="btn btn-secondary" value="Return" />
+		<p class="lead">${message.content}</p>
+		<hr class="my-4">
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" /> <a
+			class="btn btn-primary"
+			href="${pageContext.request.contextPath}/message/create">Send
+			response</a>
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
+
+
+
 </body>
 </html>
