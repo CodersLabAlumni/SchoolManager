@@ -84,7 +84,7 @@ public class StudentController {
 	
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
-	public String StudentFromUser(Principal principa, Model m) {
+	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
 		return "student/user_student";
 	}
@@ -181,7 +181,7 @@ public class StudentController {
 	}
 	
 	@ModelAttribute("userSchools")
-	public List<School> userSchools(Principal principal) {
+	public List<School> userSchools() {
 		User user = getLoggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();

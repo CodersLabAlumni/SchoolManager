@@ -47,7 +47,7 @@
 		<div>
 
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/user_teacher">Open
+				href="${pageContext.request.contextPath}/teacher/userTeacher">Open
 				teacher profile</a>
 		</div>
 		<div>
@@ -59,7 +59,7 @@
 		<div>
 
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/user_new_teacher">Create
+				href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
 				teacher profile</a>
 		</div>
 		<div>

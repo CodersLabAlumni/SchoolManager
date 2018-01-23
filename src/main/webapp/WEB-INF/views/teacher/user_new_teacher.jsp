@@ -21,7 +21,7 @@
 				<div class="form-group">
 					Select school
 					<form:select type="text" path="school" cssClass="form-control">
-						<form:options items="${userSchools}" itemValue="id"
+						<form:options items="${availableSchools}" itemValue="id"
 							itemLabel="nameForForm" />
 					</form:select>
 					<form:errors path="school" />

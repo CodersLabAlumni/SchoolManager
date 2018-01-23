@@ -1,7 +1,9 @@
 package pl.schoolmanager.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
@@ -63,13 +66,13 @@ public class TeacherController {
 	}
 
 	// Make new teacher automatically creating new user role
-	@GetMapping("/user_teacher")
+	@GetMapping("/userNewTeacher")
 	public String newTeacherFromUser(Model m) {
 		m.addAttribute("teacher", new Teacher());
-		return "teacher/user_teacher";
+		return "teacher/user_new_teacher";
 	}
 
-	@PostMapping("/user_teacher")
+	@PostMapping("/userNewTeacher")
 	public String newTeacherFromUserPost(@Valid @ModelAttribute Teacher teacher, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "teacher/user_teacher";
@@ -82,7 +85,43 @@ public class TeacherController {
 		userRole.setUser(user);
 		teacher.setUserRole(userRole);
 		this.teacherRepository.save(teacher);
-		return "redirect:/teacher/all";
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisTeacher", teacher);
+		s.setAttribute("thisSchool", teacher.getSchool());
+		return "redirect:/teacherView/all";
+	}
+	
+	// Managing existing teacher role
+	@GetMapping("/userTeacher")
+	public String TeacherFromUser(Model m) {
+		m.addAttribute("teacher", new Teacher());
+		return "teacher/user_teacher";
+	}
+
+	@PostMapping("/userTeacher")
+	public String TeacherFromUserPost(@Valid @ModelAttribute Teacher teacher, BindingResult bindingResult, Model m) {
+		if (bindingResult.hasErrors()) {
+			return "teacher/user_teacher";
+		}
+		User user = getLoggedUser();
+		Teacher thisTeacher = null;
+		UserRole thisUserRole = null;
+		List<UserRole> userRoles = user.getUserRoles();
+		for (UserRole userRole : userRoles) {
+			if (userRole.getUserRole().equals("ROLE_TEACHER") && userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
+				thisUserRole = userRole;
+			}
+		}
+		List<Teacher> teachers = this.teacherRepository.findAll();
+		for (Teacher t : teachers) {
+			if (t.getUserRole().getId() == thisUserRole.getId()) {
+				thisTeacher = t;
+			}
+		}
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisTeacher", thisTeacher);
+		s.setAttribute("thisSchool", teacher.getSchool());
+		return "redirect:/teacherView/all";
 	}
 
 	// READ
@@ -157,6 +196,19 @@ public class TeacherController {
 	public List<School> availableSchools() {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
+	}
+	
+	@ModelAttribute("userSchools")
+	public List<School> userSchools() {
+		User user = getLoggedUser();
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = user.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_TEACHER")) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		return schools;
 	}
 
 }
