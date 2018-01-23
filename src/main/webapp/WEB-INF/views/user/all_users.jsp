@@ -20,6 +20,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">USERNAME</th>
 					<th scope="col">EMAIL</th>
+					<th scope="col">FULL NAME</th>
 					<th scope="col">USER MENU</th>
 					<th scope="col">ROLES MENU</th>
 				</tr>
@@ -30,6 +31,7 @@
 						<td scope="row"><c:out value="${user.id}" /></td>
 						<td><c:out value="${user.username}" /></td>
 						<td><c:out value="${user.email}" /></td>
+						<td><c:out value="${user.fullName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -37,6 +39,8 @@
 										data-toggle="dropdown">Actions</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/user/update/${user.id}">
+											Update user</a> <a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/changepassword/${user.id}">
 											Change password</a> <a class="dropdown-item"
 											href="${pageContext.request.contextPath}/user/delete/${user.id}">Delete</a>
@@ -51,8 +55,8 @@
 							<table>
 								<c:forEach items="${user.userRoles}" var="userRole">
 									<tr>
-										<td><c:out value="${userRole.userRole}"></c:out></td>
-										<td>Placeholder for school info</td>
+										<td><c:out value="${userRole.userRole}"/></td>
+										<td><c:out value="${userRole.school.nameForForm}"/></td>
 										<td>
 											<div class="btn-group">
 												<div class="btn-group">

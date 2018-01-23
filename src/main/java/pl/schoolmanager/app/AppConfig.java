@@ -26,6 +26,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import pl.schoolmanager.converter.SchoolConverter;
 import pl.schoolmanager.converter.StudentConverter;
 import pl.schoolmanager.converter.SubjectConverter;
 
@@ -99,6 +100,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(getSubjectConverter());
 		registry.addConverter(getStudentConverter());
+		registry.addConverter(getSchoolConverter());
 	}
 
 	@Bean
@@ -111,5 +113,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return new StudentConverter();
 	}
 
-
+	@Bean
+	public SchoolConverter getSchoolConverter() {
+		return new SchoolConverter();
+	}
 }

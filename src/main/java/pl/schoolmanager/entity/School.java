@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +40,7 @@ public class School {
 	@ManyToMany (mappedBy = "school")
 	private Set<Student> student;
 	
-	@ManyToMany (mappedBy = "school")
+	@OneToMany (mappedBy = "school")
 	private Set<Teacher>teacher;
 
 	public School() {
@@ -104,6 +103,8 @@ public class School {
 		this.student = student;
 	}
 	
-	
+	public String getNameForForm() {
+		return this.name + " (" +this.type +")";
+	}
 	
 }

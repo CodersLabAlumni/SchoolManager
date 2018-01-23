@@ -19,6 +19,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">USERNAME</th>
 					<th scope="col">EMAIL</th>
+					<th scope="col">FULL NAME</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,11 +27,12 @@
 					<td scope="row"><c:out value="${user.id}" /></td>
 					<td><c:out value="${user.username}" /></td>
 					<td><c:out value="${user.email}" /></td>
+					<td><c:out value="${user.fullName}" /></td>
 				</tr>
 			</tbody>
 		</table>
 
-		<h3 class="text-center">...have the following user roles
+		<h3 class="text-center">...already has the following user roles
 			assigned:</h3>
 
 
@@ -44,22 +46,41 @@
 			<c:forEach items="${user.userRoles}" var="userRole">
 				<tr>
 					<td><c:out value="${userRole.userRole}"></c:out></td>
-					<td>Placeholder for school info</td>
+					<td></td>
 				</tr>
 			</c:forEach>
 		</table>
 
+		<h3 class="text-center">...assign new role below:</h3>
+
 		<div class="form-group">
-			<form method="post">
-				<select id="selectedRole" name="selectedRole">
-				<c:forEach items="${userRolesForSelect}" var="userRoleText">
-					<option value="${userRoleText}"><c:out value="${userRoleText}"/></option>
-				</c:forEach>
-				</select> <br /> 
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<form:form method="post" modelAttribute="userRole"
+				cssClass="form-control">
+				<form:select type="text" path="userRole" cssClass="form-control">
+					<c:forEach items="${userRolesForSelect}" var="userRoleText">
+						<option value="${userRoleText}"><c:out
+								value="${userRoleText}" /></option>
+					</c:forEach>
+				</form:select>
+				<form:errors path="userRole" />
+
+
+				<div class="form-group">
+					Select school
+					<form:select type="text" path="school" cssClass="form-control">
+						<form:options items="${availableSchools}" itemValue="id"
+							itemLabel="nameForForm" />
+					</form:select>
+					<form:errors path="school" />
+				</div>
+
+
+				<br />
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<input type="submit" class="btn btn-primary">
 
-			</form>
+			</form:form>
 		</div>
 	</div>
 	<%@ include file="../jspf/footer.jspf"%>
