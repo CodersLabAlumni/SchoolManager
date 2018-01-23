@@ -9,7 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/home_menu.jspf"%>
 	<div class="container">
 
 		<div id="login-box">

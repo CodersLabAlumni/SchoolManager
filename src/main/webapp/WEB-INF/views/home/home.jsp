@@ -9,7 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/home_menu.jspf"%>
 
 	<!--TODO Consider moving navbar into main_menu.jsp  -->
 	</ul>
@@ -61,6 +61,11 @@
 			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/teacher/user_new_teacher">Create
 				teacher profile</a>
+		</div>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/school/all">IDDQD</a>
 		</div>
 
 	</div>
