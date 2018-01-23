@@ -6,7 +6,7 @@
 		<a class="dropdown-item"
 			href="${pageContext.request.contextPath}/message/create">Create new</a>
 		<a class="dropdown-item"
-			href="${pageContext.request.contextPath}/message/recived">Inbox <b>(${allReceivedUnreadedMessages})</b></a> 
-		<a class="dropdown-item"
-			href="${pageContext.request.contextPath}/message/sended">Outbox (${allSendedMessages})</a> 
+			href="${pageContext.request.contextPath}/message/recived">Inbox <b>(${countAllReceivedUnreadedMessages})</b></a> 
+		<a class="dropdown-item"													
+			href="${pageContext.request.contextPath}/message/sended">Outbox </a> 
 	</div></li>

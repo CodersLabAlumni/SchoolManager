@@ -134,6 +134,22 @@ public class MessageController {
 		return "redirect:/message/sended";
 	}
 
+	// MESSAGES INFO
+	@ModelAttribute("countAllReceivedMessages")
+	public Integer countAllReceivedMessages(Long receiverId) {
+		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+	}
+
+	@ModelAttribute("countAllSendedMessages")
+	public Integer countAllSendedMessages(Long senderId) {
+		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+	}
+	
+	@ModelAttribute("countAllReceivedUnreadedMessages")
+	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
+		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+	}
+	
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();

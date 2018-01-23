@@ -8,9 +8,10 @@ import pl.schoolmanager.entity.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 	
-	List<Message>findAllByReceiverId(long receiverId);
-	List<Message>findAllByReceiverIdAndChecked(long receiverId, int checked);
-	List<Message>findAllBySenderId(long senderId);
+	List<Message>findAllByReceiverId(Long receiverId);
+	List<Message>findAllByReceiverIdAndChecked(Long receiverId, Integer checked);
+	List<Message>findAllBySenderId(Long senderId);
+	
 	
 	
 	

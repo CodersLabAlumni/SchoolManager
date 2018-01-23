@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.schoolmanager.entity.Mark;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MarkRepository;
+import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
+import pl.schoolmanager.repository.UserRepository;
 
 @Controller
 @RequestMapping("/mark")
@@ -36,6 +40,11 @@ public class MarkController {
 	@Autowired
 	private SubjectRepository subjectRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private MessageRepository messageRepository;
 	
 	//CREATE FOR
 	@GetMapping("/create")
@@ -102,4 +111,27 @@ public class MarkController {
 	public List<Mark> getMarks() {
 		return this.markRepository.findAll();
 	}
+	
+	// MESSAGES INFO
+	@ModelAttribute("countAllReceivedMessages")
+	public Integer countAllReceivedMessages(Long receiverId) {
+		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+	}
+
+	@ModelAttribute("countAllSendedMessages")
+	public Integer countAllSendedMessages(Long senderId) {
+		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+	}
+	
+	@ModelAttribute("countAllReceivedUnreadedMessages")
+	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
+		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+	}
+	
+	private User getLoggedUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+		return this.userRepository.findOneByUsername(username);
+	}
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +19,13 @@ import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.Mark;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.MarkRepository;
+import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
+import pl.schoolmanager.repository.UserRepository;
 
 @Controller
 @RequestMapping("/division")
@@ -38,7 +42,12 @@ public class DivisionController {
 
 	@Autowired
 	private MarkRepository markRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
+	@Autowired
+	private MessageRepository messageRepository;
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -161,7 +170,7 @@ public class DivisionController {
 		m.addAttribute("subjects", subjects);
 		return "division/allStudents_division";
 	}
-	
+
 	// ALL SUBJECTS IN DIVISION
 	@GetMapping("/inside/subjects/{divisionId}")
 	public String subjectsInsideDivision(Model m, @PathVariable long divisionId) {
@@ -187,7 +196,6 @@ public class DivisionController {
 		m.addAttribute("subject", subject);
 		return "division/allStudentsMarks_division";
 	}
-	
 
 	// SHOW ALL
 	@ModelAttribute("availableDivisions")
@@ -195,4 +203,25 @@ public class DivisionController {
 		return this.divisionRepository.findAll();
 	}
 
+	// MESSAGES INFO
+	@ModelAttribute("countAllReceivedMessages")
+	public Integer countAllReceivedMessages(Long receiverId) {
+		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+	}
+
+	@ModelAttribute("countAllSendedMessages")
+	public Integer countAllSendedMessages(Long senderId) {
+		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+	}
+	
+	@ModelAttribute("countAllReceivedUnreadedMessages")
+	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
+		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+	}
+	
+	private User getLoggedUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+		return this.userRepository.findOneByUsername(username);
+	}
 }
