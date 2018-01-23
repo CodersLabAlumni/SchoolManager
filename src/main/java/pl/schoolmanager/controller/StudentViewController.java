@@ -24,6 +24,11 @@ public class StudentViewController {
 	public String all(Model m) {
 		return "student_view/division_students";
 	}
+	
+	@GetMapping("/subjects")
+	public String subject(Model m) {
+		return "student_view/subjects_student";
+	}
 
 
 }
