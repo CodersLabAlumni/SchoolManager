@@ -12,57 +12,10 @@
 
 
 
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/studentView/division">Division</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/studentView/subjects">Subjects</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/studentView/marks">Marks</a></li>
 
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Teacher</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/teacher/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/teacher/create">Create
-						new</a>
-				</div></li>
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Student</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/student/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/student/create">Create
-						new</a>
-				</div></li>
-
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Subject</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<c:forEach items="${thisStudent.division.subject}" var="subject">
-						<a class="dropdown-item"
-							href="${pageContext.request.contextPath}/subject/view/${subject.id}">${subject.name}</a>
-					</c:forEach>
-				</div></li>
-
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Admin
-					panel</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/user/all">All users</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/user/create">Create
-						new user</a>
-				</div></li>
 
 		</ul>
 	</div>

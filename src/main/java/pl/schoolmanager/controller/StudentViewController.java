@@ -20,7 +20,7 @@ public class StudentViewController {
 	private StudentRepository studentRepository;
 	
 
-	@GetMapping("/all")
+	@GetMapping("/division")
 	public String all(Model m) {
 		return "student_view/division_students";
 	}
@@ -28,6 +28,11 @@ public class StudentViewController {
 	@GetMapping("/subjects")
 	public String subject(Model m) {
 		return "student_view/subjects_student";
+	}
+	
+	@GetMapping("/marks")
+	public String marks(Model m) {
+		return "student_view/marks_student";
 	}
 
 
