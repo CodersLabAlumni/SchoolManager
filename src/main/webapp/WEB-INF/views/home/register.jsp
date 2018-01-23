@@ -9,6 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
+
 	<%@ include file="../jspf/home_menu.jspf"%>
 	<div class="container">
 
@@ -34,6 +35,7 @@
 					<form:input path="email" cssClass="form-control" />
 					<form:errors path="email" />
 				</div>
+
 				<div class="form-group">
 					First name:
 					<form:input path="firstName" cssClass="form-control" />
@@ -44,6 +46,7 @@
 					<form:input path="lastName" cssClass="form-control" />
 					<form:errors path="lastName" />
 				</div>
+
 
 				<div class="form-group">
 					Password:

@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
+import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
@@ -39,10 +39,18 @@ public class TeacherController {
 	@Autowired
 	private SubjectRepository subjectRepository;
 
+
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
 	private SchoolRepository schoolRepo;
+
+	
+
+
+	@Autowired
+	private MessageRepository messageRepository;
+
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -185,6 +193,7 @@ public class TeacherController {
 		return "redirect:/teacher/addSubject/{teacherId}";
 	}
 
+
 	// Additional methods
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -197,7 +206,23 @@ public class TeacherController {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
 	}
+	// MESSAGES INFO
+	@ModelAttribute("countAllReceivedMessages")
+	public Integer countAllReceivedMessages(Long receiverId) {
+		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+	}
+
+	@ModelAttribute("countAllSendedMessages")
+	public Integer countAllSendedMessages(Long senderId) {
+		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+	}
 	
+	@ModelAttribute("countAllReceivedUnreadedMessages")
+	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
+		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+	}
+	
+
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
 		User user = getLoggedUser();

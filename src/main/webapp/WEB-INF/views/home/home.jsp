@@ -9,30 +9,16 @@
 <title>Homepage</title>
 </head>
 <body>
+
 	<%@ include file="../jspf/home_menu.jspf"%>
 
-	<!--TODO Consider moving navbar into main_menu.jsp  -->
-	</ul>
-	<ul class="navbar-nav ml-auto">
-		<sec:authorize access="isAuthenticated()">
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/logout">Logout</a></li>
-		</sec:authorize>
-	</ul>
-	<ul class="navbar-nav mr-auto">
-		<sec:authorize access="isAnonymous()">
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/login">Login</a></li>
-			<li class="nav-item"><a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/register">Register</a></li>
-		</sec:authorize>
-	</ul>
+	<div class="jumbotron">
 
-	<div class="container">
 		<h1>
 			Welcome to School Manager <b><sec:authentication
 					property="principal.username" /> </b>.
 		</h1>
+
 		<h2>Use top menu to navigate the website</h2>
 		<h3>
 			<a href="${pageContext.request.contextPath}/logout"
@@ -67,6 +53,7 @@
 			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/school/all">"Can do anything profile" (for developers)</a>
 		</div>
+
 
 	</div>
 

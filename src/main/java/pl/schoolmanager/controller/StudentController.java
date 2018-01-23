@@ -1,6 +1,5 @@
 package pl.schoolmanager.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +22,11 @@ import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
+import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.UserRepository;
-import pl.schoolmanager.repository.UserRoleRepository;
+
 
 @Controller
 @RequestMapping("/student")
@@ -39,6 +39,9 @@ public class StudentController {
 	@Autowired
 	private SchoolRepository schoolRepo;
 
+	@Autowired
+	private MessageRepository messageRepository;
+	
 	// CREATE
 	@GetMapping("/create")
 	public String createStudent(Model m) {
@@ -180,6 +183,7 @@ public class StudentController {
 		return availableSchools;
 	}
 	
+
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
 		User user = getLoggedUser();
@@ -193,4 +197,21 @@ public class StudentController {
 		return schools;
 	}
 
+
+	// MESSAGES INFO
+	@ModelAttribute("countAllReceivedMessages")
+	public Integer countAllReceivedMessages(Long receiverId) {
+		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+	}
+
+	@ModelAttribute("countAllSendedMessages")
+	public Integer countAllSendedMessages(Long senderId) {
+		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+	}
+	
+	@ModelAttribute("countAllReceivedUnreadedMessages")
+	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
+		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+	}
+	
 }
