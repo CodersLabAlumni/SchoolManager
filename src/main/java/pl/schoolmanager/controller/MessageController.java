@@ -59,10 +59,10 @@ public class MessageController {
 		User sender = this.userRepository.findOne(getLoggedUser().getId());
 		message.setSender(sender);
 		message.setSenderDescription(sender.getEmail());
-		message.setReceiverDescription(receiver.getEmail());
+		message.setReceiverDescription(receiver.getUsername()+"<"+receiver.getEmail()+">");
 		message.setReceiver(receiver);
 		this.messageRepository.save(message);
-		return "index";
+		return "redirect:/message/sended";
 	}
 	
 	// INBOX
@@ -82,12 +82,12 @@ public class MessageController {
 	}	
 
 	// MESSAGE DETAILS
-//	@GetMapping("/view/{messageId}")
-//	public String viewMessage(Model m, @PathVariable long teacherId) {
-//		Teacher teacher = this.teacherRepository.findOne(teacherId);
-//		m.addAttribute("teacher", teacher);
-//		return "teacher/show_teacher";
-//	}
+	@GetMapping("/view/{messageId}")
+	public String viewMessage(Model m, @PathVariable long messageId) {
+		Message message = this.messageRepository.findOne(messageId);
+		m.addAttribute("message", message);
+		return "message/show_message";
+	}
 	
 	// REMOVE RECEIVED MESSAGES
 	@GetMapping("/remove/received/{id}")
@@ -128,7 +128,6 @@ public class MessageController {
 		this.messageRepository.save(message);
 		return "redirect:/message/sended";
 	}	
-	
 	
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -31,7 +31,7 @@
 						<td><c:out value="${received.created}" /></td>
 						<td><c:choose>
 								<c:when test="${remove eq received.id}">
-								
+
 									<form:form method="post" modelAttribute="message">
 										<%@ include file="../jspf/confirm.jspf"%>
 									</form:form>
@@ -39,9 +39,10 @@
 								<c:otherwise>
 									<a class="btn btn-primary"
 										href="${pageContext.request.contextPath}/message/remove/received/${received.id}">REMOVE</a>
-						</c:otherwise>
-						</c:choose>
-						</td>
+									<a class="btn btn-primary"
+										href="${pageContext.request.contextPath}/message/view/${received.id}">DETAILS</a>
+								</c:otherwise>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>
