@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -44,6 +45,12 @@ public class User {
 	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String email;
+	
+	@NotBlank
+	private String firstName;
+	@NotBlank
+	private String lastName;
+	
 	private boolean enabled;
 	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
@@ -54,9 +61,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username  + ", email=" + email
-				+ ", enabled=" + enabled + "]";
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", enabled=" + enabled + ", userRoles=" + userRoles + "]";
 	}
+
 
 	public long getId() {
 		return id;
@@ -120,6 +128,22 @@ public class User {
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }
