@@ -9,7 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
-<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
 		<div id="login-box">
@@ -23,22 +23,48 @@
 				<div class="msg">${msg}</div>
 			</c:if>
 
-		<form:form method="post" modelAttribute="user">
-		<div class="form-group">Username: <form:input path="username" cssClass="form-control"/>
-		<form:errors path="username" /></div>
-		<div class="form-group">Email: <form:input path="email" cssClass="form-control"/>
-		<form:errors path="email" /></div>
-		
-		<div class="form-group">Password: <form:password path="password" cssClass="form-control"/>
-		<form:errors path="password" /></div>
-				<div class="form-group">Confirm password: <form:password path="confirmPassword" cssClass="form-control"/>
-		<form:errors path="confirmPassword" /></div>
-		
-		<input type="submit" class="btn btn-primary" value="Register new user">
-		</form:form><br /> 
-		<h3><c:out value="${msg}"></c:out></h3>
+			<form:form method="post" modelAttribute="user">
+				<div class="form-group">
+					Username:
+					<form:input path="username" cssClass="form-control" />
+					<form:errors path="username" />
+				</div>
+				<div class="form-group">
+					Email:
+					<form:input path="email" cssClass="form-control" />
+					<form:errors path="email" />
+				</div>
+				<div class="form-group">
+					First name:
+					<form:input path="firstName" cssClass="form-control" />
+					<form:errors path="firstName" />
+				</div>
+				<div class="form-group">
+					Last name:
+					<form:input path="lastName" cssClass="form-control" />
+					<form:errors path="lastName" />
+				</div>
+
+				<div class="form-group">
+					Password:
+					<form:password path="password" cssClass="form-control" />
+					<form:errors path="password" />
+				</div>
+				<div class="form-group">
+					Confirm password:
+					<form:password path="confirmPassword" cssClass="form-control" />
+					<form:errors path="confirmPassword" />
+				</div>
+
+				<input type="submit" class="btn btn-primary"
+					value="Register new user">
+			</form:form>
+			<br />
+			<h3>
+				<c:out value="${msg}"></c:out>
+			</h3>
 		</div>
 	</div>
-<%@ include file="../jspf/footer.jspf"%>
+	<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>
