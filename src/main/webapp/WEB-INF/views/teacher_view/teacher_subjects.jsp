@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${thisTeacher.subject}" var="subject">
+				<c:forEach items="${teacherSubjects}" var="subject">
 					<tr class="table-light">
 						<td><c:out value="${subject.name}" /></td>
 						<td><c:out value="${subject.description}" /></td>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.repository.SubjectRepository;
@@ -58,12 +59,35 @@ public class TeacherViewController {
 		}
 		HttpSession s = SessionManager.session();
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
-		List<Subject> subjects = teacher.getSubject();
+		School school = (School) s.getAttribute("thisSchool");
+//		HttpSession s = SessionManager.session();
+//		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
+//		School school = (School) s.getAttribute("thisSchool");
+//		List<Subject> subjects = teacher.getSubject();
+//		subjects.add(subject);
+//		teacher.setSubject(subjects);
+//		m.addAttribute("teacher1", teacher);
+//		subject.setSchool(school);
+//		this.teacherRepository.save(teacher);
+//		this.subjectRepository.save(subject);
+		
+/*		List<Subject> subjects = teacher.getSubject();
 		subjects.add(subject);
 		teacher.setSubject(subjects);
 		m.addAttribute("teacher1", teacher);
-		this.subjectRepository.save(subject);
 		this.teacherRepository.save(teacher);
+		this.subjectRepository.save(subject);*/
+		
+		subject.setSchool(school);
+		subject.getTeacher().add(teacher);
+		this.subjectRepository.save(subject);
 		return "test";
+	}
+	
+	@ModelAttribute("teacherSubjects")
+	public List<Subject> getSubjects() {
+		HttpSession s = SessionManager.session();
+		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
+		return this.subjectRepository.findAllByTeacher(teacher);
 	}
 }

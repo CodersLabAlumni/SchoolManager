@@ -12,7 +12,7 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>Teacher: ${teacher.firstName}  ${teacher.lastName}</legend>
+		<legend>Teacher: ${teacher.userRole.user.firstName}  ${teacher.userRole.user.lastName}</legend>
 		</br>
 		<legend>All taught subjects  </legend>
 		<%@ include file="../jspf/teacher_subjects.jspf"%>

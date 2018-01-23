@@ -12,55 +12,6 @@
 
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">School</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/school/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/school/create">Create
-						new</a>
-				</div></li>
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Division</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/division/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/division/create">Create
-						new</a>
-				</div></li>
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Teacher</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/teacher/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/teacher/create">Create
-						new</a>
-				</div></li>
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Student</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/student/all">All</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/student/create">Create
-						new</a>
-				</div></li>
-
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false">Subject</a>
 				<div class="dropdown-menu" x-placement="bottom-start"
 					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -71,19 +22,6 @@
 						new</a>
 				</div></li>
 
-
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false">Admin
-					panel</a>
-				<div class="dropdown-menu" x-placement="bottom-start"
-					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
-					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/user/all">All users</a> <a
-						class="dropdown-item"
-						href="${pageContext.request.contextPath}/user/create">Create
-						new user</a>
-				</div></li>
 
 		</ul>
 	</div>
