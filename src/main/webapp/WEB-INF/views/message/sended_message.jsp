@@ -20,7 +20,7 @@
 					<th scope="col">RECEIVER</th>
 					<th scope="col">TITLE</th>
 					<th scope="col">DATE</th>
-					<th scope="col">DELETE</th>
+					<th scope="col">REMOVE</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,15 +30,15 @@
 						<td><c:out value="${sended.title}" /></td>
 						<td><c:out value="${sended.created}" /></td>
 						<td><c:choose>
-								<c:when test="${del eq sended.id}">
+								<c:when test="${remove eq sended.id}">
 
 									<form:form method="post" modelAttribute="message">
-										<%@ include file="../jspf/delete.jspf"%>
+										<%@ include file="../jspf/confirm.jspf"%>
 									</form:form>
 								</c:when>
 								<c:otherwise>
 									<a class="btn btn-primary"
-										href="${pageContext.request.contextPath}/message/delete/sended/${sended.id}">Delete</a>
+										href="${pageContext.request.contextPath}/message/remove/sended/${sended.id}">REMOVE</a>
 								</c:otherwise>
 							</c:choose></td>
 
