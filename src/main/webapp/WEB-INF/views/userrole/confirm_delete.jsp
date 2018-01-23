@@ -60,7 +60,6 @@
 					</tr>
 			</table>
 
-
 			<div class="text-center">
 				<form:form method="post" modelAttribute="user">
 					<input type="submit" value="Yes"

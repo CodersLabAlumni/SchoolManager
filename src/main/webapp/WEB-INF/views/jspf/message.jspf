@@ -1,0 +1,13 @@
+<li class="nav-item dropdown"><a class="nav-link"
+	data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+	aria-expanded="false">Message</a>
+	<div class="dropdown-menu" x-placement="bottom-start"
+		style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+		<a class="dropdown-item"
+			href="${pageContext.request.contextPath}/message/create">Create new</a>
+		<a class="dropdown-item"
+			href="${pageContext.request.contextPath}/message/recived">Inbox (${countAllReceivedMessages})<b>(${countAllReceivedUnreadedMessages})</b></a> 
+		<a class="dropdown-item"													
+			href="${pageContext.request.contextPath}/message/sended">Outbox (${countAllSendedMessages})</a> 
+	</div>
+</li>

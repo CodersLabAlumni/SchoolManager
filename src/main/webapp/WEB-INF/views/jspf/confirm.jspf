@@ -1,0 +1,5 @@
+<c:out value="Confirm delete" />
+</br>
+<input type="submit" value="Yes" class="btn btn-success"> <input
+	action="action" onclick="window.history.go(-1); return false;"
+	type="button" class="btn btn-danger" value="No" />
