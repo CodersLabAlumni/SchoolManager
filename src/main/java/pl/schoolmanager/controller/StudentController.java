@@ -1,7 +1,10 @@
 package pl.schoolmanager.controller;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.User;
@@ -52,17 +56,17 @@ public class StudentController {
 	}
 
 	// Make new student automatically creating new user role
-	@GetMapping("/user_student")
+	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
-		return "student/user_student";
+		return "student/user_new_student";
 	}
 
-	@PostMapping("/user_student")
+	@PostMapping("/userNewStudent")
 	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
 										Model m) {
 		if (bindingResult.hasErrors()) {
-			return "student/user_student";
+			return "student/user_new_student";
 		}
 		User user = getLoggedUser();
 		UserRole userRole = new UserRole();
@@ -72,7 +76,44 @@ public class StudentController {
 		userRole.setUser(user);
 		student.setUserRole(userRole);
 		this.studentRepository.save(student);
-		return "redirect:/student/all";
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisStudent", student);
+		s.setAttribute("thisSchool", student.getSchool());
+		return "redirect:/studentView/division";
+	}
+	
+	// Managing exisitng student role
+	@GetMapping("/userStudent")
+	public String StudentFromUser(Model m) {
+		m.addAttribute("student", new Student());
+		return "student/user_student";
+	}
+
+	@PostMapping("/userStudent")
+	public String StudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
+										Model m) {
+		if (bindingResult.hasErrors()) {
+			return "student/user_student";
+		}
+		User user = getLoggedUser();
+		Student thisStudent = null;
+		UserRole thisUserRole = null;
+		List<UserRole> userRoles = user.getUserRoles();
+		for (UserRole userRole : userRoles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT") && userRole.getSchool().getName().equals(student.getSchool().getName())) {
+				thisUserRole = userRole;
+			}
+		}
+		List<Student> students = this.studentRepository.findAll();
+		for (Student s : students) {
+			if (s.getUserRole().getId() == thisUserRole.getId()) {
+				thisStudent = s;
+			}
+		}
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisStudent", thisStudent);
+		s.setAttribute("thisSchool", student.getSchool());
+		return "redirect:/studentView/division";
 	}
 
 	// READ
@@ -137,6 +178,19 @@ public class StudentController {
 	public List<School> availableSchools() {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
+	}
+	
+	@ModelAttribute("userSchools")
+	public List<School> userSchools() {
+		User user = getLoggedUser();
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = user.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		return schools;
 	}
 
 }

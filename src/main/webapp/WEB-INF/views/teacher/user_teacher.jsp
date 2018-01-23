@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/home_menu.jspf"%>
 
 	<div class="jumbotron">
 
@@ -21,7 +21,7 @@
 				<div class="form-group">
 					Select school
 					<form:select type="text" path="school" cssClass="form-control">
-						<form:options items="${availableSchools}" itemValue="id"
+						<form:options items="${userSchools}" itemValue="id"
 							itemLabel="nameForForm" />
 					</form:select>
 					<form:errors path="school" />

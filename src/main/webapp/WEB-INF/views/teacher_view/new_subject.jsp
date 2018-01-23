@@ -9,29 +9,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/home_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="student"
+		<form:form method="post" modelAttribute="subject"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Add new Student profile</legend>
+				<legend>Add new Subject</legend>
+				<div class="form-group">
+					<label for="inputSubjectName" class="col-lg-2 control-label">Name</label>
+					<div class="col-lg-10">
+						<form:input class="form-control" id="inputSubjectName"
+							placeholder="Subject name" type="text" path="name" />
+						<form:errors path="name" class="text-danger" />
+					</div>
+				</div>
 
 				<div class="form-group">
-					Select school
-					<form:select type="text" path="school" cssClass="form-control">
-						<form:options items="${userSchools}" itemValue="id"
-							itemLabel="nameForForm" />
-					</form:select>
-					<form:errors path="school" />
+					<label for="textArea" class="col-lg-2 control-label">Subject
+						description</label>
+					<div class="col-lg-10">
+						<form:textarea class="form-control" rows="3" id="textArea"
+							path="description" />
+						</textarea>
+						<form:errors path="description" />
+					</div>
 				</div>
-				
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
 				type="button" class="btn btn-secondary" value="Cancel" />
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form:form>
+
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

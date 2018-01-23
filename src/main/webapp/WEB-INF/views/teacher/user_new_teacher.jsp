@@ -13,15 +13,15 @@
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="student"
+		<form:form method="post" modelAttribute="teacher"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Add new Student profile</legend>
+				<legend>Add new Teacher profile</legend>
 
 				<div class="form-group">
 					Select school
 					<form:select type="text" path="school" cssClass="form-control">
-						<form:options items="${userSchools}" itemValue="id"
+						<form:options items="${availableSchools}" itemValue="id"
 							itemLabel="nameForForm" />
 					</form:select>
 					<form:errors path="school" />

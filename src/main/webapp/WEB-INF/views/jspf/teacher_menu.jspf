@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="${pageContext.request.contextPath}">School
+		Manager</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarColor03" aria-controls="navbarColor03"
+		aria-expanded="false" aria-label="Toggle navigation" style="">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarColor03">
+		<ul class="navbar-nav mr-auto">
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">Subject</a>
+				<div class="dropdown-menu" x-placement="bottom-start"
+					style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/teacherView/subjects">Your
+						subjects</a> <a class="dropdown-item"
+						href="${pageContext.request.contextPath}/teacherView/createSubjects">Create
+						new</a>
+				</div></li>
+
+
+		</ul>
+	</div>
+</nav>

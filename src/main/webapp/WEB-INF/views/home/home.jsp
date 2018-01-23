@@ -9,7 +9,7 @@
 <title>Homepage</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/home_menu.jspf"%>
 
 	<!--TODO Consider moving navbar into main_menu.jsp  -->
 	</ul>
@@ -41,14 +41,31 @@
 		<div>
 
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/student/user_student">Open
+				href="${pageContext.request.contextPath}/student/userStudent">Open
 				student profile</a>
 		</div>
 		<div>
 
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/user_teacher">Open
+				href="${pageContext.request.contextPath}/teacher/userTeacher">Open
 				teacher profile</a>
+		</div>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/student/userNewStudent">Create
+				student profile</a>
+		</div>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
+				teacher profile</a>
+		</div>
+		<div>
+
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/school/all">"Can do anything profile" (for developers)</a>
 		</div>
 
 	</div>
