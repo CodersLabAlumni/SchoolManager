@@ -52,14 +52,38 @@ public class StudentController {
 	}
 
 	// Make new student automatically creating new user role
-	@GetMapping("/user_student")
+	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
+		m.addAttribute("student", new Student());
+		return "student/user_new_student";
+	}
+
+	@PostMapping("/userNewStudent")
+	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
+										Model m) {
+		if (bindingResult.hasErrors()) {
+			return "student/user_new_student";
+		}
+		User user = getLoggedUser();
+		UserRole userRole = new UserRole();
+		userRole.setUsername(user.getUsername());
+		userRole.setUserRole("ROLE_STUDENT");
+		userRole.setSchool(student.getSchool());
+		userRole.setUser(user);
+		student.setUserRole(userRole);
+		this.studentRepository.save(student);
+		return "redirect:/student/all";
+	}
+	
+	// Managing exisitng student role
+	@GetMapping("/userStudent")
+	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
 		return "student/user_student";
 	}
 
-	@PostMapping("/user_student")
-	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
+	@PostMapping("/userStudent")
+	public String StudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
 										Model m) {
 		if (bindingResult.hasErrors()) {
 			return "student/user_student";
