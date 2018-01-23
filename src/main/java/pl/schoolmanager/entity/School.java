@@ -47,6 +47,12 @@ public class School {
 		super();
 	}
 
+	public School(String name, String type) {
+		super();
+		this.name = name;
+		this.type = type;
+	}
+
 	public long getId() {
 		return id;
 	}

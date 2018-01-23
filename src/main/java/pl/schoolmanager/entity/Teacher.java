@@ -38,6 +38,14 @@ public class Teacher {
 		super();
 	}
 
+	public Teacher(School school, UserRole userRole) {
+		super();
+		this.school = school;
+		this.userRole = userRole;
+	}
+
+
+
 	public long getId() {
 		return id;
 	}

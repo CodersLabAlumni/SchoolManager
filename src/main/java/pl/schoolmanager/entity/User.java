@@ -59,6 +59,16 @@ public class User {
 		super();
 	}
 
+	public User(String username, String password, String email, String firstName, String lastName, boolean enabled) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName

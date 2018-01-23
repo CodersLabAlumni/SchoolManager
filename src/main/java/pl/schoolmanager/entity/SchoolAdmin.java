@@ -26,6 +26,12 @@ public class SchoolAdmin {
 	public SchoolAdmin() {
 		super();
 	}
+	
+	public SchoolAdmin(School school, UserRole userRole) {
+		super();
+		this.school = school;
+		this.userRole = userRole;
+	}
 
 	public long getId() {
 		return id;

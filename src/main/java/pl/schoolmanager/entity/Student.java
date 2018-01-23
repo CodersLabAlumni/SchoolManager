@@ -43,6 +43,12 @@ public class Student {
 	public Student() {
 		super();
 	}
+	
+	public Student(School school, UserRole userRole) {
+		super();
+		this.school = school;
+		this.userRole = userRole;
+	}
 
 	public long getId() {
 		return id;

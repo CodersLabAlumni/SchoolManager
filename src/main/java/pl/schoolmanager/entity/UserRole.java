@@ -35,6 +35,14 @@ public class UserRole {
 		super();
 	}
 
+	public UserRole(String username, String userRole, User user, School school) {
+		super();
+		this.username = username;
+		this.userRole = userRole;
+		this.user = user;
+		this.school = school;
+	}
+
 	public long getId() {
 		return id;
 	}
