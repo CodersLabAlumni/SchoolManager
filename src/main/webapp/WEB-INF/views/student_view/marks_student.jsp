@@ -12,7 +12,8 @@
 	<%@ include file="../jspf/student_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>All Subjects</legend>
+		<legend align="center">Your school: ${thisSchool.name}</legend>
+		<legend>Your Marks</legend>
 
 		<table class="table table-bordered">
 			<thead>
