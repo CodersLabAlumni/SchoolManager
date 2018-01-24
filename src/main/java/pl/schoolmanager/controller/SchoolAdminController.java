@@ -98,7 +98,7 @@ public class SchoolAdminController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", schoolAdmin);
 		s.setAttribute("thisSchool", schoolAdmin.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/schoolAdminView/";
 	}
 	
 	// Managing existing teacher role
@@ -131,7 +131,7 @@ public class SchoolAdminController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", thisSchoolAdmin);
 		s.setAttribute("thisSchool", thisSchoolAdmin.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/schoolAdminView/";
 	}
 
 /*	// READ
