@@ -21,30 +21,7 @@
 
 		<h2 align="center">Use top menu to navigate the website</h2>
 
-		<div>
 
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/student/userNewStudent">Create
-				student profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
-				teacher profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/schoolAdmin/userNewSchoolAdmin">Create
-				school admin profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/school/all">"Can do
-				anything profile" (for developers)</a>
-		</div>
 
 
 	</div>

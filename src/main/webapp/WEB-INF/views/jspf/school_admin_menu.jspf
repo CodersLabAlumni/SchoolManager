@@ -90,6 +90,7 @@
 					href="${pageContext.request.contextPath}/register">Register</a></li>
 			</sec:authorize>
 		</ul>
+		
 
 	</div>
 </nav>
