@@ -29,7 +29,6 @@ public class Teacher {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private School school;
 
-	// relation with user role
 	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
 	private UserRole userRole;
@@ -43,8 +42,6 @@ public class Teacher {
 		this.school = school;
 		this.userRole = userRole;
 	}
-
-
 
 	public long getId() {
 		return id;

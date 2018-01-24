@@ -35,6 +35,7 @@ public class Message {
 	private String receiverEmail;
 
 	private String receiverDescription;
+
 	private String senderDescription;
 	
 	private Date created;
@@ -127,9 +128,4 @@ public class Message {
 		this.senderDescription = senderDescription;
 	}
 
-
-	
-
-	
-	
 }
