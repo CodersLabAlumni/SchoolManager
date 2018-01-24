@@ -82,7 +82,7 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", student);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/division";
+		return "redirect:/studentView/";
 	}
 	
 	// Managing exisitng student role
@@ -116,7 +116,7 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", thisStudent);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/division";
+		return "redirect:/studentView/";
 	}
 
 	// READ

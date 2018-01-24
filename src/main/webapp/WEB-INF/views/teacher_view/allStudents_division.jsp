@@ -40,6 +40,8 @@
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/student/view/${student.id}">View
 											details</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacherView/createMark/${student.id}">Give mark</a>
 									</div>
 								</div>
 							</div>

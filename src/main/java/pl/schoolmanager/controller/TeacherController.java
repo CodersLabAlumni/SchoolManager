@@ -96,7 +96,7 @@ public class TeacherController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", teacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/teacherView/";
 	}
 	
 	// Managing existing teacher role
@@ -129,7 +129,7 @@ public class TeacherController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", thisTeacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/teacherView/";
 	}
 
 	// READ
