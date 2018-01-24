@@ -8,6 +8,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Component
 public class SessionManager {
+
 	public static HttpSession session() {
 		ServletRequestAttributes attr = 
 				(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();

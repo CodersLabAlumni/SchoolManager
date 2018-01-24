@@ -36,7 +36,6 @@ import pl.schoolmanager.converter.SubjectConverter;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
 @Import({ SecurityConfig.class })
-
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "dataSource")
@@ -49,7 +48,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	    return driverManagerDataSource;
 	}
 
-	
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -82,7 +80,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		JpaTransactionManager tm = new JpaTransactionManager(emf);
 		return tm;
 	}
-
 
 	@Bean(name = "localeResolver")
 	public LocaleContextResolver getLocaleContextResolver() {
