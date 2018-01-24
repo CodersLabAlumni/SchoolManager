@@ -16,7 +16,7 @@
 		<form:form method="post" modelAttribute="subject"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Add new Subject</legend>
+				<legend>Edit Subject</legend>
 				<div class="form-group">
 					<label for="inputSubjectName" class="col-lg-2 control-label">Name</label>
 					<div class="col-lg-10">

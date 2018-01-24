@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -74,14 +75,52 @@ public class TeacherViewController {
 /*		List<Subject> subjects = teacher.getSubject();
 		subjects.add(subject);
 		teacher.setSubject(subjects);
-		m.addAttribute("teacher1", teacher);
 		this.teacherRepository.save(teacher);
 		this.subjectRepository.save(subject);*/
-		
+//		teacher.setId(20l);
+		m.addAttribute("teacher1", teacher);
 		subject.setSchool(school);
-		subject.getTeacher().add(teacher);
+		subject.getTeacher()/*.add(teacher)*/;
+		List<Subject> subjects = teacher.getSubject();
+		subjects.add(subject);
+		teacher.setSubject(subjects);
+		this.teacherRepository.save(teacher);
 		this.subjectRepository.save(subject);
 		return "test";
+	}
+	
+	// READ
+	@GetMapping("/viewSubject/{subjectId}")
+	public String viewSubject(Model m, @PathVariable long subjectId) {
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		m.addAttribute("subject", subject);
+		return "teacher_view/show_subject";
+	}
+
+	// UPDATE
+	@GetMapping("/updateSubject/{subjectId}")
+	public String updateSubject(Model m, @PathVariable long subjectId) {
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		m.addAttribute("subject", subject);
+		return "teacher_view/edit_subject";
+	}
+
+	@PostMapping("/updateSubject/{subjectId}")
+	public String updateSubjectPost(@Valid @ModelAttribute Subject subject, BindingResult bindingResult,
+			@PathVariable long subjectId) {
+		if (bindingResult.hasErrors()) {
+			return "teacher_view/edit_subject";
+		}
+		subject.setId(subjectId);
+		this.subjectRepository.save(subject);
+		return "index";
+	}
+
+	// DELETE
+	@GetMapping("/deleteSubject/{subjectId}")
+	public String deleteSubject(@PathVariable long subjectId) {
+		this.subjectRepository.delete(subjectId);
+		return "index";
 	}
 	
 	@ModelAttribute("teacherSubjects")

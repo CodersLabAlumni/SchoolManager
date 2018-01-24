@@ -34,11 +34,11 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											href="${pageContext.request.contextPath}/teacherView/viewSubject/${subject.id}">View
 											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/update/${subject.id}">Update</a>
+											href="${pageContext.request.contextPath}/teacherView/updateSubject/${subject.id}">Update</a>
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/delete/${subject.id}">Delete</a>
+											href="${pageContext.request.contextPath}/teacherView/deleteSubject/${subject.id}">Delete</a>
 									</div>
 								</div>
 							</div>
