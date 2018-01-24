@@ -2,4 +2,4 @@
 a collaborative project by: Lukasz-Bdn, mateuszlichon, PietrygaM
 
 
-test pull
+test pull push
