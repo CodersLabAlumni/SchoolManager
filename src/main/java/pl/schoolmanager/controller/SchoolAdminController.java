@@ -134,7 +134,7 @@ public class SchoolAdminController {
 		return "redirect:/teacherView/all";
 	}
 
-	// READ
+/*	// READ
 	@GetMapping("/view/{teacherId}")
 	public String viewTeacher(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
@@ -194,7 +194,7 @@ public class SchoolAdminController {
 		this.subjectRepository.save(subject);
 		return "redirect:/teacher/addSubject/{teacherId}";
 	}
-
+*/
 
 	// Additional methods
 	private User getLoggedUser() {

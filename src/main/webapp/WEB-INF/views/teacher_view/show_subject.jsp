@@ -38,8 +38,27 @@
 		</table>
 		<input action="action" onclick="window.history.go(-1); return false;"
 			type="button" class="btn btn-secondary" value="Return" />
-	</div>
+		<br/>
+		<legend>Divisions attending the subject </legend>
 
+		<table class="table table-bordered">
+			<thead>
+				<tr class="table-light">
+					<th scope="col">Name</th>
+					<th scope="col">Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${subject.division}" var="division">
+					<tr class="table-light">
+						<td>${division.name}</td>
+						<td>${division.description}</td>
+					</tr>		
+				</c:forEach>
+
+			</tbody>
+		</table>
+	</div>
 	<%@ include file="../jspf/footer.jspf"%>
 </body>
 </html>
