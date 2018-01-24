@@ -102,35 +102,35 @@ public class SchoolAdminController {
 	}
 	
 	// Managing existing teacher role
-	@GetMapping("/userTeacher")
+	@GetMapping("/userSchoolAdmin")
 	public String TeacherFromUser(Model m) {
-		m.addAttribute("teacher", new Teacher());
-		return "teacher/user_teacher";
+		m.addAttribute("schoolAdmin", new SchoolAdmin());
+		return "school_admin/user_school_admin";
 	}
 
-	@PostMapping("/userTeacher")
-	public String TeacherFromUserPost(@Valid @ModelAttribute Teacher teacher, BindingResult bindingResult, Model m) {
+	@PostMapping("/userSchoolAdmin")
+	public String TeacherFromUserPost(@Valid @ModelAttribute SchoolAdmin schoolAdmin, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
-			return "teacher/user_teacher";
+			return "school_admin/user_school_admin";
 		}
 		User user = getLoggedUser();
-		Teacher thisTeacher = null;
+		SchoolAdmin thisSchoolAdmin = null;
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
 		for (UserRole userRole : userRoles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER") && userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
+			if (userRole.getUserRole().equals("ROLE_SCHOOLADMIN") && userRole.getSchool().getName().equals(schoolAdmin.getSchool().getName())) {
 				thisUserRole = userRole;
 			}
 		}
-		List<Teacher> teachers = this.teacherRepository.findAll();
-		for (Teacher t : teachers) {
-			if (t.getUserRole().getId() == thisUserRole.getId()) {
-				thisTeacher = t;
+		List<SchoolAdmin> schoolAdmins = this.schoolAdminRepository.findAll();
+		for (SchoolAdmin s : schoolAdmins) {
+			if (s.getUserRole().getId() == thisUserRole.getId()) {
+				thisSchoolAdmin = s;
 			}
 		}
 		HttpSession s = SessionManager.session();
-		s.setAttribute("thisTeacher", thisTeacher);
-		s.setAttribute("thisSchool", teacher.getSchool());
+		s.setAttribute("thisSchoolAdmin", thisSchoolAdmin);
+		s.setAttribute("thisSchool", thisSchoolAdmin.getSchool());
 		return "redirect:/teacherView/all";
 	}
 
