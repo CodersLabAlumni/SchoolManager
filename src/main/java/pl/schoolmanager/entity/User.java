@@ -62,7 +62,7 @@ public class User {
 	public User(String username, String password, String email, String firstName, String lastName, boolean enabled) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.setPassword(password);
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
