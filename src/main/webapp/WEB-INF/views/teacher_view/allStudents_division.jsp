@@ -9,13 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/teacher_menu.jspf"%>
 
 	<div class="jumbotron">
 		<legend>Division: ${division.name} </legend>
 
-		<%@ include file="../jspf/division_menu.jspf"%>
-		</br>
 
 		<table class="table table-bordered">
 			<thead>
@@ -31,8 +29,8 @@
 				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
-						<td><c:out value="${student.firstName}" /></td>
-						<td><c:out value="${student.lastName}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">

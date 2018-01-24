@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
 
@@ -32,6 +36,12 @@ public class TeacherViewController {
 	
 	@Autowired
 	private TeacherRepository teacherRepository;
+	
+	@Autowired
+	private DivisionRepository divisionRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -121,6 +131,16 @@ public class TeacherViewController {
 	public String deleteSubject(@PathVariable long subjectId) {
 		this.subjectRepository.delete(subjectId);
 		return "index";
+	}
+	
+	// SHOW SUDENTS IN DIVISION
+	@GetMapping("/showDivision/{divisionId}")
+	public String showDivision(Model m, @PathVariable long divisionId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		List<Student> divisionStudents = this.studentRepository.findAllByDivisionId(divisionId);
+		m.addAttribute("students", divisionStudents);
+		m.addAttribute("division", division);
+		return "teacher_view/allStudents_division";
 	}
 	
 	@ModelAttribute("teacherSubjects")

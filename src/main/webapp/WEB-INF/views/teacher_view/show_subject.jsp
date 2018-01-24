@@ -51,7 +51,7 @@
 			<tbody>
 				<c:forEach items="${subject.division}" var="division">
 					<tr class="table-light">
-						<td>${division.name}</td>
+						<td><a href="${pageContext.request.contextPath}/teacherView/showDivision/${division.id}">${division.name}</a></td>
 						<td>${division.description}</td>
 					</tr>		
 				</c:forEach>
