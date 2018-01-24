@@ -8,7 +8,16 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarColor03">
-
+		<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item"><a class="btn btn-primary" href="${pageContext.request.contextPath}/student/userStudent">Student
+						profile</a></li>
+				<li class="nav-item"><a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/userTeacher">Teacher
+						profile</a></li>
+				<li class="nav-item"><a class="btn btn-primary" href="${pageContext.request.contextPath}/schoolAdmin/userSchoolAdmin">School admin
+						profile</a></li>
+			</sec:authorize>
+		</ul>
 		<ul class="navbar-nav mr-auto">
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
