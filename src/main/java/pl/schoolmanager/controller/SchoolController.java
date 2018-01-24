@@ -61,7 +61,6 @@ public class SchoolController {
 		return "school/all_schools";
 	}
 
-	// CREATE
 	@GetMapping("/create")
 	public String createSchool(Model m) {
 		m.addAttribute("school", new School());
@@ -77,7 +76,6 @@ public class SchoolController {
 		return "index";
 	}
 
-	// READ
 	@GetMapping("/view/{schoolId}")
 	public String viewSchool(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -85,7 +83,6 @@ public class SchoolController {
 		return "school/show_school";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{schoolId}")
 	public String updateSchool(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -104,14 +101,12 @@ public class SchoolController {
 		return "index";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{schoolId}")
 	public String deleteSchool(@PathVariable long schoolId) {
 		this.schoolRepository.delete(schoolId);
 		return "index";
 	}
 
-	// ADD DIVISION TO SCHOOL
 	@GetMapping("/addDivision/{schoolId}")
 	public String addDivision(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -132,7 +127,6 @@ public class SchoolController {
 		return "redirect:/school/addDivision/{schoolId}";
 	}
 
-	// ADD SUBJECT TO SCHOOL
 	@GetMapping("/addSubject/{schoolId}")
 	public String addSubject(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -153,7 +147,6 @@ public class SchoolController {
 		return "redirect:/school/addSubject/{schoolId}";
 	}
 
-	// ADD STUDENT TO SCHOOL
 	@GetMapping("/addStudent/{schoolId}")
 	public String addStudent(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -174,7 +167,6 @@ public class SchoolController {
 		return "redirect:/school/addStudent/{schoolId}";
 	}
 
-	// ADD TEACHER TO SCHOOL
 	@GetMapping("/addTeacher/{schoolId}")
 	public String addTeacher(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -195,13 +187,11 @@ public class SchoolController {
 		return "redirect:/school/addTeacher/{schoolId}";
 	}
 
-	// SHOW ALL
 	@ModelAttribute("availableSchools")
 	public List<School> getSchools() {
 		return this.schoolRepository.findAll();
 	}
 
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();

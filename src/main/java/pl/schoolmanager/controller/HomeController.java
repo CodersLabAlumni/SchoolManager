@@ -20,11 +20,12 @@ import pl.schoolmanager.repository.UserRoleRepository;
 
 @Controller("/")
 public class HomeController {
+
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private UserRoleRepository userRoleRepo;
-
 
 	@GetMapping("/")
 	public String home() {

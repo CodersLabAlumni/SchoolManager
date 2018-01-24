@@ -32,7 +32,6 @@ public class MessageController {
 	@Autowired
 	private MessageRepository messageRepository;
 
-	// CREATE
 	@GetMapping("/create")
 	public String createMessage(Model m) {
 		Message message = new Message();
@@ -66,7 +65,6 @@ public class MessageController {
 		return "redirect:/message/sended";
 	}
 
-	// INBOX
 	@GetMapping("/recived")
 	public String recivedMessage(Model m) {
 		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(getLoggedUser().getId());
@@ -74,7 +72,6 @@ public class MessageController {
 		return "message/received_message";
 	}
 
-	// OUTBOX
 	@GetMapping("/sended")
 	public String sendedMessage(Model m) {
 		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(getLoggedUser().getId());
@@ -82,7 +79,6 @@ public class MessageController {
 		return "message/sended_message";
 	}
 
-	// MESSAGE DETAILS
 	@GetMapping("/view/{messageId}")
 	public String viewMessage(Model m, @PathVariable long messageId) {
 		Message message = this.messageRepository.findOne(messageId);
@@ -94,7 +90,6 @@ public class MessageController {
 		return "message/show_message";
 	}
 
-	// REMOVE RECEIVED MESSAGES
 	@GetMapping("/remove/received/{id}")
 	public String removeReceivedGet(@PathVariable long id, Model m) {
 		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(getLoggedUser().getId());
@@ -114,7 +109,6 @@ public class MessageController {
 		return "redirect:/message/recived";
 	}
 
-	// REMOVE SENDED MESSAGES
 	@GetMapping("/remove/sended/{id}")
 	public String removeSendedGet(@PathVariable long id, Model m) {
 		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(getLoggedUser().getId());
@@ -134,7 +128,6 @@ public class MessageController {
 		return "redirect:/message/sended";
 	}
 
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
