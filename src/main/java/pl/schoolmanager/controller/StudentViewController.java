@@ -19,6 +19,10 @@ public class StudentViewController {
 	@Autowired
 	private StudentRepository studentRepository;
 	
+	@GetMapping("/")
+	public String stidentHome(Model m) {
+		return "student_view/division_students";
+	}
 
 	@GetMapping("/division")
 	public String all(Model m) {

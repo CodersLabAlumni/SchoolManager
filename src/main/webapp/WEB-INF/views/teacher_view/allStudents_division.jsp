@@ -12,21 +12,25 @@
 	<%@ include file="../jspf/teacher_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>All Subjects</legend>
+		<legend>Division: ${division.name} </legend>
+
 
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
-					<th scope="col">NAME</th>
-					<th scope="col">DESCRIPTION</th>
+					<th scope="col">ID</th>
+					<th scope="col">FIRST NAME</th>
+					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${teacherSubjects}" var="subject">
+
+				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
-						<td><a href="${pageContext.request.contextPath}/teacherView/viewSubject/${subject.id}"><c:out value="${subject.name}" /></a></td>
-						<td><c:out value="${subject.description}" /></td>
+						<td><c:out value="${student.id}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -34,11 +38,10 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/teacherView/viewSubject/${subject.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/teacherView/updateSubject/${subject.id}">Update</a>
+											href="${pageContext.request.contextPath}/student/view/${student.id}">View
+											details</a>
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/teacherView/deleteSubject/${subject.id}">Delete</a>
+											href="${pageContext.request.contextPath}/teacherView/createMark/${student.id}">Give mark</a>
 									</div>
 								</div>
 							</div>
@@ -48,7 +51,8 @@
 			</tbody>
 		</table>
 
-
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
