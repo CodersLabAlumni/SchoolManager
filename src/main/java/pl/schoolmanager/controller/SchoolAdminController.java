@@ -231,7 +231,7 @@ public class SchoolAdminController {
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER")) {
+			if (userRole.getUserRole().equals("ROLE_SCHOOLADMIN")) {
 				schools.add(userRole.getSchool());
 			}
 		}
