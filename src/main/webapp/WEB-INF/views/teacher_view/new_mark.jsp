@@ -9,14 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/teacher_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
 
 		<form:form method="post" modelAttribute="mark" class="form-horizontal">
 			<fieldset>
-				<legend>Add new mark for: ${mark.student.firstName}
-					${mark.student.lastName}</legend>
+				<legend>Add new mark for: ${mark.student.userRole.user.firstName}
+					${mark.student.userRole.user.lastName}</legend>
 
 				<div class="form-group">
 					<label for="markValue" class="col-2 col-form-label">Mark value</label>

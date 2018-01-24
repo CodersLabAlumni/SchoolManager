@@ -29,6 +29,7 @@ import org.springframework.web.servlet.view.JstlView;
 import pl.schoolmanager.converter.SchoolConverter;
 import pl.schoolmanager.converter.StudentConverter;
 import pl.schoolmanager.converter.SubjectConverter;
+import pl.schoolmanager.converter.TeacherConverter;
 
 @Configuration
 @ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity" })
@@ -101,6 +102,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		registry.addConverter(getSubjectConverter());
 		registry.addConverter(getStudentConverter());
 		registry.addConverter(getSchoolConverter());
+		registry.addConverter(getTeacherConverter());
 	}
 
 	@Bean
@@ -116,5 +118,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public SchoolConverter getSchoolConverter() {
 		return new SchoolConverter();
+	}
+	
+	@Bean
+	public TeacherConverter getTeacherConverter() {
+		return new TeacherConverter();
 	}
 }

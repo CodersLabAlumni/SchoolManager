@@ -14,45 +14,14 @@
 
 	<div class="jumbotron">
 
-		<h1>
+		<h1 align="center">
 			Welcome to School Manager <b><sec:authentication
 					property="principal.username" /> </b>.
 		</h1>
 
-		<h2>Use top menu to navigate the website</h2>
-		<h3>
-			<a href="${pageContext.request.contextPath}/logout"
-				class="btn btn-primary">Logout</a>
-		</h3>
-		<div>
+		<h2 align="center">Use top menu to navigate the website</h2>
 
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/student/userStudent">Open
-				student profile</a>
-		</div>
-		<div>
 
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/userTeacher">Open
-				teacher profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/student/userNewStudent">Create
-				student profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
-				teacher profile</a>
-		</div>
-		<div>
-
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/school/all">"Can do anything profile" (for developers)</a>
-		</div>
 
 
 	</div>
