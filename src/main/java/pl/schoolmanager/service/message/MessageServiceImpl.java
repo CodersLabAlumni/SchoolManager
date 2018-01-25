@@ -37,6 +37,7 @@ public class MessageServiceImpl implements MessageService {
             message.setReceiver(userRepository.findOneByEmail(receiverEmail));
             message.setMessageData(createMessageData(message));
             message = messageRepository.save(message);
+            sessionManager.updateMessageValues();
         }
         return message;
     }
@@ -59,7 +60,9 @@ public class MessageServiceImpl implements MessageService {
     public Message markAsRead(long messageId) {
         Message message = messageRepository.findOne(messageId);
         message.setChecked(1);
-        return messageRepository.save(message);
+        message = messageRepository.save(message);
+        sessionManager.updateMessageValues();
+        return message;
     }
 
     @Override
@@ -83,6 +86,7 @@ public class MessageServiceImpl implements MessageService {
         } else {
             messageRepository.save(message);
         }
+        sessionManager.updateMessageValues();
         return message;
     }
 

@@ -19,4 +19,10 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findAllByReceiver(User receiver);
 
+    int countByReceiver(User receiver);
+
+    int countBySender(User sender);
+
+    int countByReceiverAndChecked(User receiver, int checked);
+
 }

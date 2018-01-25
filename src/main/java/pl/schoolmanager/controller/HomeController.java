@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
@@ -24,8 +25,12 @@ public class HomeController {
 	@Autowired
 	private UserRoleRepository userRoleRepo;
 
+	@Autowired
+	private SessionManager sessionManager;
+
 	@GetMapping("/")
 	public String home() {
+		sessionManager.updateMessageValues();
 		return "home/home";
 	}
 
