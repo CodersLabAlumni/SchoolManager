@@ -158,6 +158,14 @@ public class StudentController {
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
 	}
+	
+	// SHOW ALL FROM SCHOOL
+	@ModelAttribute("schoolStudents")
+	public List<Student> getSchoolStudents() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.studentRepository.findAllBySchool(school);
+	}
 
 	@GetMapping("/all")
 	public String all(Model m) {
