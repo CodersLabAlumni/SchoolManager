@@ -85,21 +85,4 @@ public class MessageController {
 		return "redirect:/message/sent";
 	}
 
-
-	///
-	@ModelAttribute("countAllReceivedMessages")
-	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllSendedMessages")
-	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId()).size();
-	}
-	
-	@ModelAttribute("countAllReceivedUnreadedMessages")
-	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(sessionManager.loggedUser().getId(), 0).size();
-	}
-
 }
