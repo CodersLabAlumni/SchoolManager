@@ -38,8 +38,10 @@ public class MessageServiceImpl implements MessageService {
             message.setMessageData(createMessageData(message));
             message = messageRepository.save(message);
             sessionManager.updateMessageValues();
+            return message;
+        } else {
+            throw new IllegalArgumentException();
         }
-        return message;
     }
 
     @Override
@@ -100,10 +102,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     private boolean isEmailValid(String email) {
-        if (!isEmailExists(email) || isLoggedUserEmail(email)) {
-            throw new IllegalArgumentException();
-        }
-        return true;
+        return isEmailExists(email) && !isLoggedUserEmail(email);
     }
 
     private boolean isEmailExists(String email) {
