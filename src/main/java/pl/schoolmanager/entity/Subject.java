@@ -28,6 +28,7 @@ public class Subject {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotBlank
 	private String name;
 
@@ -113,5 +114,4 @@ public class Subject {
 		this.school = school;
 	}
 
-	
 }

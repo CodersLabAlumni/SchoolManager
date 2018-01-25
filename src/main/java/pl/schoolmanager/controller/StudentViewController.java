@@ -19,7 +19,6 @@ public class StudentViewController {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-
 	@GetMapping("/division")
 	public String all(Model m) {
 		return "student_view/division_students";
@@ -34,6 +33,5 @@ public class StudentViewController {
 	public String marks(Model m) {
 		return "student_view/marks_student";
 	}
-
 
 }

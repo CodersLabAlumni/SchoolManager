@@ -31,10 +31,10 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private UserRoleRepository userRoleRepo;
 
-	// CREATE
 	@GetMapping("/create")
 	public String createUser(Model m) {
 		m.addAttribute("user", new User());
@@ -58,7 +58,6 @@ public class UserController {
 		}
 	}
 	
-	// READ
 	@GetMapping("/view/{userId}")
 	public String viewUser(Model m, @PathVariable long userId) {
 		User user = this.userRepo.findOne(userId);
@@ -66,7 +65,6 @@ public class UserController {
 		return "user/show_user";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{userId}")
 	public String updateUserRole(Model m, @PathVariable long userId) {
 		User user = this.userRepo.findOne(userId);
@@ -91,7 +89,6 @@ public class UserController {
 		return "redirect:/user/all";
 	}
 	
-	//CHANGE USER PASSWORD
 	@GetMapping("/changepassword/{userId}")
 	public String changePassword(@PathVariable long userId, Model m) {
 		User user = userRepo.findOne(userId);
@@ -113,7 +110,6 @@ public class UserController {
 		return "redirect:/user/all";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{userId}")
 	public String deleteUser(@PathVariable long userId, Model m) {
 		User user = this.userRepo.findOne(userId);
@@ -128,13 +124,11 @@ public class UserController {
 		
 	}
 
-	// SHOW ALL
 	@GetMapping("/all")
 	public String allUsers(Model m) {
 		return "user/all_users";
 	}
 	
-	//Model Attributes
 	@ModelAttribute("availableUsers")
 	public List<User> getUsers() {
 		return this.userRepo.findAll();
