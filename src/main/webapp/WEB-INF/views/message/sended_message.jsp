@@ -9,7 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:when test="${thisTeacher != null}">
+			<%@ include file="../jspf/teacher_menu.jspf"%>
+		</c:when>
+		<c:when test="${thisStudent != null}">
+			<%@ include file="../jspf/student_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
 		<legend>All sended message</legend>

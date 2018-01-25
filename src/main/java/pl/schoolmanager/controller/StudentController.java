@@ -62,6 +62,8 @@ public class StudentController {
 	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "student/user_new_student";
 	}
 
@@ -89,6 +91,8 @@ public class StudentController {
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "student/user_student";
 	}
 
@@ -157,6 +161,14 @@ public class StudentController {
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
+	}
+	
+	// SHOW ALL FROM SCHOOL
+	@ModelAttribute("schoolStudents")
+	public List<Student> getSchoolStudents() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.studentRepository.findAllBySchool(school);
 	}
 
 	@GetMapping("/all")
