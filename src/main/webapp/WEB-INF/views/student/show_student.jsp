@@ -9,7 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
 		<legend>Student details: ${student.userRole.user.firstName}
@@ -33,11 +40,13 @@
 				</tr>
 				<tr class="table-light">
 					<td>First name</td>
-					<td scope="row"><c:out value="${student.userRole.user.firstName}" /></td>
+					<td scope="row"><c:out
+							value="${student.userRole.user.firstName}" /></td>
 				</tr>
 				<tr class="table-light">
 					<td>Last name</td>
-					<td scope="row"><c:out value="${student.userRole.user.lastName}" /></td>
+					<td scope="row"><c:out
+							value="${student.userRole.user.lastName}" /></td>
 				</tr>
 			</tbody>
 		</table>
