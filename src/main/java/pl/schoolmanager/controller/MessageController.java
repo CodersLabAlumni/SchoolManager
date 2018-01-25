@@ -3,25 +3,15 @@ package pl.schoolmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
-import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageRepository;
-import pl.schoolmanager.repository.UserRepository;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
+import pl.schoolmanager.service.message.MessageService;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController {
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@Autowired
 	private MessageRepository messageRepository;
@@ -29,102 +19,74 @@ public class MessageController {
 	@Autowired
 	private SessionManager sessionManager;
 
+	@Autowired
+	private MessageService messageService;
+
 	@GetMapping("/create")
 	public String createMessage(Model m) {
-		Message message = new Message();
-		message.setCreated(new Date());
-
-		m.addAttribute("message", message);
+		m.addAttribute("message", new Message());
 		return "message/new_message";
 	}
 
 	@PostMapping("/create")
-	@Transactional
-	public String createMessagePost(@Valid @ModelAttribute Message message, BindingResult bindingResult, Model m) {
-		if (bindingResult.hasErrors()) {
+	public String createMessage(@ModelAttribute Message message, Model m) {
+		try {
+			messageService.save(message);
+		} catch (IllegalArgumentException e) {
+			m.addAttribute("errorMessage", "You cannot send message to yourself or to user that's not exists");
 			return "message/new_message";
 		}
-		User receiver = this.userRepository.findOneByEmail(message.getReceiverEmail());
-		if (receiver == null) {
-			m.addAttribute("errorMessage", "User with this e-mail doesn't exist in database");
-			return "message/new_message";
-		}
-		if (message.getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
-			m.addAttribute("errorMessage", "You cannot send message to yourself");
-			return "message/new_message";
-		}
-		User sender = this.userRepository.findOne(sessionManager.loggedUser().getId());
-		message.setSender(sender);
-		message.setSenderDescription(sender.getEmail());
-		message.setReceiverDescription(receiver.getUsername() + "<" + receiver.getEmail() + ">");
-		message.setReceiver(receiver);
-		this.messageRepository.save(message);
-		return "redirect:/message/sended";
+		return "redirect:/message/sent";
 	}
 
-	@GetMapping("/recived")
-	public String recivedMessage(Model m) {
-		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId());
-		m.addAttribute("receivedMessages", receivedMessages);
+	@GetMapping("/received")
+	public String receivedMessages(Model m) {
+		m.addAttribute("receivedMessages", messageService.receivedMessages(sessionManager.loggedUser()));
 		return "message/received_message";
 	}
 
-	@GetMapping("/sended")
-	public String sendedMessage(Model m) {
-		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId());
-		m.addAttribute("sendedMessages", sendedMessages);
-		return "message/sended_message";
+	@GetMapping("/sent")
+	public String sentMessages(Model m) {
+		m.addAttribute("sentMessages", messageService.sentMessages(sessionManager.loggedUser()));
+		return "message/sent_message";
 	}
 
 	@GetMapping("/view/{messageId}")
 	public String viewMessage(Model m, @PathVariable long messageId) {
-		Message message = this.messageRepository.findOne(messageId);
-		if (message.getChecked()==0) {
-			message.setChecked(1);
-			this.messageRepository.save(message);
-		}
-		m.addAttribute("message", message);
+		m.addAttribute("message", messageService.markAsRead(messageId));
 		return "message/show_message";
 	}
 
 	@GetMapping("/remove/received/{id}")
-	public String removeReceivedGet(@PathVariable long id, Model m) {
-		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId());
-		Message message = this.messageRepository.findOne(id);
-		m.addAttribute("receivedMessages", receivedMessages);
-		m.addAttribute("message", message);
+	public String removeReceivedMessage(@PathVariable long id, Model m) {
+		m.addAttribute("receivedMessages", messageService.receivedMessages(sessionManager.loggedUser()));
+		m.addAttribute("message", messageService.message(id));
 		m.addAttribute("remove", id);
 		return "message/received_message";
 	}
 
 	@PostMapping("/remove/received/{id}")
-	@Transactional
-	public String removeReceivedPost(@PathVariable long id) {
-		Message message = this.messageRepository.findOne(id);
-		message.setReceiver(null);
-		this.messageRepository.save(message);
-		return "redirect:/message/recived";
+	public String removeReceivedMessage(@PathVariable long id) {
+		messageService.removeReceiver(id);
+		return "redirect:/message/received";
 	}
 
-	@GetMapping("/remove/sended/{id}")
-	public String removeSendedGet(@PathVariable long id, Model m) {
-		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId());
-		Message message = this.messageRepository.findOne(id);
-		m.addAttribute("sendedMessages", sendedMessages);
-		m.addAttribute("message", message);
+	@GetMapping("/remove/sent/{id}")
+	public String removeSentMessage(@PathVariable long id, Model m) {
+		m.addAttribute("sentMessages", messageService.sentMessages(sessionManager.loggedUser()));
+		m.addAttribute("message", messageService.message(id));
 		m.addAttribute("remove", id);
-		return "message/sended_message";
+		return "message/sent_message";
 	}
 
-	@PostMapping("/remove/sended/{id}")
-	@Transactional
-	public String removeSendedPost(@PathVariable long id) {
-		Message message = this.messageRepository.findOne(id);
-		message.setSender(null);
-		this.messageRepository.save(message);
-		return "redirect:/message/sended";
+	@PostMapping("/remove/sent/{id}")
+	public String removeSentMessage(@PathVariable long id) {
+		messageService.removeSender(id);
+		return "redirect:/message/sent";
 	}
 
+
+	///
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId()).size();
