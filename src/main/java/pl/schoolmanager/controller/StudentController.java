@@ -62,6 +62,8 @@ public class StudentController {
 	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "student/user_new_student";
 	}
 
@@ -89,6 +91,8 @@ public class StudentController {
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "student/user_student";
 	}
 

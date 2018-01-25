@@ -79,6 +79,8 @@ public class SchoolAdminController {
 	@GetMapping("/userNewSchoolAdmin")
 	public String newSchoolAdminFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "school_admin/user_new_school_admin";
 	}
 
@@ -105,6 +107,8 @@ public class SchoolAdminController {
 	@GetMapping("/userSchoolAdmin")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
+		HttpSession s = SessionManager.session();
+		s.invalidate();
 		return "school_admin/user_school_admin";
 	}
 

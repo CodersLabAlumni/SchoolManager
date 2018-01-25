@@ -9,7 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:when test="${thisTeacher != null}">
+			<%@ include file="../jspf/teacher_menu.jspf"%>
+		</c:when>
+		<c:when test="${thisStudent != null}">
+			<%@ include file="../jspf/student_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
 
@@ -19,12 +32,12 @@
 				<legend>New message</legend>
 
 				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">Receiver e-mail </label>
-					<span class="text-danger">${errorMessage}</span>
+					<label for="inputEmail" class="col-lg-2 control-label">Receiver
+						e-mail </label> <span class="text-danger">${errorMessage}</span>
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputEmail"
 							aria-describedby="emailHelp" placeholder="Enter email"
-							type="email" path="receiverEmail"/>
+							type="email" path="receiverEmail" />
 						<form:errors path="receiverEmail" class="text-danger" />
 					</div>
 				</div>
@@ -43,7 +56,8 @@
 						content</label>
 					<div class="col-lg-10">
 						<form:textarea class="form-control" rows="3" id="textArea"
-							path="content" /></textarea>
+							path="content" />
+						</textarea>
 						<form:errors path="content" />
 					</div>
 				</div>
