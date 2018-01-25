@@ -56,7 +56,6 @@ public class MessageController {
 	@GetMapping("/remove/received/{id}")
 	public String removeReceivedMessage(@PathVariable long id, Model m) {
 		m.addAttribute("receivedMessages", messageService.receivedMessages(sessionManager.loggedUser()));
-		m.addAttribute("message", messageService.message(id));
 		m.addAttribute("remove", id);
 		return "message/received_message";
 	}
@@ -70,7 +69,6 @@ public class MessageController {
 	@GetMapping("/remove/sent/{id}")
 	public String removeSentMessage(@PathVariable long id, Model m) {
 		m.addAttribute("sentMessages", messageService.sentMessages(sessionManager.loggedUser()));
-		m.addAttribute("message", messageService.message(id));
 		m.addAttribute("remove", id);
 		return "message/sent_message";
 	}
