@@ -39,7 +39,6 @@ public class SubjectController {
 	@Autowired
 	private MessageRepository messageRepository;
 	
-	// CREATE
 	@GetMapping("/create")
 	public String createSubject(Model m) {
 		m.addAttribute("subject", new Subject());
@@ -55,7 +54,6 @@ public class SubjectController {
 		return "index";
 	}
 
-	// READ
 	@GetMapping("/view/{subjectId}")
 	public String viewSubject(Model m, @PathVariable long subjectId) {
 		Subject subject = this.subjectRepository.findOne(subjectId);
@@ -63,7 +61,6 @@ public class SubjectController {
 		return "subject/show_subject";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{subjectId}")
 	public String updateSubject(Model m, @PathVariable long subjectId) {
 		Subject subject = this.subjectRepository.findOne(subjectId);
@@ -82,20 +79,17 @@ public class SubjectController {
 		return "index";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{subjectId}")
 	public String deleteSubject(@PathVariable long subjectId) {
 		this.subjectRepository.delete(subjectId);
 		return "index";
 	}
 	
-	// SHOW ALL
 	@ModelAttribute("availableSubjects")
 	public List<Subject> getSubject() {
 		return this.subjectRepository.findAll();
 	}
 	
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
@@ -116,6 +110,5 @@ public class SubjectController {
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepository.findOneByUsername(username);
 	}
-	
-	
+
 }

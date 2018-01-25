@@ -46,7 +46,6 @@ public class MarkController {
 	@Autowired
 	private MessageRepository messageRepository;
 	
-	//CREATE FOR
 	@GetMapping("/create")
 	public String createMark(@RequestParam long subject, @RequestParam long student, Model m) {
 		Subject thisSubject = this.subjectRepository.findOne(subject);
@@ -69,7 +68,6 @@ public class MarkController {
 		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
 	}
 	
-	//READ
 	@GetMapping("/view/{markId}")
 	public String viewMark(Model m, @PathVariable long markId) {
 		Mark mark = this.markRepository.findOne(markId);
@@ -77,8 +75,7 @@ public class MarkController {
 		return "mark/show_mark";
 	}
 	
-	//UPDATE
-	@GetMapping("/update/{markId}")	
+	@GetMapping("/update/{markId}")
 	public String updateMark(@RequestParam long subject, @RequestParam long student, Model m, @PathVariable long markId) {
 		Mark mark = this.markRepository.findOne(markId);
 		m.addAttribute("mark", mark);
@@ -92,27 +89,23 @@ public class MarkController {
 		}
 		mark.setId(markId);
 		
-		
 		this.markRepository.save(mark);
 		Long divisionId = mark.getStudent().getDivision().getId();
 		Long subjectId = mark.getSubject().getId();
 		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
 	}
 	
-	//DELETE
 	@DeleteMapping("/delete/{markId}")
 	public String deleteMark(@PathVariable long markId) {
 		this.markRepository.delete(markId);
 		return "index";
 	}
 	
-	//SHOW ALL
 	@ModelAttribute("availableMarks")
 	public List<Mark> getMarks() {
 		return this.markRepository.findAll();
 	}
 	
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();

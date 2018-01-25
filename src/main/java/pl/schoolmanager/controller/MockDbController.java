@@ -24,14 +24,19 @@ public class MockDbController {
 
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private UserRoleRepository userRoleRepo;
+
 	@Autowired
 	private SchoolRepository schoolRepo;
+
 	@Autowired
 	private StudentRepository studentRepo;
+
 	@Autowired
 	private TeacherRepository teacherRepo;
+
 	@Autowired
 	private SchoolAdminRepository schoolAdminRepo;
 

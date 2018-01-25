@@ -21,11 +21,12 @@ public class Mark {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotBlank
 	private String value;
-	
+
 	private String description;
-	
+
 	private Date date;
 
 	@ManyToOne
@@ -46,7 +47,7 @@ public class Mark {
 		this.description = description;
 		this.date = date;
 	}
-	
+
 	public Mark(Student student, Subject subject) {
 		super();
 		this.student = student;
