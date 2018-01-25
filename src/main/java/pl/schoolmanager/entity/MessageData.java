@@ -18,6 +18,13 @@ public class MessageData {
     @MapsId
     private Message message;
 
+    public MessageData() {
+    }
+
+    public MessageData(Message message) {
+        setMessage(message);
+    }
+
     public long getId() {
         return id;
     }

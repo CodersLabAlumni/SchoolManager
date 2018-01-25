@@ -23,7 +23,7 @@ public class Message {
 	@ManyToOne
 	private User receiver;
 
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private MessageData messageData;
 
 	@CreationTimestamp
