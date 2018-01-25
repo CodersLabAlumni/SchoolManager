@@ -6,15 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
-import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.service.message.MessageService;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController {
-
-	@Autowired
-	private MessageRepository messageRepository;
 
 	@Autowired
 	private SessionManager sessionManager;
