@@ -2,6 +2,7 @@ package pl.schoolmanager.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.Mark;
+import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.User;
@@ -198,6 +201,14 @@ public class DivisionController {
 	}
 
 	// SHOW ALL
+	@ModelAttribute("availableDivisions")
+	public List<Division> getSchoolDivisions() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.divisionRepository.findAllBySchool(school);
+	}
+	
+	// SHOW ALL DIVISIONS IN SCHOOL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getDivisions() {
 		return this.divisionRepository.findAll();

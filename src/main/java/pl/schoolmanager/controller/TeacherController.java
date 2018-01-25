@@ -175,6 +175,14 @@ public class TeacherController {
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
 	}
+	
+	// SHOW ALL FROM SCHOOL
+	@ModelAttribute("schoolTeachers")
+	public List<Teacher> getSchoolTeachers() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.teacherRepository.findAllBySchool(school);
+	}
 
 	// ADD SUBJECT TO TEACHER
 	@GetMapping("/addSubject/{teacherId}")
