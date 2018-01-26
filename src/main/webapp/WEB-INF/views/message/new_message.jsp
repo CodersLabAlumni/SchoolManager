@@ -37,8 +37,7 @@
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputEmail"
 							aria-describedby="emailHelp" placeholder="Enter email"
-							type="email" path="receiverEmail" />
-						<form:errors path="receiverEmail" class="text-danger" />
+							type="email" path="receiver.email"/>
 					</div>
 				</div>
 
@@ -47,7 +46,6 @@
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputTitle"
 							placeholder="Message title" type="text" path="title" />
-						<form:errors path="title" class="text-danger" />
 					</div>
 				</div>
 
@@ -57,8 +55,11 @@
 					<div class="col-lg-10">
 						<form:textarea class="form-control" rows="3" id="textArea"
 							path="content" />
+<<<<<<< 320883889910646c0cf6906a22141aaebfe1f697
 						</textarea>
 						<form:errors path="content" />
+=======
+>>>>>>> tag fix, remove unused error fields in new_message view
 					</div>
 				</div>
 			</fieldset>
