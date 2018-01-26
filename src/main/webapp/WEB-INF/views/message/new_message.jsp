@@ -55,11 +55,7 @@
 					<div class="col-lg-10">
 						<form:textarea class="form-control" rows="3" id="textArea"
 							path="content" />
-<<<<<<< 320883889910646c0cf6906a22141aaebfe1f697
 						</textarea>
-						<form:errors path="content" />
-=======
->>>>>>> tag fix, remove unused error fields in new_message view
 					</div>
 				</div>
 			</fieldset>
