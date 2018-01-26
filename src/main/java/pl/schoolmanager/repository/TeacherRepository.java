@@ -10,9 +10,9 @@ import pl.schoolmanager.entity.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-	Set<Teacher> findAllBySchoolId(long schoolId);
+    Set<Teacher> findAllBySchoolId(long schoolId);
 
-	Set<Teacher> findAllBySchoolIdIsNullOrSchoolIdIsNot(long schoolId);
+    Set<Teacher> findAllBySchoolIdIsNullOrSchoolIdIsNot(long schoolId);
 
 	List<Teacher> findAllBySchool(School school);
 

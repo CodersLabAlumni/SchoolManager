@@ -39,25 +39,20 @@ public class TeacherController {
 	@Autowired
 	private SubjectRepository subjectRepository;
 
-
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private SchoolRepository schoolRepo;
 
-	
-
-
 	@Autowired
 	private MessageRepository messageRepository;
-
 
 	@GetMapping("/all")
 	public String all(Model m) {
 		return "teacher/all_teachers";
 	}
 
-	// CREATE
 	@GetMapping("/create")
 	public String createTeacher(Model m) {
 		m.addAttribute("teacher", new Teacher());
@@ -140,7 +135,6 @@ public class TeacherController {
 		return "redirect:/teacherView/";
 	}
 
-	// READ
 	@GetMapping("/view/{teacherId}")
 	public String viewTeacher(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
@@ -148,7 +142,6 @@ public class TeacherController {
 		return "teacher/show_teacher";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{teacherId}")
 	public String updateTeacher(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
@@ -167,14 +160,12 @@ public class TeacherController {
 		return "index";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{teacherId}")
 	public String deleteTeacher(@PathVariable long teacherId) {
 		this.teacherRepository.delete(teacherId);
 		return "index";
 	}
 
-	// SHOW ALL
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
@@ -188,7 +179,6 @@ public class TeacherController {
 		return this.teacherRepository.findAllBySchool(school);
 	}
 
-	// ADD SUBJECT TO TEACHER
 	@GetMapping("/addSubject/{teacherId}")
 	public String addSubject(Model m, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
@@ -209,8 +199,6 @@ public class TeacherController {
 		return "redirect:/teacher/addSubject/{teacherId}";
 	}
 
-
-	// Additional methods
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
@@ -222,7 +210,7 @@ public class TeacherController {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
 	}
-	// MESSAGES INFO
+
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
@@ -238,7 +226,6 @@ public class TeacherController {
 		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
 	}
 	
-
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
 		User user = getLoggedUser();

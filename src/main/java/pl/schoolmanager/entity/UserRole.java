@@ -16,17 +16,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_role")
 public class UserRole {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
 	private String username;
+
 	@Column(name="user_role")
 	private String userRole;
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	//school information
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "school_id")
 	private School school;

@@ -34,15 +34,16 @@ public class StudentController {
 
 	@Autowired
 	private StudentRepository studentRepository;
+
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private SchoolRepository schoolRepo;
 
 	@Autowired
 	private MessageRepository messageRepository;
 	
-	// CREATE
 	@GetMapping("/create")
 	public String createStudent(Model m) {
 		m.addAttribute("student", new Student());
@@ -127,7 +128,6 @@ public class StudentController {
 		return "redirect:/studentView/";
 	}
 
-	// READ
 	@GetMapping("/view/{studentId}")
 	public String viewStudent(Model m, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
@@ -135,7 +135,6 @@ public class StudentController {
 		return "student/show_student";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{studentId}")
 	public String updateStudent(Model m, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
@@ -154,14 +153,12 @@ public class StudentController {
 		return "index";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{studentId}")
 	public String deleteStudent(@PathVariable long studentId) {
 		this.studentRepository.delete(studentId);
 		return "index";
 	}
 
-	// SHOW ALL
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
@@ -180,7 +177,6 @@ public class StudentController {
 		return "student/all_students";
 	}
 
-	// Additional methods
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
@@ -199,7 +195,6 @@ public class StudentController {
 		return availableSchools;
 	}
 	
-
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
 		User user = getLoggedUser();
@@ -213,8 +208,6 @@ public class StudentController {
 		return schools;
 	}
 
-
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();

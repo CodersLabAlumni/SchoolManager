@@ -10,6 +10,7 @@ import pl.schoolmanager.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
+
 	List<Student>findAllByDivisionId(long divisionId);
 	List<Student>findAllByDivisionIdIsNull();
 	
@@ -17,4 +18,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	Set<Student> findAllBySchoolIdIsNullOrSchoolIdIsNot(long schoolId);
 	
 	List<Student> findAllBySchool(School school);
+
 }

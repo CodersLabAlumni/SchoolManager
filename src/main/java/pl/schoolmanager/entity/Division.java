@@ -27,6 +27,7 @@ public class Division {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotEmpty
 	private String name;
 
@@ -43,7 +44,6 @@ public class Division {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany (mappedBy = "division")
 	List <Subject> subject = new ArrayList<>();
-	
 	
 	public Division() {
 		super();
@@ -103,6 +103,4 @@ public class Division {
 		this.school = school;
 	}
 
-	
-	
 }

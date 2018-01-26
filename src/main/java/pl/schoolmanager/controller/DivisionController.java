@@ -57,7 +57,6 @@ public class DivisionController {
 		return "division/all_divisions";
 	}
 
-	// CREATE
 	@GetMapping("/create")
 	public String createDivision(Model m) {
 		m.addAttribute("division", new Division());
@@ -73,7 +72,6 @@ public class DivisionController {
 		return "index";
 	}
 
-	// READ
 	@GetMapping("/view/{divisionId}")
 	public String viewDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -81,7 +79,6 @@ public class DivisionController {
 		return "division/show_division";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{divisionId}")
 	public String updateDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -100,14 +97,12 @@ public class DivisionController {
 		return "index";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{divisionId}")
 	public String deleteDivision(@PathVariable long divisionId) {
 		this.divisionRepository.delete(divisionId);
 		return "index";
 	}
 
-	// INSIDE DIVISION
 	@GetMapping("/inside/{divisionId}")
 	public String insideDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -119,7 +114,6 @@ public class DivisionController {
 		return "division/inside_division";
 	}
 
-	// ADD STUDENT TO DIVISION
 	@GetMapping("/addStudent/{divisionId}")
 	public String addStudent(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -140,7 +134,6 @@ public class DivisionController {
 		return "redirect:/division/addStudent/{divisionId}";
 	}
 
-	// ADD SUBJECT TO DIVISION
 	@GetMapping("/addSubject/{divisionId}")
 	public String addSubject(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -162,7 +155,6 @@ public class DivisionController {
 		return "redirect:/division/addSubject/{divisionId}";
 	}
 
-	// ALL STUDENTS IN DIVISION
 	@GetMapping("/inside/students/{divisionId}")
 	public String studentsInsideDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -174,7 +166,6 @@ public class DivisionController {
 		return "division/allStudents_division";
 	}
 
-	// ALL SUBJECTS IN DIVISION
 	@GetMapping("/inside/subjects/{divisionId}")
 	public String subjectsInsideDivision(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -184,7 +175,6 @@ public class DivisionController {
 		return "division/allSubjects_division";
 	}
 
-	// ALL MARKS IN SUBJECT IN DIVISION
 	@GetMapping("/inside/marks/{divisionId}/{subjectId}")
 	public String subjectsMarksInsideDivision(Model m, @PathVariable long divisionId, @PathVariable long subjectId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -200,7 +190,6 @@ public class DivisionController {
 		return "division/allStudentsMarks_division";
 	}
 
-	// SHOW ALL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getSchoolDivisions() {
 		HttpSession s = SessionManager.session();
@@ -214,7 +203,6 @@ public class DivisionController {
 		return this.divisionRepository.findAll();
 	}
 
-	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
 		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();

@@ -35,7 +35,6 @@ public class Student {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private School school;
 	
-	//relation with user role
 	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
 	private UserRole userRole;

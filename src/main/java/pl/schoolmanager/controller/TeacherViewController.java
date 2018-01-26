@@ -53,11 +53,11 @@ public class TeacherViewController {
 	@GetMapping("/all")
 	public String all(Model m) {
 		return "test";
-//		return "teacher_view/division_students";
 	}
 	
+
 	//HOME
-	@GetMapping("/")
+	@GetMapping("")
 	public String teacherHome(Model m) {
 		return "teacher_view/teacher_subjects";
 	}
@@ -68,8 +68,6 @@ public class TeacherViewController {
 		return "teacher_view/teacher_subjects";
 	}
 	
-	
-	// CREATE
 	@GetMapping("/createSubjects")
 	public String createSubject(Model m) {
 		m.addAttribute("subject", new Subject());
@@ -84,24 +82,6 @@ public class TeacherViewController {
 		HttpSession s = SessionManager.session();
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
 		School school = (School) s.getAttribute("thisSchool");
-//		HttpSession s = SessionManager.session();
-//		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
-//		School school = (School) s.getAttribute("thisSchool");
-//		List<Subject> subjects = teacher.getSubject();
-//		subjects.add(subject);
-//		teacher.setSubject(subjects);
-//		m.addAttribute("teacher1", teacher);
-//		subject.setSchool(school);
-//		this.teacherRepository.save(teacher);
-//		this.subjectRepository.save(subject);
-		
-/*		List<Subject> subjects = teacher.getSubject();
-		subjects.add(subject);
-		teacher.setSubject(subjects);
-		this.teacherRepository.save(teacher);
-		this.subjectRepository.save(subject);*/
-//		teacher.setId(20l);
-		m.addAttribute("teacher1", teacher);
 		subject.setSchool(school);
 		subject.getTeacher()/*.add(teacher)*/;
 		List<Subject> subjects = teacher.getSubject();
@@ -235,4 +215,5 @@ public class TeacherViewController {
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
 		return this.subjectRepository.findAllByTeacher(teacher);
 	}
+
 }

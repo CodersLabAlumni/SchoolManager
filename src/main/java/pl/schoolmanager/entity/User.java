@@ -26,20 +26,25 @@ import pl.schoolmanager.validator.NewUsernameValidator;
 @Entity
 @Table(name = "user")
 public class User {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+
 	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Size(min=5, max=25, groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String username;
+
 	@NotNull(groups = NewUsernameValidator.class)
 	@NotEmpty(groups = NewUsernameValidator.class)
 	@Size(min=5, max=100, groups = NewUsernameValidator.class)
 	private String password;
+
 	@Transient
 	private String confirmPassword;
+
 	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
@@ -48,10 +53,12 @@ public class User {
 	
 	@NotBlank
 	private String firstName;
+
 	@NotBlank
 	private String lastName;
 	
 	private boolean enabled;
+
 	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
@@ -74,7 +81,6 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", enabled=" + enabled + ", userRoles=" + userRoles + "]";
 	}
-
 
 	public long getId() {
 		return id;
@@ -159,4 +165,5 @@ public class User {
 	public String getFullName() {
 		return this.firstName + " " +this.lastName;
 	}
+
 }
