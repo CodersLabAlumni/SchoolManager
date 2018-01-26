@@ -90,7 +90,7 @@ public class TeacherController {
 	@GetMapping("/userTeacher")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("teacher", new Teacher());
-		HttpSession s = SessionManager.session
+		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
 		s.setAttribute("thisStudent", null);

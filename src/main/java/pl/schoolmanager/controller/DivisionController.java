@@ -1,28 +1,15 @@
 package pl.schoolmanager.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.Division;
-import pl.schoolmanager.entity.Mark;
-import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.Student;
-import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.*;
 import pl.schoolmanager.repository.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
