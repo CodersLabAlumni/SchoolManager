@@ -200,7 +200,7 @@ public class TeacherController {
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (Role.ROLE_TEACHER.isEqual(userRole.getUserRole())) {
+			if (Role.TEACHER.isEqualTo(userRole.getUserRole())) {
 				schools.add(userRole.getSchool());
 			}
 		}

@@ -65,7 +65,7 @@ public class HomeController {
 			m.addAttribute("msg", "Please make sure that both passwords match!");
 			return "home/register";
 		}
-		UserRole userRole = roleFactory.get(Role.ROLE_USER);
+		UserRole userRole = roleFactory.get(Role.USER);
 		user.setEnabled(true);
 		userRole.setUser(user);
 		this.userRepo.save(user);

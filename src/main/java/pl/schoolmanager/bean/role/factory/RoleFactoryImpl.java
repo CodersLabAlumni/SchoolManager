@@ -10,7 +10,7 @@ public class RoleFactoryImpl implements RoleFactory {
     @Override
     public UserRole get(Role role) {
         UserRole userRole = new UserRole();
-        userRole.setUserRole(role.name());
+        userRole.setUserRole(role.value());
         return userRole;
     }
 

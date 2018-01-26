@@ -2,15 +2,25 @@ package pl.schoolmanager.bean.role;
 
 public enum Role {
 
-    ROLE_ADMIN,
-    ROLE_USER,
-    ROLE_STUDENT,
-    ROLE_TEACHER,
-    ROLE_SCHOOLADMIN,
-    ROLE_PARENT;
+    ADMIN("ROLE_ADMIN"),
+    USER("ROLE_USER"),
+    STUDENT("ROLE_STUDENT"),
+    TEACHER("ROLE_TEACHER"),
+    SCHOOLADMIN("ROLE_SCHOOLADMIN"),
+    PARENT("ROLE_PARENT");
 
-    public boolean isEqual(String role) {
-        return this.equals(valueOf(role));
+    private String role;
+
+    Role(String role) {
+        this.role = role;
+    }
+
+    public boolean isEqualTo(String role) {
+        return this.role.equals(role);
+    }
+
+    public String value() {
+        return role;
     }
 
 }
