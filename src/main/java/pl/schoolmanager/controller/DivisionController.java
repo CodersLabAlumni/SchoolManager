@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,13 +21,10 @@ import pl.schoolmanager.entity.Mark;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
-import pl.schoolmanager.entity.User;
-import pl.schoolmanager.repository.DivisionRepository;
-import pl.schoolmanager.repository.MarkRepository;
-import pl.schoolmanager.repository.MessageRepository;
-import pl.schoolmanager.repository.StudentRepository;
-import pl.schoolmanager.repository.SubjectRepository;
-import pl.schoolmanager.repository.UserRepository;
+import pl.schoolmanager.repository.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/division")
@@ -45,12 +41,12 @@ public class DivisionController {
 
 	@Autowired
 	private MarkRepository markRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private SessionManager sessionManager;
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -205,22 +201,17 @@ public class DivisionController {
 
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId()).size();
 	}
 
 	@ModelAttribute("countAllSendedMessages")
 	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId()).size();
 	}
 	
 	@ModelAttribute("countAllReceivedUnreadedMessages")
 	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
+		return this.messageRepository.findAllByReceiverIdAndChecked(sessionManager.loggedUser().getId(), 0).size();
 	}
-	
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepository.findOneByUsername(username);
-	}
+
 }

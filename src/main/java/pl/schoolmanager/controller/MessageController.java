@@ -1,26 +1,20 @@
 package pl.schoolmanager.controller;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.UserRepository;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/message")
@@ -31,6 +25,9 @@ public class MessageController {
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private SessionManager sessionManager;
 
 	@GetMapping("/create")
 	public String createMessage(Model m) {
@@ -52,11 +49,11 @@ public class MessageController {
 			m.addAttribute("errorMessage", "User with this e-mail doesn't exist in database");
 			return "message/new_message";
 		}
-		if (message.getReceiverEmail().equals(getLoggedUser().getEmail())) {
+		if (message.getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
 			m.addAttribute("errorMessage", "You cannot send message to yourself");
 			return "message/new_message";
 		}
-		User sender = this.userRepository.findOne(getLoggedUser().getId());
+		User sender = this.userRepository.findOne(sessionManager.loggedUser().getId());
 		message.setSender(sender);
 		message.setSenderDescription(sender.getEmail());
 		message.setReceiverDescription(receiver.getUsername() + "<" + receiver.getEmail() + ">");
@@ -67,14 +64,14 @@ public class MessageController {
 
 	@GetMapping("/recived")
 	public String recivedMessage(Model m) {
-		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(getLoggedUser().getId());
+		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId());
 		m.addAttribute("receivedMessages", receivedMessages);
 		return "message/received_message";
 	}
 
 	@GetMapping("/sended")
 	public String sendedMessage(Model m) {
-		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(getLoggedUser().getId());
+		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId());
 		m.addAttribute("sendedMessages", sendedMessages);
 		return "message/sended_message";
 	}
@@ -92,7 +89,7 @@ public class MessageController {
 
 	@GetMapping("/remove/received/{id}")
 	public String removeReceivedGet(@PathVariable long id, Model m) {
-		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(getLoggedUser().getId());
+		List<Message> receivedMessages = this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId());
 		Message message = this.messageRepository.findOne(id);
 		m.addAttribute("receivedMessages", receivedMessages);
 		m.addAttribute("message", message);
@@ -111,7 +108,7 @@ public class MessageController {
 
 	@GetMapping("/remove/sended/{id}")
 	public String removeSendedGet(@PathVariable long id, Model m) {
-		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(getLoggedUser().getId());
+		List<Message> sendedMessages = this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId());
 		Message message = this.messageRepository.findOne(id);
 		m.addAttribute("sendedMessages", sendedMessages);
 		m.addAttribute("message", message);
@@ -130,23 +127,17 @@ public class MessageController {
 
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId()).size();
 	}
 
 	@ModelAttribute("countAllSendedMessages")
 	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId()).size();
 	}
 	
 	@ModelAttribute("countAllReceivedUnreadedMessages")
 	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-	
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepository.findOneByUsername(username);
+		return this.messageRepository.findAllByReceiverIdAndChecked(sessionManager.loggedUser().getId(), 0).size();
 	}
 
 }

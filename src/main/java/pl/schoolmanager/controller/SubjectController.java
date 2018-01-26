@@ -1,25 +1,17 @@
 package pl.schoolmanager.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Subject;
-import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SubjectRepository;
-import pl.schoolmanager.repository.UserRepository;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/subject")
@@ -27,18 +19,18 @@ public class SubjectController {
 
 	@Autowired
 	private SubjectRepository subjectRepository;
-	
+
+	@Autowired
+	private MessageRepository messageRepository;
+
+	@Autowired
+	private SessionManager sessionManager;
+
 	@GetMapping("/all")
 	public String all(Model m) {
 		return "subject/all_subjects";
 	}
-	
-	@Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private MessageRepository messageRepository;
-	
 	@GetMapping("/create")
 	public String createSubject(Model m) {
 		m.addAttribute("subject", new Subject());
@@ -92,23 +84,17 @@ public class SubjectController {
 	
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllByReceiverId(sessionManager.loggedUser().getId()).size();
 	}
 
 	@ModelAttribute("countAllSendedMessages")
 	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
+		return this.messageRepository.findAllBySenderId(sessionManager.loggedUser().getId()).size();
 	}
 	
 	@ModelAttribute("countAllReceivedUnreadedMessages")
 	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-	
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepository.findOneByUsername(username);
+		return this.messageRepository.findAllByReceiverIdAndChecked(sessionManager.loggedUser().getId(), 0).size();
 	}
 
 }
