@@ -25,7 +25,7 @@
 	</c:choose>
 
 	<div class="jumbotron">
-		<legend>All sended message</legend>
+		<legend>All sent message</legend>
 
 		<table class="table table-bordered">
 			<thead>
@@ -37,14 +37,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${sendedMessages}" var="sended">
+				<c:forEach items="${sentMessages}" var="sent">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${sended.receiverDescription}" /></td>
-						<td><c:out value="${sended.title}" /></td>
-						<td><c:out value="${sended.created}" /></td>
+						<td scope="row"><c:out value="${sent.receiverDescription}" /></td>
+						<td><c:out value="${sent.title}" /></td>
+						<td><c:out value="${sent.created}" /></td>
 						<td><c:choose>
-								<c:when test="${remove eq sended.id}">
-									<form:form method="post" modelAttribute="message">
+								<c:when test="${remove eq sent.id}">
+									<form:form method="post">
 										<%@ include file="../jspf/confirm.jspf"%>
 									</form:form>
 								</c:when>
@@ -55,9 +55,9 @@
 												data-toggle="dropdown"></button>
 											<div class="dropdown-menu">
 												<a class="dropdown-item"
-													href="${pageContext.request.contextPath}/message/view/${sended.id}">DETAILS</a>
+													href="${pageContext.request.contextPath}/message/view/${sent.id}">DETAILS</a>
 												<a class="dropdown-item"
-													href="${pageContext.request.contextPath}/message/remove/sended/${sended.id}">REMOVE</a>
+													href="${pageContext.request.contextPath}/message/remove/sent/${sent.id}">REMOVE</a>
 											</div>
 										</div>
 									</div>
