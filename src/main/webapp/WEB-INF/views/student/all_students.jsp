@@ -9,10 +9,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
-		<legend>All Students</legend>
+		<c:choose>
+			<c:when test="${thisSchoolAdmin != null}">
+				<legend>All Students from ${thisSchool.name}</legend>
+			</c:when>
+			<c:otherwise>
+				<legend>All Students</legend>
+			</c:otherwise>
+		</c:choose>
+
+
 
 		<table class="table table-bordered">
 			<thead>
@@ -25,30 +41,61 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${availableStudents}" var="student">
-					<tr class="table-light">
-						<td scope="row"><c:out value="${student.id}" /></td>
-						<td><c:out value="${student.userRole.user.fullName}" /></td>
-						<td><c:out value="${student.userRole.user.email}" /></td>
-						<td><c:out value="${student.userRole.school.nameForForm}" /></td>
-						<td>
-							<div class="btn-group">
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown">Menu</button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/student/view/${student.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/student/update/${student.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/student/delete/${student.id}">Delete</a>
+				<c:choose>
+					<c:when test="${thisSchoolAdmin != null}">
+						<c:forEach items="${schoolStudents}" var="student">
+							<tr class="table-light">
+								<td scope="row"><c:out value="${student.id}" /></td>
+								<td><c:out value="${student.userRole.user.fullName}" /></td>
+								<td><c:out value="${student.userRole.user.email}" /></td>
+								<td><c:out value="${student.userRole.school.nameForForm}" /></td>
+								<td>
+									<div class="btn-group">
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown">Menu</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/view/${student.id}">View
+													details</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/update/${student.id}">Update</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/delete/${student.id}">Delete</a>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${availableStudents}" var="student">
+							<tr class="table-light">
+								<td scope="row"><c:out value="${student.id}" /></td>
+								<td><c:out value="${student.userRole.user.fullName}" /></td>
+								<td><c:out value="${student.userRole.user.email}" /></td>
+								<td><c:out value="${student.userRole.school.nameForForm}" /></td>
+								<td>
+									<div class="btn-group">
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown">Menu</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/view/${student.id}">View
+													details</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/update/${student.id}">Update</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/student/delete/${student.id}">Delete</a>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
 			</tbody>
 		</table>
 

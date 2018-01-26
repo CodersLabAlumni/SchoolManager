@@ -63,6 +63,10 @@ public class StudentController {
 	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "student/user_new_student";
 	}
 
@@ -83,13 +87,17 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", student);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/division";
+		return "redirect:/studentView/";
 	}
 	
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "student/user_student";
 	}
 
@@ -117,7 +125,7 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", thisStudent);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/division";
+		return "redirect:/studentView/";
 	}
 
 	@GetMapping("/view/{studentId}")
@@ -154,6 +162,14 @@ public class StudentController {
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
+	}
+	
+	// SHOW ALL FROM SCHOOL
+	@ModelAttribute("schoolStudents")
+	public List<Student> getSchoolStudents() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.studentRepository.findAllBySchool(school);
 	}
 
 	@GetMapping("/all")
