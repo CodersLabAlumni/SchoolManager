@@ -61,7 +61,9 @@ public class SchoolAdminController {
 	public String newSchoolAdminFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
 		HttpSession s = SessionManager.session();
-		s.invalidate();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "school_admin/user_new_school_admin";
 	}
 
@@ -89,7 +91,9 @@ public class SchoolAdminController {
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
 		HttpSession s = SessionManager.session();
-		s.invalidate();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "school_admin/user_school_admin";
 	}
 
