@@ -63,7 +63,9 @@ public class StudentController {
 	public String newStudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
 		HttpSession s = SessionManager.session();
-		s.invalidate();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "student/user_new_student";
 	}
 
@@ -92,7 +94,9 @@ public class StudentController {
 	public String StudentFromUser(Model m) {
 		m.addAttribute("student", new Student());
 		HttpSession s = SessionManager.session();
-		s.invalidate();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "student/user_student";
 	}
 
