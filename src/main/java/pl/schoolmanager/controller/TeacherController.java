@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.bean.role.Role;
 import pl.schoolmanager.entity.*;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
@@ -199,7 +200,7 @@ public class TeacherController {
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER")) {
+			if (Role.ROLE_TEACHER.isEqual(userRole.getUserRole())) {
 				schools.add(userRole.getSchool());
 			}
 		}

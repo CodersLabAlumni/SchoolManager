@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.bean.role.Role;
+import pl.schoolmanager.bean.role.factory.RoleFactory;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
@@ -27,6 +29,9 @@ public class HomeController {
 
 	@Autowired
 	private SessionManager sessionManager;
+
+	@Autowired
+	private RoleFactory roleFactory;
 
 	@GetMapping("/")
 	public String home() {
@@ -60,11 +65,9 @@ public class HomeController {
 			m.addAttribute("msg", "Please make sure that both passwords match!");
 			return "home/register";
 		}
-		UserRole userRole = new UserRole();
+		UserRole userRole = roleFactory.get(Role.ROLE_USER);
 		user.setEnabled(true);
-		userRole.setUsername(user.getUsername());
 		userRole.setUser(user);
-		userRole.setUserRole("ROLE_USER");
 		this.userRepo.save(user);
 		this.userRoleRepo.save(userRole);
 		return "redirect:/login";
