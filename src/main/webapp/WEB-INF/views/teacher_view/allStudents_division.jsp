@@ -9,40 +9,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${thisSchoolAdmin != null}">
-			<%@ include file="../jspf/school_admin_menu.jspf"%>
-		</c:when>
-		<c:otherwise>
-			<%@ include file="../jspf/main_menu.jspf"%>
-		</c:otherwise>
-	</c:choose>
+	<%@ include file="../jspf/teacher_menu.jspf"%>
 
 	<div class="jumbotron">
 		<legend>Division: ${division.name} </legend>
-		</br>
-		<legend>All subjects in division </legend>
-		<%@ include file="../jspf/division_subjects.jspf"%>
-
-		<legend>All subjects to add </legend>
 
 
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
 					<th scope="col">ID</th>
-					<th scope="col">NAME</th>
-					<th scope="col">DESCRIPTION</th>
+					<th scope="col">FIRST NAME</th>
+					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
-					<th scope="col">ADD</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${subjectsNotInDivision}" var="subject">
+
+				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
-						<td scope="row"><c:out value="${subject.id}" /></td>
-						<td><c:out value="${subject.name}" /></td>
-						<td><c:out value="${subject.description}" /></td>
+						<td><c:out value="${student.id}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -50,30 +38,23 @@
 										data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+											href="${pageContext.request.contextPath}/student/view/${student.id}">View
 											details</a>
+										<a class="dropdown-item"
+											href="${pageContext.request.contextPath}/teacherView/createMark/${student.id}">Give mark</a>
 									</div>
 								</div>
 							</div>
-						</td>
-						<td><a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/division/addSubject/${division.id}/${subject.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 
-
-
-
-
-		<a class="btn btn-secondary"
-			href="${pageContext.request.contextPath}/division/all">Return</a>
-
+		<input action="action" onclick="window.history.go(-1); return false;"
+			type="button" class="btn btn-secondary" value="Return" />
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
-
 </body>
 </html>

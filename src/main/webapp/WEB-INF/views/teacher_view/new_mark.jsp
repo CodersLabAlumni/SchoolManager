@@ -9,33 +9,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${thisSchoolAdmin != null}">
-			<%@ include file="../jspf/school_admin_menu.jspf"%>
-		</c:when>
-		<c:otherwise>
-			<%@ include file="../jspf/main_menu.jspf"%>
-		</c:otherwise>
-	</c:choose>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="division"
-			class="form-horizontal">
+		<form:form method="post" modelAttribute="mark" class="form-horizontal">
 			<fieldset>
-				<legend>Edit division</legend>
-				<div class="form-group">
-					<label for="inputDivisionName" class="col-lg-2 control-label">Name</label>
-					<div class="col-lg-10">
-						<form:input class="form-control" id="inputDivisionName"
-							placeholder="Division name" type="text" path="name" />
-						<form:errors path="name" class="text-danger" />
-					</div>
-				</div>
+				<legend>Add new mark for: ${mark.student.userRole.user.firstName}
+					${mark.student.userRole.user.lastName}</legend>
 
 				<div class="form-group">
-					<label for="textArea" class="col-lg-2 control-label">Division
-						description</label>
+					<label for="markValue" class="col-2 col-form-label">Mark value</label>
+					<div class="col-10">
+						<form:input class="form-control" id="markValue"
+							placeholder="1, -2, 2, +2 ... 6" type="text" path="value" />
+						<form:errors path="value" class="text-danger" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="textArea" class="col-lg-2 control-label">Mark description</label>
 					<div class="col-lg-10">
 						<form:textarea class="form-control" rows="3" id="textArea"
 							path="description" />
@@ -43,11 +35,20 @@
 						<form:errors path="description" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="example-date-input" class="col-2 col-form-label">Mark date</label>
+					<div class="col-10">
+						<input class="form-control" type="date" value="2018-01-01"
+							id="example-date-input">
+					</div>
+				</div>
+
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
 				type="button" class="btn btn-secondary" value="Cancel" />
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form:form>
+
 
 	</div>
 

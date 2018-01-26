@@ -21,8 +21,15 @@
 						href="${pageContext.request.contextPath}/teacherView/createSubjects">Create
 						new</a>
 				</div></li>
-
-
+		</ul>
+		<ul class="navbar-nav mr-auto">
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAuthenticated()">
+				<%@ include file="message.jspf"%>
+				<li class="nav-item"><a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/logout">Logout</a></li>
+			</sec:authorize>
 		</ul>
 	</div>
 </nav>

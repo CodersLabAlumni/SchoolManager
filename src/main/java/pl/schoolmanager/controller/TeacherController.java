@@ -71,6 +71,10 @@ public class TeacherController {
 	// Make new teacher automatically creating new user role
 	@GetMapping("/userNewTeacher")
 	public String newTeacherFromUser(Model m) {
+		HttpSession s = SessionManager.session();
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		m.addAttribute("teacher", new Teacher());
 		return "teacher/user_new_teacher";
 	}
@@ -91,13 +95,17 @@ public class TeacherController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", teacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/teacherView/";
 	}
 	
 	// Managing existing teacher role
 	@GetMapping("/userTeacher")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("teacher", new Teacher());
+		HttpSession s = SessionManager.session
+		s.setAttribute("thisSchoolAdmin", null);
+		s.setAttribute("thisTeacher", null);
+		s.setAttribute("thisStudent", null);
 		return "teacher/user_teacher";
 	}
 
@@ -124,7 +132,7 @@ public class TeacherController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", thisTeacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "redirect:/teacherView/all";
+		return "redirect:/teacherView/";
 	}
 
 	@GetMapping("/view/{teacherId}")
@@ -161,6 +169,14 @@ public class TeacherController {
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
+	}
+	
+	// SHOW ALL FROM SCHOOL
+	@ModelAttribute("schoolTeachers")
+	public List<Teacher> getSchoolTeachers() {
+		HttpSession s = SessionManager.session();
+		School school = (School) s.getAttribute("thisSchool");
+		return this.teacherRepository.findAllBySchool(school);
 	}
 
 	@GetMapping("/addSubject/{teacherId}")

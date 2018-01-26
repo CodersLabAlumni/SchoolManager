@@ -9,32 +9,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${thisSchoolAdmin != null}">
-			<%@ include file="../jspf/school_admin_menu.jspf"%>
-		</c:when>
-		<c:otherwise>
-			<%@ include file="../jspf/main_menu.jspf"%>
-		</c:otherwise>
-	</c:choose>
+	<%@ include file="../jspf/teacher_menu.jspf"%>
 
 	<div class="jumbotron">
 
-		<form:form method="post" modelAttribute="division"
+		<form:form method="post" modelAttribute="subject"
 			class="form-horizontal">
 			<fieldset>
-				<legend>Edit division</legend>
+				<legend>Edit Subject</legend>
 				<div class="form-group">
-					<label for="inputDivisionName" class="col-lg-2 control-label">Name</label>
+					<label for="inputSubjectName" class="col-lg-2 control-label">Name</label>
 					<div class="col-lg-10">
-						<form:input class="form-control" id="inputDivisionName"
-							placeholder="Division name" type="text" path="name" />
+						<form:input class="form-control" id="inputSubjectName"
+							placeholder="Subject name" type="text" path="name" />
 						<form:errors path="name" class="text-danger" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="textArea" class="col-lg-2 control-label">Division
+					<label for="textArea" class="col-lg-2 control-label">Subject
 						description</label>
 					<div class="col-lg-10">
 						<form:textarea class="form-control" rows="3" id="textArea"

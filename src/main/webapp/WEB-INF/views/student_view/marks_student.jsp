@@ -25,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${thisStudent.mark}" var="subject">
+				<c:forEach items="${thisStudent.mark}" var="mark">
 					<tr class="table-light">
 						<td scope="row"><c:out value="${mark.value}" /></td>
 						<td><c:out value="${mark.description}" /></td>

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<%@ include file="../jspf/teacher_menu.jspf"%>
 
 	<div class="jumbotron">
 
