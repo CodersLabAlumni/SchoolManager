@@ -101,6 +101,7 @@ public class SchoolController {
 		return "school/addDivision_school";
 	}
 
+	
 	@GetMapping("addDivision/{schoolId}/{divisionId}")
 	public String addDivision(@PathVariable long schoolId, @PathVariable long divisionId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -110,6 +111,14 @@ public class SchoolController {
 		return "redirect:/school/addDivision/{schoolId}";
 	}
 
+	@GetMapping("removeDivision/{schoolId}/{divisionId}")
+	public String removeDivision(@PathVariable long schoolId, @PathVariable long divisionId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		division.setSchool(null);
+		this.divisionRepository.save(division);
+		return "redirect:/school/addDivision/{schoolId}";
+	}
+	
 	@GetMapping("/addSubject/{schoolId}")
 	public String addSubject(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
