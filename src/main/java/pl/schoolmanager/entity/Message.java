@@ -1,16 +1,9 @@
 package pl.schoolmanager.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "message")
@@ -30,22 +23,18 @@ public class Message {
 	@ManyToOne
 	private User receiver;
 
-	@NotEmpty
-	@Email
-	private String receiverEmail;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+	private MessageData messageData;
 
-	private String receiverDescription;
-
-	private String senderDescription;
-	
+	@CreationTimestamp
 	private Date created;
 
 	private int checked;
 
 	public Message() {
-		super();
-		this.created = new Date();
-		this.checked = 0;
+		sender = new User();
+		receiver = new User();
+		messageData = new MessageData();
 	}
 
 	public long getId() {
@@ -88,12 +77,20 @@ public class Message {
 		this.receiver = receiver;
 	}
 
+	public MessageData getMessageData() {
+		return messageData;
+	}
+
+	public void setMessageData(MessageData messageData) {
+		this.messageData = messageData;
+	}
+
 	public String getReceiverEmail() {
-		return receiverEmail;
+		return receiver.getEmail();
 	}
 
 	public void setReceiverEmail(String receiverEmail) {
-		this.receiverEmail = receiverEmail;
+		this.receiver.setEmail(receiverEmail);
 	}
 
 	public Date getCreated() {
@@ -113,19 +110,11 @@ public class Message {
 	}
 
 	public String getReceiverDescription() {
-		return receiverDescription;
-	}
-
-	public void setReceiverDescription(String receiverDescription) {
-		this.receiverDescription = receiverDescription;
+		return messageData.getReceiverDescription();
 	}
 
 	public String getSenderDescription() {
-		return senderDescription;
-	}
-
-	public void setSenderDescription(String senderDescription) {
-		this.senderDescription = senderDescription;
+		return messageData.getSenderDescription();
 	}
 
 }

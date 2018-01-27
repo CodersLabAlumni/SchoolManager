@@ -37,8 +37,7 @@
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputEmail"
 							aria-describedby="emailHelp" placeholder="Enter email"
-							type="email" path="receiverEmail" />
-						<form:errors path="receiverEmail" class="text-danger" />
+							type="email" path="receiver.email"/>
 					</div>
 				</div>
 
@@ -47,7 +46,6 @@
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputTitle"
 							placeholder="Message title" type="text" path="title" />
-						<form:errors path="title" class="text-danger" />
 					</div>
 				</div>
 
@@ -58,7 +56,6 @@
 						<form:textarea class="form-control" rows="3" id="textArea"
 							path="content" />
 						</textarea>
-						<form:errors path="content" />
 					</div>
 				</div>
 			</fieldset>

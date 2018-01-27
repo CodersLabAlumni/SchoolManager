@@ -50,8 +50,7 @@
 					<td><c:out value="${received.created}" /></td>
 					<td><c:choose>
 							<c:when test="${remove eq received.id}">
-
-								<form:form method="post" modelAttribute="message">
+								<form:form method="post">
 									<%@ include file="../jspf/confirm.jspf"%>
 								</form:form>
 							</c:when>
