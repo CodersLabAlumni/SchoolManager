@@ -117,6 +117,16 @@ public class DivisionController {
 		return "redirect:/division/addStudent/{divisionId}";
 	}
 
+	@GetMapping("removeStudent/{divisionId}/{studentId}")
+	public String removeStudent(@PathVariable long divisionId, @PathVariable long studentId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		Student student = this.studentRepository.findOne(studentId);
+		student.setDivision(null);
+		this.studentRepository.save(student);
+		return "redirect:/division/addStudent/{divisionId}";
+	}
+
+	
 	@GetMapping("/addSubject/{divisionId}")
 	public String addSubject(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);

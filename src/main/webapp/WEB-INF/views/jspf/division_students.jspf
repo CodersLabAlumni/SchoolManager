@@ -6,6 +6,7 @@
 			<th scope="col">FIRST NAME</th>
 			<th scope="col">LAST NAME</th>
 			<th scope="col">OPTION</th>
+			<th scope="col">REMOVE</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,6 +29,10 @@
 						</div>
 					</div>
 				</td>
+				<td><a class="btn btn-primary"
+					href="${pageContext.request.contextPath}/division/removeStudent/${division.id}/${student.id}">Remove</a>
+				</td>
+
 			</tr>
 		</c:forEach>
 	</tbody>
