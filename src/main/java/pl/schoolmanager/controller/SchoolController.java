@@ -139,6 +139,14 @@ public class SchoolController {
 		return "redirect:/school/addSubject/{schoolId}";
 	}
 
+	@GetMapping("removeSubject/{schoolId}/{subjectId}")
+	public String removeSubject(@PathVariable long schoolId, @PathVariable long subjectId) {
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		subject.setSchool(null);
+		this.subjectRepository.save(subject);
+		return "redirect:/school/addSubject/{schoolId}";
+	}
+	
 	@GetMapping("/addStudent/{schoolId}")
 	public String addStudent(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);

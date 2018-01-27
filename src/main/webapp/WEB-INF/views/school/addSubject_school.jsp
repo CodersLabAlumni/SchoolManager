@@ -23,6 +23,7 @@
 					<th scope="col">NAME</th>
 					<th scope="col">DESCRIPTION</th>
 					<th scope="col">OPTION</th>
+					<th scope="col">REMOVE</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,6 +44,9 @@
 									</div>
 								</div>
 							</div>
+						</td>
+						<td>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/school/removeSubject/${school.id}/${subject.id}">Remove</a>
 						</td>
 					</tr>
 				</c:forEach>
