@@ -1,17 +1,35 @@
 package pl.schoolmanager.controller;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.*;
-import pl.schoolmanager.repository.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Set;
+import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.MessageRepository;
+import pl.schoolmanager.repository.SchoolRepository;
+import pl.schoolmanager.repository.StudentRepository;
+import pl.schoolmanager.repository.SubjectRepository;
+import pl.schoolmanager.repository.TeacherRepository;
 
 @Controller
 @RequestMapping("/school")
@@ -86,10 +104,25 @@ public class SchoolController {
 
 	@GetMapping("/delete/{schoolId}")
 	public String deleteSchool(@PathVariable long schoolId) {
-		this.schoolRepository.delete(schoolId);
+		try {
+			this.schoolRepository.delete(schoolId);
+		} catch (ConstraintViolationException|PersistenceException|JpaSystemException e) {
+			  return "errors/deleteException"; 
+			}
 		return "index";
 	}
 
+	
+
+	@GetMapping("/remove/{schoolId}")
+	public String removeSchool(@PathVariable long schoolId) {
+		
+		
+		this.schoolRepository.delete(schoolId);
+		return "index";
+	}
+	
+	
 	@GetMapping("/addDivision/{schoolId}")
 	public String addDivision(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
