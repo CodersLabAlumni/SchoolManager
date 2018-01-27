@@ -103,26 +103,22 @@ public class SchoolController {
 	}
 
 	@GetMapping("/delete/{schoolId}")
+	public String deleteSchool(@PathVariable long schoolId, Model m) {
+		m.addAttribute("schools", this.schoolRepository.findAll());
+		m.addAttribute("remove", schoolId);
+		return "school/all_schools";
+	}
+
+	@PostMapping("/delete/{schoolId}")
 	public String deleteSchool(@PathVariable long schoolId) {
 		try {
 			this.schoolRepository.delete(schoolId);
-		} catch (ConstraintViolationException|PersistenceException|JpaSystemException e) {
-			  return "errors/deleteException"; 
-			}
-		return "index";
+		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
+			return "errors/deleteException";
+		}
+		return "redirect:/school/all";
 	}
 
-	
-
-	@GetMapping("/remove/{schoolId}")
-	public String removeSchool(@PathVariable long schoolId) {
-		
-		
-		this.schoolRepository.delete(schoolId);
-		return "index";
-	}
-	
-	
 	@GetMapping("/addDivision/{schoolId}")
 	public String addDivision(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -134,7 +130,6 @@ public class SchoolController {
 		return "school/addDivision_school";
 	}
 
-	
 	@GetMapping("addDivision/{schoolId}/{divisionId}")
 	public String addDivision(@PathVariable long schoolId, @PathVariable long divisionId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -151,7 +146,7 @@ public class SchoolController {
 		this.divisionRepository.save(division);
 		return "redirect:/school/addDivision/{schoolId}";
 	}
-	
+
 	@GetMapping("/addSubject/{schoolId}")
 	public String addSubject(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -179,7 +174,7 @@ public class SchoolController {
 		this.subjectRepository.save(subject);
 		return "redirect:/school/addSubject/{schoolId}";
 	}
-	
+
 	@GetMapping("/addStudent/{schoolId}")
 	public String addStudent(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -208,7 +203,7 @@ public class SchoolController {
 		this.studentRepository.save(student);
 		return "redirect:/school/addStudent/{schoolId}";
 	}
-	
+
 	@GetMapping("/addTeacher/{schoolId}")
 	public String addTeacher(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -228,7 +223,7 @@ public class SchoolController {
 		this.teacherRepository.save(teacher);
 		return "redirect:/school/addTeacher/{schoolId}";
 	}
-	
+
 	@GetMapping("removeTeacher/{schoolId}/{teacherId}")
 	public String removeTeacher(@PathVariable long schoolId, @PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
@@ -241,5 +236,4 @@ public class SchoolController {
 	public List<School> getSchools() {
 		return this.schoolRepository.findAll();
 	}
-
 }

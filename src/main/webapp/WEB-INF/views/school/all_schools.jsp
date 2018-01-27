@@ -29,35 +29,39 @@
 						<td scope="row"><c:out value="${school.id}" /></td>
 						<td><c:out value="${school.name}" /></td>
 						<td><c:out value="${school.type}" /></td>
-						<td>
-							<div class="btn-group">
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/view/${school.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/update/${school.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/delete/${school.id}">Delete</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addDivision/${school.id}">Add/Remove
-											Division</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addSubject/${school.id}">Add/Remove
-											Subject</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addStudent/${school.id}">Add/Remove
-											Student</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addTeacher/${school.id}">Add/Remove
-											Teacher</a>
+						<td><c:choose>
+								<c:when test="${remove eq school.id}">
+									<form:form method="post">
+										<%@ include file="../jspf/confirm.jspf"%>
+									</form:form>
+								</c:when>
+								<c:otherwise>
+									<div class="btn-group">
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown"></button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/view/${school.id}">View
+													details</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/update/${school.id}">Update</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/delete/${school.id}">Delete</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/addDivision/${school.id}">Add/Remove
+													Division</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/addSubject/${school.id}">Add/Remove
+													Subject</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/addStudent/${school.id}">Add/Remove
+													Student</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/school/addTeacher/${school.id}">Add/Remove
+													Teacher</a>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</td>
+								</c:otherwise>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>

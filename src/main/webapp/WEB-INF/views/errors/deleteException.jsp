@@ -17,6 +17,8 @@
 			Sorry <b><sec:authentication property="principal.username" /></b>,</br>
 			Before deleting You need to remove all connection with division/student/teacher etc.
 		</h2>
+		<input action="action" onclick="window.history.go(-1); return false;" type="button" class="btn btn-secondary" value="Return" />
+		
 	</div>
 	<%@ include file="../jspf/footer.jspf"%>
 
