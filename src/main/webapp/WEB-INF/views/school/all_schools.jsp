@@ -49,7 +49,7 @@
 											href="${pageContext.request.contextPath}/school/addSubject/${school.id}">Add/Remove
 											Subject</a>
 										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addStudent/${school.id}">Add
+											href="${pageContext.request.contextPath}/school/addStudent/${school.id}">Add/Remove
 											Student</a>
 										<a class="dropdown-item"
 											href="${pageContext.request.contextPath}/school/addTeacher/${school.id}">Add

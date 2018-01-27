@@ -163,10 +163,21 @@ public class SchoolController {
 		School school = this.schoolRepository.findOne(schoolId);
 		Student student = this.studentRepository.findOne(studentId);
 		// student.getSchool().add(school);
+		student.setSchool(school);
 		this.studentRepository.save(student);
 		return "redirect:/school/addStudent/{schoolId}";
 	}
-
+	
+	@GetMapping("removeStudent/{schoolId}/{studentId}")
+	public String removeStudent(@PathVariable long schoolId, @PathVariable long studentId) {
+		School school = this.schoolRepository.findOne(schoolId);
+		Student student = this.studentRepository.findOne(studentId);
+		// student.getSchool().add(school);
+		student.setSchool(null);
+		this.studentRepository.save(student);
+		return "redirect:/school/addStudent/{schoolId}";
+	}
+	
 	@GetMapping("/addTeacher/{schoolId}")
 	public String addTeacher(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
