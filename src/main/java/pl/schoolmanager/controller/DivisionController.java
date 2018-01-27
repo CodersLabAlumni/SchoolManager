@@ -11,6 +11,8 @@ import pl.schoolmanager.repository.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -126,7 +128,6 @@ public class DivisionController {
 		return "redirect:/division/addStudent/{divisionId}";
 	}
 
-	
 	@GetMapping("/addSubject/{divisionId}")
 	public String addSubject(Model m, @PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
@@ -144,6 +145,15 @@ public class DivisionController {
 		Division division = this.divisionRepository.findOne(divisionId);
 		Subject subject = this.subjectRepository.findOne(subjectId);
 		subject.getDivision().add(division);
+		this.subjectRepository.save(subject);
+		return "redirect:/division/addSubject/{divisionId}";
+	}
+
+	@GetMapping("removeSubject/{divisionId}/{subjectId}")
+	public String removeSubject(@PathVariable long divisionId, @PathVariable long subjectId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		Subject subject = this.subjectRepository.findOne(subjectId);				
+		subject.getDivision().remove(division);		
 		this.subjectRepository.save(subject);
 		return "redirect:/division/addSubject/{divisionId}";
 	}
@@ -189,7 +199,7 @@ public class DivisionController {
 		School school = (School) s.getAttribute("thisSchool");
 		return this.divisionRepository.findAllBySchool(school);
 	}
-	
+
 	// SHOW ALL DIVISIONS IN SCHOOL
 	@ModelAttribute("availableDivisions")
 	public List<Division> getDivisions() {

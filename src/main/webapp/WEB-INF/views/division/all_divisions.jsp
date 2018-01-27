@@ -55,7 +55,7 @@
 												<a class="dropdown-item"
 													href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add/Remove
 													Student</a> <a class="dropdown-item"
-													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
+													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add/Remove
 													Subject</a>
 											</div>
 										</div>
@@ -87,7 +87,7 @@
 												<a class="dropdown-item"
 													href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add/Remove
 													Student</a> <a class="dropdown-item"
-													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
+													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add/Remove
 													Subject</a>
 											</div>
 										</div>

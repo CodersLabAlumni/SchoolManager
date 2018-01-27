@@ -88,5 +88,13 @@ public class Student {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", division=" + division + ", mark=" + mark + ", school=" + school + ", userRole="
+				+ userRole + "]";
+	}
+	
+	
 	
 }
