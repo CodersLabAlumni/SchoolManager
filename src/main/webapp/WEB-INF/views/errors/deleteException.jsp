@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../jspf/main_menu.jspf"%>
 
-	<div class="container">
+	<div class="jumbotron">
 		<h2>
 			DELETE EXCEPTION </br>
 			Sorry <b><sec:authentication property="principal.username" /></b>,</br>

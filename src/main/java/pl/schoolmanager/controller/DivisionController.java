@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
@@ -115,6 +114,10 @@ public class DivisionController {
 	
 	@PostMapping("/delete/{divisionId}")
 	public String deleteSchool(@PathVariable long divisionId) {
+		List<Subject> subjects = this.subjectRepository.findAllByDivisionId(divisionId);
+		if (subjects!=null) {
+			return "errors/deleteException";
+		}
 		try {
 			this.divisionRepository.delete(divisionId);
 		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
