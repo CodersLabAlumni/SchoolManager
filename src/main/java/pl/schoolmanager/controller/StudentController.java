@@ -147,22 +147,21 @@ public class StudentController {
 	}
 
 	@GetMapping("/delete/{studentId}")
-	public String deleteTeacher(@PathVariable long studentId, Model m) {
+	public String deleteStudent(@PathVariable long studentId, Model m) {
 		Student student = this.studentRepository.findOne(studentId);
 		m.addAttribute("student", student);
 		return "student/confirmdelete_student";
 	}
 	
 	@PostMapping("/delete/{studentId}")
-	public String deleteSchool(@PathVariable long studentId) {
+	public String deleteStudent(@PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
-		if (student.getSchool()!=null||student.getDivision()!=null) {
+		if (student.getSchool()!=null || student.getMark()!=null || student.getDivision()!=null) {
 			return "errors/deleteException";
 		}
 		this.studentRepository.delete(studentId);
 		return "redirect:/student/all";
 	}
-	
 	
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {

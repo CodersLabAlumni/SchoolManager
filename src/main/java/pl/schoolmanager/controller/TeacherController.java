@@ -173,8 +173,8 @@ public class TeacherController {
 	
 	@PostMapping("/delete/{teacherId}")
 	public String deleteSchool(@PathVariable long teacherId) {
-		List<Subject> subjects = this.subjectRepository.findAllByTeacherId(teacherId);
-		if (subjects!=null) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		if (teacher.getSubject()!=null || teacher.getSchool() !=null) {
 			return "errors/deleteException";
 		}
 		this.teacherRepository.delete(teacherId);

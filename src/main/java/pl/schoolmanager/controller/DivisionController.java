@@ -114,8 +114,8 @@ public class DivisionController {
 	
 	@PostMapping("/delete/{divisionId}")
 	public String deleteSchool(@PathVariable long divisionId) {
-		List<Subject> subjects = this.subjectRepository.findAllByDivisionId(divisionId);
-		if (subjects!=null) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		if (division.getSubject()!=null || division.getStudent() != null || division.getSchool() != null) {
 			return "errors/deleteException";
 		}
 		try {

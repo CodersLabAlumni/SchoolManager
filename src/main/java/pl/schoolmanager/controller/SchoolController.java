@@ -110,7 +110,7 @@ public class SchoolController {
 	}
 
 	@PostMapping("/delete/{schoolId}")
-	public String deleteSchool(@PathVariable long schoolId) {
+	public String deleteSchool(@PathVariable long schoolId) {	
 		try {
 			this.schoolRepository.delete(schoolId);
 		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
