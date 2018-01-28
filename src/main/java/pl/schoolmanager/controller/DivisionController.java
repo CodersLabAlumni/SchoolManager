@@ -1,19 +1,35 @@
 package pl.schoolmanager.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.*;
-import pl.schoolmanager.repository.*;
+import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import java.util.Iterator;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Mark;
+import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.MarkRepository;
+import pl.schoolmanager.repository.MessageRepository;
+import pl.schoolmanager.repository.StudentRepository;
+import pl.schoolmanager.repository.SubjectRepository;
+
+
 
 @Controller
 @RequestMapping("/division")
@@ -153,7 +169,12 @@ public class DivisionController {
 	public String removeSubject(@PathVariable long divisionId, @PathVariable long subjectId) {
 		Division division = this.divisionRepository.findOne(divisionId);
 		Subject subject = this.subjectRepository.findOne(subjectId);				
-		subject.getDivision().remove(division);		
+		ListIterator<Division> div = subject.getDivision().listIterator();
+		while(div.hasNext()){
+		    if(div.next().getId()==division.getId()){
+		    	div.remove();
+		    }
+		}
 		this.subjectRepository.save(subject);
 		return "redirect:/division/addSubject/{divisionId}";
 	}
