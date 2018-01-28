@@ -1,22 +1,36 @@
 package pl.schoolmanager.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.*;
+import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.entity.User;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 @Controller
 @RequestMapping("/teacher")
@@ -151,11 +165,22 @@ public class TeacherController {
 	}
 
 	@GetMapping("/delete/{teacherId}")
-	public String deleteTeacher(@PathVariable long teacherId) {
-		this.teacherRepository.delete(teacherId);
-		return "index";
+	public String deleteTeacher(@PathVariable long teacherId, Model m) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		m.addAttribute("teacher", teacher);
+		return "teacher/confirmdelete_teacher";
 	}
-
+	
+	@PostMapping("/delete/{teacherId}")
+	public String deleteSchool(@PathVariable long teacherId) {
+		List<Subject> subjects = this.subjectRepository.findAllByTeacherId(teacherId);
+		if (subjects!=null) {
+			return "errors/deleteException";
+		}
+		this.teacherRepository.delete(teacherId);
+		return "redirect:/teacher/all";
+	}
+		
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
