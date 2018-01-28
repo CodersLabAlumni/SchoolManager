@@ -39,7 +39,7 @@
 									<div class="btn-group">
 										<div class="btn-group">
 											<button type="button" class="btn btn-primary dropdown-toggle"
-												data-toggle="dropdown"></button>
+												data-toggle="dropdown">Menu</button>
 											<div class="dropdown-menu">
 												<a class="dropdown-item"
 													href="${pageContext.request.contextPath}/school/view/${school.id}">View
