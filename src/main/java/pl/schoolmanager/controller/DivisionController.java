@@ -3,10 +3,13 @@ package pl.schoolmanager.controller;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,8 +31,6 @@ import pl.schoolmanager.repository.MarkRepository;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
-
-
 
 @Controller
 @RequestMapping("/division")
@@ -99,9 +100,27 @@ public class DivisionController {
 	}
 
 	@GetMapping("/delete/{divisionId}")
-	public String deleteDivision(@PathVariable long divisionId) {
-		this.divisionRepository.delete(divisionId);
-		return "index";
+	public String deleteDivision(@PathVariable long divisionId, Model m) {
+		//Code to add if confirm button need to be implemented in all_divisions view
+//		Long schoolId = this.divisionRepository.findOne(divisionId).getId();
+//		List<Division> schoolDivisions = this.divisionRepository.findAllBySchoolId(schoolId);
+//		m.addAttribute("schoolDivisions", schoolDivisions);
+//		m.addAttribute("availableDivisions", this.divisionRepository.findAll());
+//		m.addAttribute("remove", divisionId);
+//		return "division/all_divisions";
+		Division division = this.divisionRepository.findOne(divisionId);
+		m.addAttribute("division", division);
+		return "division/confirmdelete_divisions";
+	}
+	
+	@PostMapping("/delete/{divisionId}")
+	public String deleteSchool(@PathVariable long divisionId) {
+		try {
+			this.divisionRepository.delete(divisionId);
+		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
+			return "errors/deleteException";
+		}
+		return "redirect:/division/all";
 	}
 
 	@GetMapping("/inside/{divisionId}")
@@ -168,12 +187,12 @@ public class DivisionController {
 	@GetMapping("removeSubject/{divisionId}/{subjectId}")
 	public String removeSubject(@PathVariable long divisionId, @PathVariable long subjectId) {
 		Division division = this.divisionRepository.findOne(divisionId);
-		Subject subject = this.subjectRepository.findOne(subjectId);				
+		Subject subject = this.subjectRepository.findOne(subjectId);
 		ListIterator<Division> div = subject.getDivision().listIterator();
-		while(div.hasNext()){
-		    if(div.next().getId()==division.getId()){
-		    	div.remove();
-		    }
+		while (div.hasNext()) {
+			if (div.next().getId() == division.getId()) {
+				div.remove();
+			}
 		}
 		this.subjectRepository.save(subject);
 		return "redirect:/division/addSubject/{divisionId}";
