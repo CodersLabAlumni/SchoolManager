@@ -1,21 +1,36 @@
 package pl.schoolmanager.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.*;
+import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.School;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.entity.User;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/teacher")
@@ -85,7 +100,7 @@ public class TeacherController {
 		s.setAttribute("thisSchool", teacher.getSchool());
 		return "redirect:/teacherView/";
 	}
-	
+
 	// Managing existing teacher role
 	@GetMapping("/userTeacher")
 	public String TeacherFromUser(Model m) {
@@ -107,7 +122,8 @@ public class TeacherController {
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
 		for (UserRole userRole : userRoles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER") && userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
+			if (userRole.getUserRole().equals("ROLE_TEACHER")
+					&& userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
 				thisUserRole = userRole;
 			}
 		}
@@ -149,16 +165,27 @@ public class TeacherController {
 	}
 
 	@GetMapping("/delete/{teacherId}")
-	public String deleteTeacher(@PathVariable long teacherId) {
-		this.teacherRepository.delete(teacherId);
-		return "index";
+	public String deleteTeacher(@PathVariable long teacherId, Model m) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		m.addAttribute("teacher", teacher);
+		return "teacher/confirmdelete_teacher";
 	}
-
+	
+	@PostMapping("/delete/{teacherId}")
+	public String deleteSchool(@PathVariable long teacherId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		if (teacher.getSubject()!=null || teacher.getSchool() !=null) {
+			return "errors/deleteException";
+		}
+		this.teacherRepository.delete(teacherId);
+		return "redirect:/teacher/all";
+	}
+		
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
 	}
-	
+
 	// SHOW ALL FROM SCHOOL
 	@ModelAttribute("schoolTeachers")
 	public List<Teacher> getSchoolTeachers() {
@@ -183,6 +210,20 @@ public class TeacherController {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		Subject subject = this.subjectRepository.findOne(subjectId);
 		subject.getTeacher().add(teacher);
+		this.subjectRepository.save(subject);
+		return "redirect:/teacher/addSubject/{teacherId}";
+	}
+
+	@GetMapping("removeSubject/{teacherId}/{subjectId}")
+	public String removeSubject(@PathVariable long teacherId, @PathVariable long subjectId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		ListIterator<Teacher> teach = subject.getTeacher().listIterator();
+		while (teach.hasNext()) {
+			if (teach.next().getId() == teacher.getId()) {
+				teach.remove();
+			}
+		}
 		this.subjectRepository.save(subject);
 		return "redirect:/teacher/addSubject/{teacherId}";
 	}
