@@ -44,11 +44,6 @@ public class HomeController {
 		return "home/login";
 	}
 
-	@PostMapping("login")
-	public String loginPost() {
-		return "redirect:/";
-	}
-
 	@GetMapping("register")
 	public String registerGet(Model m) {
 		m.addAttribute("user", new User());
