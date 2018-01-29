@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
@@ -145,11 +147,22 @@ public class StudentController {
 	}
 
 	@GetMapping("/delete/{studentId}")
-	public String deleteStudent(@PathVariable long studentId) {
-		this.studentRepository.delete(studentId);
-		return "index";
+	public String deleteStudent(@PathVariable long studentId, Model m) {
+		Student student = this.studentRepository.findOne(studentId);
+		m.addAttribute("student", student);
+		return "student/confirmdelete_student";
 	}
-
+	
+	@PostMapping("/delete/{studentId}")
+	public String deleteStudent(@PathVariable long studentId) {
+		Student student = this.studentRepository.findOne(studentId);
+		if (student.getSchool()!=null || student.getMark()!=null || student.getDivision()!=null) {
+			return "errors/deleteException";
+		}
+		this.studentRepository.delete(studentId);
+		return "redirect:/student/all";
+	}
+	
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
