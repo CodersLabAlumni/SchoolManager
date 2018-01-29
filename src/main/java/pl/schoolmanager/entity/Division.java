@@ -103,4 +103,12 @@ public class Division {
 		this.school = school;
 	}
 
+	@Override
+	public String toString() {
+		return "Division [id=" + id + ", name=" + name + ", description=" + description + ", school=" + school
+				+ ", student=" + student + ", subject=" + subject + "]";
+	}
+	
+	
+
 }

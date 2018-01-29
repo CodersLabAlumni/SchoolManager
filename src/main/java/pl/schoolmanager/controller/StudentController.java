@@ -1,32 +1,25 @@
 package pl.schoolmanager.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.StudentRepository;
-import pl.schoolmanager.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -36,13 +29,13 @@ public class StudentController {
 	private StudentRepository studentRepository;
 
 	@Autowired
-	private UserRepository userRepo;
-
-	@Autowired
 	private SchoolRepository schoolRepo;
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private SessionManager sessionManager;
 	
 	@GetMapping("/create")
 	public String createStudent(Model m) {
@@ -76,7 +69,7 @@ public class StudentController {
 		if (bindingResult.hasErrors()) {
 			return "student/user_new_student";
 		}
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		UserRole userRole = new UserRole();
 		userRole.setUsername(user.getUsername());
 		userRole.setUserRole("ROLE_STUDENT");
@@ -107,7 +100,7 @@ public class StudentController {
 		if (bindingResult.hasErrors()) {
 			return "student/user_student";
 		}
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		Student thisStudent = null;
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
@@ -154,11 +147,22 @@ public class StudentController {
 	}
 
 	@GetMapping("/delete/{studentId}")
-	public String deleteStudent(@PathVariable long studentId) {
-		this.studentRepository.delete(studentId);
-		return "index";
+	public String deleteStudent(@PathVariable long studentId, Model m) {
+		Student student = this.studentRepository.findOne(studentId);
+		m.addAttribute("student", student);
+		return "student/confirmdelete_student";
 	}
-
+	
+	@PostMapping("/delete/{studentId}")
+	public String deleteStudent(@PathVariable long studentId) {
+		Student student = this.studentRepository.findOne(studentId);
+		if (student.getSchool()!=null || student.getMark()!=null || student.getDivision()!=null) {
+			return "errors/deleteException";
+		}
+		this.studentRepository.delete(studentId);
+		return "redirect:/student/all";
+	}
+	
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
@@ -177,12 +181,6 @@ public class StudentController {
 		return "student/all_students";
 	}
 
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepo.findOneByUsername(username);
-	}
-
 	@ModelAttribute("userRolesForSelect")
 	public List<String> userRolesForSelect() {
 		List<String> userRolesForSelect = UserRole.getRolesForSelect();
@@ -197,7 +195,7 @@ public class StudentController {
 	
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
@@ -208,19 +206,4 @@ public class StudentController {
 		return schools;
 	}
 
-	@ModelAttribute("countAllReceivedMessages")
-	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllSendedMessages")
-	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
-	}
-	
-	@ModelAttribute("countAllReceivedUnreadedMessages")
-	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-	
 }

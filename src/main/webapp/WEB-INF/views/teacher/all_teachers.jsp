@@ -55,7 +55,7 @@
 													href="${pageContext.request.contextPath}/teacher/delete/${teacher.id}">Delete</a>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item"
-													href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}">Add
+													href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}">Add/Remove
 													Subject</a>
 
 											</div>
@@ -86,7 +86,7 @@
 													href="${pageContext.request.contextPath}/teacher/delete/${teacher.id}">Delete</a>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item"
-													href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}">Add
+													href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}">Add/Remove
 													Subject</a>
 
 											</div>

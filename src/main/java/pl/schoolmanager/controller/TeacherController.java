@@ -2,12 +2,15 @@ package pl.schoolmanager.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,16 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.Subject;
-import pl.schoolmanager.entity.Teacher;
-import pl.schoolmanager.entity.User;
-import pl.schoolmanager.entity.UserRole;
+import pl.schoolmanager.bean.role.Role;
+import pl.schoolmanager.entity.*;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
-import pl.schoolmanager.repository.UserRepository;
 
 @Controller
 @RequestMapping("/teacher")
@@ -40,13 +39,13 @@ public class TeacherController {
 	private SubjectRepository subjectRepository;
 
 	@Autowired
-	private UserRepository userRepo;
-
-	@Autowired
 	private SchoolRepository schoolRepo;
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private SessionManager sessionManager;
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -84,7 +83,7 @@ public class TeacherController {
 		if (bindingResult.hasErrors()) {
 			return "teacher/user_teacher";
 		}
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		UserRole userRole = new UserRole();
 		userRole.setUsername(user.getUsername());
 		userRole.setUserRole("ROLE_TEACHER");
@@ -97,12 +96,12 @@ public class TeacherController {
 		s.setAttribute("thisSchool", teacher.getSchool());
 		return "redirect:/teacherView/";
 	}
-	
+
 	// Managing existing teacher role
 	@GetMapping("/userTeacher")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("teacher", new Teacher());
-		HttpSession s = SessionManager.session
+		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
 		s.setAttribute("thisStudent", null);
@@ -114,12 +113,13 @@ public class TeacherController {
 		if (bindingResult.hasErrors()) {
 			return "teacher/user_teacher";
 		}
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		Teacher thisTeacher = null;
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
 		for (UserRole userRole : userRoles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER") && userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
+			if (userRole.getUserRole().equals("ROLE_TEACHER")
+					&& userRole.getSchool().getName().equals(teacher.getSchool().getName())) {
 				thisUserRole = userRole;
 			}
 		}
@@ -161,16 +161,27 @@ public class TeacherController {
 	}
 
 	@GetMapping("/delete/{teacherId}")
-	public String deleteTeacher(@PathVariable long teacherId) {
-		this.teacherRepository.delete(teacherId);
-		return "index";
+	public String deleteTeacher(@PathVariable long teacherId, Model m) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		m.addAttribute("teacher", teacher);
+		return "teacher/confirmdelete_teacher";
 	}
-
+	
+	@PostMapping("/delete/{teacherId}")
+	public String deleteSchool(@PathVariable long teacherId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		if (teacher.getSubject()!=null || teacher.getSchool() !=null) {
+			return "errors/deleteException";
+		}
+		this.teacherRepository.delete(teacherId);
+		return "redirect:/teacher/all";
+	}
+		
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
 	}
-	
+
 	// SHOW ALL FROM SCHOOL
 	@ModelAttribute("schoolTeachers")
 	public List<Teacher> getSchoolTeachers() {
@@ -199,10 +210,18 @@ public class TeacherController {
 		return "redirect:/teacher/addSubject/{teacherId}";
 	}
 
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepo.findOneByUsername(username);
+	@GetMapping("removeSubject/{teacherId}/{subjectId}")
+	public String removeSubject(@PathVariable long teacherId, @PathVariable long subjectId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		ListIterator<Teacher> teach = subject.getTeacher().listIterator();
+		while (teach.hasNext()) {
+			if (teach.next().getId() == teacher.getId()) {
+				teach.remove();
+			}
+		}
+		this.subjectRepository.save(subject);
+		return "redirect:/teacher/addSubject/{teacherId}";
 	}
 
 	@ModelAttribute("availableSchools")
@@ -211,28 +230,13 @@ public class TeacherController {
 		return availableSchools;
 	}
 
-	@ModelAttribute("countAllReceivedMessages")
-	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllSendedMessages")
-	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
-	}
-	
-	@ModelAttribute("countAllReceivedUnreadedMessages")
-	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-	
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
-		User user = getLoggedUser();
+		User user = sessionManager.loggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER")) {
+			if (Role.TEACHER.isEqualTo(userRole.getUserRole())) {
 				schools.add(userRole.getSchool());
 			}
 		}

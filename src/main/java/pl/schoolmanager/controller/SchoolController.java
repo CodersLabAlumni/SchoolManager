@@ -3,10 +3,12 @@ package pl.schoolmanager.controller;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,19 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
-import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
-import pl.schoolmanager.repository.UserRepository;
 
 @Controller
 @RequestMapping("/school")
@@ -50,10 +51,10 @@ public class SchoolController {
 	private TeacherRepository teacherRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private MessageRepository messageRepository;
 
 	@Autowired
-	private MessageRepository messageRepository;
+	private SessionManager sessionManager;
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -102,9 +103,20 @@ public class SchoolController {
 	}
 
 	@GetMapping("/delete/{schoolId}")
-	public String deleteSchool(@PathVariable long schoolId) {
-		this.schoolRepository.delete(schoolId);
-		return "index";
+	public String deleteSchool(@PathVariable long schoolId, Model m) {
+		m.addAttribute("schools", this.schoolRepository.findAll());
+		m.addAttribute("remove", schoolId);
+		return "school/all_schools";
+	}
+
+	@PostMapping("/delete/{schoolId}")
+	public String deleteSchool(@PathVariable long schoolId) {	
+		try {
+			this.schoolRepository.delete(schoolId);
+		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
+			return "errors/deleteException";
+		}
+		return "redirect:/school/all";
 	}
 
 	@GetMapping("/addDivision/{schoolId}")
@@ -123,6 +135,14 @@ public class SchoolController {
 		School school = this.schoolRepository.findOne(schoolId);
 		Division division = this.divisionRepository.findOne(divisionId);
 		division.setSchool(school);
+		this.divisionRepository.save(division);
+		return "redirect:/school/addDivision/{schoolId}";
+	}
+
+	@GetMapping("removeDivision/{schoolId}/{divisionId}")
+	public String removeDivision(@PathVariable long schoolId, @PathVariable long divisionId) {
+		Division division = this.divisionRepository.findOne(divisionId);
+		division.setSchool(null);
 		this.divisionRepository.save(division);
 		return "redirect:/school/addDivision/{schoolId}";
 	}
@@ -147,6 +167,14 @@ public class SchoolController {
 		return "redirect:/school/addSubject/{schoolId}";
 	}
 
+	@GetMapping("removeSubject/{schoolId}/{subjectId}")
+	public String removeSubject(@PathVariable long schoolId, @PathVariable long subjectId) {
+		Subject subject = this.subjectRepository.findOne(subjectId);
+		subject.setSchool(null);
+		this.subjectRepository.save(subject);
+		return "redirect:/school/addSubject/{schoolId}";
+	}
+
 	@GetMapping("/addStudent/{schoolId}")
 	public String addStudent(Model m, @PathVariable long schoolId) {
 		School school = this.schoolRepository.findOne(schoolId);
@@ -163,6 +191,15 @@ public class SchoolController {
 		School school = this.schoolRepository.findOne(schoolId);
 		Student student = this.studentRepository.findOne(studentId);
 		// student.getSchool().add(school);
+		student.setSchool(school);
+		this.studentRepository.save(student);
+		return "redirect:/school/addStudent/{schoolId}";
+	}
+
+	@GetMapping("removeStudent/{schoolId}/{studentId}")
+	public String removeStudent(@PathVariable long schoolId, @PathVariable long studentId) {
+		Student student = this.studentRepository.findOne(studentId);
+		student.setSchool(null);
 		this.studentRepository.save(student);
 		return "redirect:/school/addStudent/{schoolId}";
 	}
@@ -187,30 +224,16 @@ public class SchoolController {
 		return "redirect:/school/addTeacher/{schoolId}";
 	}
 
+	@GetMapping("removeTeacher/{schoolId}/{teacherId}")
+	public String removeTeacher(@PathVariable long schoolId, @PathVariable long teacherId) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		teacher.setSchool(null);
+		this.teacherRepository.save(teacher);
+		return "redirect:/school/addTeacher/{schoolId}";
+	}
+
 	@ModelAttribute("availableSchools")
 	public List<School> getSchools() {
 		return this.schoolRepository.findAll();
 	}
-
-	@ModelAttribute("countAllReceivedMessages")
-	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllSendedMessages")
-	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllReceivedUnreadedMessages")
-	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-
-	private User getLoggedUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
-		return this.userRepository.findOneByUsername(username);
-	}
-
 }
