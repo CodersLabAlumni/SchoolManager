@@ -1,4 +1,4 @@
-package pl.schoolmanager.validator;
+package pl.schoolmanager.validator.user;
 
 public interface NewUsernameValidator {
 
