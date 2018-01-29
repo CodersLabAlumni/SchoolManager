@@ -32,7 +32,7 @@ import pl.schoolmanager.converter.SubjectConverter;
 import pl.schoolmanager.converter.TeacherConverter;
 
 @Configuration
-@ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity", "pl.schoolmanager.service" })
+@ComponentScan(basePackages = { "pl.schoolmanager"})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
