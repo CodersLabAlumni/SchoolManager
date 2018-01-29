@@ -76,6 +76,7 @@ public class UserRole {
 
 	public void setUser(User user) {
 		this.user = user;
+		setUsername(user.getUsername());
 	}
 	
 	public School getSchool() {

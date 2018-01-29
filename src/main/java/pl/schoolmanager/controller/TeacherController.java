@@ -21,12 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.Division;
-import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.Subject;
-import pl.schoolmanager.entity.Teacher;
-import pl.schoolmanager.entity.User;
-import pl.schoolmanager.entity.UserRole;
+import pl.schoolmanager.bean.role.Role;
+import pl.schoolmanager.entity.*;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
@@ -240,7 +236,7 @@ public class TeacherController {
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_TEACHER")) {
+			if (Role.TEACHER.isEqualTo(userRole.getUserRole())) {
 				schools.add(userRole.getSchool());
 			}
 		}
