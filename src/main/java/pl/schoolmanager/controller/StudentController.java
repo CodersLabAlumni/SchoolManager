@@ -82,9 +82,9 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", student);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/";
+		return "student/user_student_enabling";
 	}
-	
+		
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Model m) {
