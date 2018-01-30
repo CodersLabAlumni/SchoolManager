@@ -55,9 +55,12 @@ public class StudentViewController {
 	public Map<Integer, Subject> getMondaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		DayOfWeek monday = DayOfWeek.MONDAY;
 		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.MONDAY);
-		return schedule.getDaySubject();
+		if (schedule != null) {
+			return schedule.getDaySubject();			
+		} else {
+			return null;
+		}
 	}
 
 }

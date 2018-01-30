@@ -1,6 +1,7 @@
 package pl.schoolmanager.entity;
 
 import java.time.DayOfWeek;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Schedule {
 	private Division division;
 	
 	@ManyToMany
-	private Map<Integer, Subject> daySubject;
+	private Map<Integer, Subject> daySubject = new HashMap<Integer, Subject>();
 
 	public Schedule() {
 		super();
