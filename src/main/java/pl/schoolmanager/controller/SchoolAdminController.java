@@ -40,7 +40,7 @@ public class SchoolAdminController {
 
 	@Autowired
 	private SchoolAdminRepository schoolAdminRepository;
-	
+
 	@Autowired
 	private TeacherRepository teacherRepository;
 
@@ -49,7 +49,7 @@ public class SchoolAdminController {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private SchoolRepository schoolRepo;
 
@@ -71,7 +71,8 @@ public class SchoolAdminController {
 	}
 
 	@PostMapping("/userNewSchoolAdmin")
-	public String newTeacherFromUserPost(@Valid @ModelAttribute SchoolAdmin schoolAdmin, BindingResult bindingResult, Model m) {
+	public String newTeacherFromUserPost(@Valid @ModelAttribute SchoolAdmin schoolAdmin, BindingResult bindingResult,
+			Model m) {
 		if (bindingResult.hasErrors()) {
 			return "school_admin/user_new_school_admin";
 		}
@@ -89,20 +90,21 @@ public class SchoolAdminController {
 		s.setAttribute("thisSchool", schoolAdmin.getSchool());
 		return "redirect:/schoolAdminView/";
 	}
-	
+
 	// Managing existing teacher role
 	@GetMapping("/userSchoolAdmin")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
-		HttpSession s = SessionManager.session();
+		HttpSession s = SessionManager.session();		
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
-		s.setAttribute("thisStudent", null);
+		s.setAttribute("thisStudent", null);	
 		return "school_admin/user_school_admin";
 	}
 
 	@PostMapping("/userSchoolAdmin")
-	public String TeacherFromUserPost(@Valid @ModelAttribute SchoolAdmin schoolAdmin, BindingResult bindingResult, Model m) {
+	public String TeacherFromUserPost(@Valid @ModelAttribute SchoolAdmin schoolAdmin, BindingResult bindingResult,
+			Model m) {
 		if (bindingResult.hasErrors()) {
 			return "school_admin/user_school_admin";
 		}
@@ -111,7 +113,8 @@ public class SchoolAdminController {
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
 		for (UserRole userRole : userRoles) {
-			if (userRole.getUserRole().equals("ROLE_SCHOOLADMIN") && userRole.getSchool().getName().equals(schoolAdmin.getSchool().getName())) {
+			if (userRole.getUserRole().equals("ROLE_SCHOOLADMIN")
+					&& userRole.getSchool().getName().equals(schoolAdmin.getSchool().getName())) {
 				thisUserRole = userRole;
 			}
 		}
@@ -122,21 +125,23 @@ public class SchoolAdminController {
 			}
 		}
 		HttpSession s = SessionManager.session();
+		List<UserRole> disabledUserInSchool = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(thisSchoolAdmin.getSchool().getId());			
 		s.setAttribute("thisSchoolAdmin", thisSchoolAdmin);
 		s.setAttribute("thisSchool", thisSchoolAdmin.getSchool());
+		s.setAttribute("disabledUserInSchool", disabledUserInSchool);
 		return "redirect:/schoolAdminView/";
 	}
-	
+
 	// ON/OFF student/teacher profile in school
 	@GetMapping("/setPofileAvailability")
 	public String setPofileAvailability(Model m) {
 		HttpSession s = SessionManager.session();
-		School school= (School)s.getAttribute("thisSchool");
-		List <UserRole> userToActivate = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(school.getId());
+		School school = (School) s.getAttribute("thisSchool");
+		List<UserRole> userToActivate = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(school.getId());
 		m.addAttribute("userToActivate", userToActivate);
 		return "school_admin/user_activateProfile";
 	}
-	
+
 	@GetMapping("setPofileAvailability/{userRoleId}")
 	public String setPofileAvailability(@PathVariable long userRoleId) {
 		UserRole user = this.userRoleRepo.findOne(userRoleId);
@@ -144,7 +149,7 @@ public class SchoolAdminController {
 		this.userRoleRepo.save(user);
 		return "redirect:/schoolAdmin/setPofileAvailability";
 	}
-	
+
 	// Additional methods
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -157,6 +162,7 @@ public class SchoolAdminController {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
 	}
+
 	// MESSAGES INFO
 	@ModelAttribute("countAllReceivedMessages")
 	public Integer countAllReceivedMessages(Long receiverId) {
@@ -167,12 +173,11 @@ public class SchoolAdminController {
 	public Integer countAllSendedMessages(Long senderId) {
 		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
 	}
-	
+
 	@ModelAttribute("countAllReceivedUnreadedMessages")
 	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
 		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
 	}
-	
 
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
@@ -187,5 +192,4 @@ public class SchoolAdminController {
 		return schools;
 	}
 
-	
 }
