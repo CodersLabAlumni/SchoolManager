@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../jspf/student_menu.jspf"%>
 	<div class="jumbotron">
-	
+
 		<legend align="center">Your school: ${thisSchool.name}</legend>
 		<legend>Your division: ${thisStudent.division.name}</legend>
 
@@ -27,6 +27,29 @@
 					<tr class="table-light">
 						<td><c:out value="${student.userRole.user.fullName}" /></td>
 						<td><c:out value="${student.userRole.user.email}" /></td>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr class="table-light">
+					<th scope="col">MONDAY</th>
+					<th scope="col">TUESDAY</th>
+					<th scope="col">WEDNESDAY</th>
+					<th scope="col">THURSDAY</th>
+					<th scope="col">FRIDAY</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach begin="0" end="7" varStatus="time">
+					<tr class="table-light">
+						<td><c:out value="${mondaySubjects[time.index]}" /></td>
+						<td><c:out value="${tuesdaySubjects[time.index]}" /></td>
+						<td><c:out value="${wednesdaySubjects[time.index]}" /></td>
+						<td><c:out value="${thursdaySubjects[time.index]}" /></td>
+						<td><c:out value="${fridaySubjects[time.index]}" /></td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>

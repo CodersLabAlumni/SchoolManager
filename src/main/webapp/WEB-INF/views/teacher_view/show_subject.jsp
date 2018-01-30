@@ -37,8 +37,7 @@
 			</tbody>
 		</table>
 		<input action="action" onclick="window.history.go(-1); return false;"
-			type="button" class="btn btn-secondary" value="Return" />
-		<br/>
+			type="button" class="btn btn-secondary" value="Return" /> <br />
 		<legend>Divisions attending the subject </legend>
 
 		<table class="table table-bordered">
@@ -51,9 +50,32 @@
 			<tbody>
 				<c:forEach items="${subject.division}" var="division">
 					<tr class="table-light">
-						<td><a href="${pageContext.request.contextPath}/teacherView/showDivision/${division.id}">${division.name}</a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/teacherView/showDivision/${division.id}">${division.name}</a></td>
 						<td>${division.description}</td>
-					</tr>		
+					</tr>
+					<table class="table table-bordered">
+						<thead>
+							<tr class="table-light">
+								<th scope="col">MONDAY</th>
+								<th scope="col">TUESDAY</th>
+								<th scope="col">WEDNESDAY</th>
+								<th scope="col">THURSDAY</th>
+								<th scope="col">FRIDAY</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach begin="1" end="8" varStatus="time">
+								<tr class="table-light">
+									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/1/${time.index}">add subject</a></td>
+									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/2/${time.index}">add subject</a></td>
+									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/3/${time.index}">add subject</a></td>
+									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/4/${time.index}">add subject</a></td>
+									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/5/${time.index}">add subject</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</c:forEach>
 
 			</tbody>
