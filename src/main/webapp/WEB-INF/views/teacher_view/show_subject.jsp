@@ -67,11 +67,11 @@
 						<tbody>
 							<c:forEach begin="1" end="8" varStatus="time">
 								<tr class="table-light">
-									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/1/${time.index}">add subject</a></td>
-									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/2/${time.index}">add subject</a></td>
-									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/3/${time.index}">add subject</a></td>
-									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/4/${time.index}">add subject</a></td>
-									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/5/${time.index}">add subject</a></td>
+									<td><c:out value="${mondaySubjects[time.index-1]}" /><br><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/1/${time.index}">add subject</a></td>
+									<td><c:out value="${tuesdaySubjects[time.index-1]}" /><br><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/2/${time.index}">add subject</a></td>
+									<td><c:out value="${wednesdaySubjects[time.index-1]}" /><br><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/3/${time.index}">add subject</a></td>
+									<td><c:out value="${thursdaySubjects[time.index-1]}" /><br><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/4/${time.index}">add subject</a></td>
+									<td><c:out value="${fridaySubjects[time.index-1]}" /><br><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/5/${time.index}">add subject</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

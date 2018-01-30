@@ -45,6 +45,10 @@ public class Division {
 	@ManyToMany (mappedBy = "division")
 	List <Subject> subject = new ArrayList<>();
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	List<Schedule> schedule = new ArrayList<>();
+	
 	public Division() {
 		super();
 	}

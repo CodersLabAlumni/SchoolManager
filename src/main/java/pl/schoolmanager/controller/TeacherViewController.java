@@ -223,7 +223,6 @@ public class TeacherViewController {
 	@GetMapping("/addSubject/{divisionId}/{dayId}/{timeId}")
 	public String addSubject(@PathVariable long divisionId, @PathVariable int dayId, @PathVariable int timeId) {
 		DayOfWeek dayOfWeek = DayOfWeek.of(dayId);
-//		DayOfWeek dayOfWeek = DayOfWeek.FRIDAY;
 		Division division = this.divisionRepository.findOne(divisionId);
 		Schedule schedule = scheduleRepository.findOneByDivisionAndDay(division, dayOfWeek);
 		if (schedule == null) {
@@ -246,5 +245,96 @@ public class TeacherViewController {
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
 		return this.subjectRepository.findAllByTeacher(teacher);
 	}
+	
+	@ModelAttribute("mondaySubjects")
+	public List<String> getMondaySubject() {
+		Schedule schedule = this.scheduleRepository.findOneByDay(DayOfWeek.MONDAY);
+		if (schedule == null) {
+			schedule = new Schedule();			
+		}
+		List<String> daySubjects = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			Subject currentSubject = schedule.getDaySubject().get(i);
+			if (currentSubject != null) {
+				daySubjects.add(currentSubject.getName());
+			} else {
+				daySubjects.add("empty");
+			}
+		}
+		return daySubjects;
+	}
+	
+	@ModelAttribute("tuesdaySubjects")
+	public List<String> getTuesdaySubject() {
+		Schedule schedule = this.scheduleRepository.findOneByDay(DayOfWeek.TUESDAY);
+		if (schedule == null) {
+			schedule = new Schedule();			
+		}
+		List<String> daySubjects = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			Subject currentSubject = schedule.getDaySubject().get(i);
+			if (currentSubject != null) {
+				daySubjects.add(currentSubject.getName());
+			} else {
+				daySubjects.add("empty");
+			}
+		}
+		return daySubjects;
+	}
+	
+	@ModelAttribute("wednesdaySubjects")
+	public List<String> getWednesdaySubject() {
+		Schedule schedule = this.scheduleRepository.findOneByDay(DayOfWeek.WEDNESDAY);
+		if (schedule == null) {
+			schedule = new Schedule();			
+		}
+		List<String> daySubjects = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			Subject currentSubject = schedule.getDaySubject().get(i);
+			if (currentSubject != null) {
+				daySubjects.add(currentSubject.getName());
+			} else {
+				daySubjects.add("empty");
+			}
+		}
+		return daySubjects;
+	}
+	
+	@ModelAttribute("thursdaySubjects")
+	public List<String> getThursdaySubject() {
+		Schedule schedule = this.scheduleRepository.findOneByDay(DayOfWeek.THURSDAY);
+		if (schedule == null) {
+			schedule = new Schedule();			
+		}
+		List<String> daySubjects = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			Subject currentSubject = schedule.getDaySubject().get(i);
+			if (currentSubject != null) {
+				daySubjects.add(currentSubject.getName());
+			} else {
+				daySubjects.add("empty");
+			}
+		}
+		return daySubjects;
+	}
+	
+	@ModelAttribute("fridaySubjects")
+	public List<String> getFridaySubject() {
+		Schedule schedule = this.scheduleRepository.findOneByDay(DayOfWeek.FRIDAY);
+		if (schedule == null) {
+			schedule = new Schedule();			
+		}
+		List<String> daySubjects = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			Subject currentSubject = schedule.getDaySubject().get(i);
+			if (currentSubject != null) {
+				daySubjects.add(currentSubject.getName());
+			} else {
+				daySubjects.add("empty");
+			}
+		}
+		return daySubjects;
+	}
+	
 
 }

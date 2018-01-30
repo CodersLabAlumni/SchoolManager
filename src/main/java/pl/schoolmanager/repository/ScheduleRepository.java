@@ -12,4 +12,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 	Schedule findOneByDivisionAndDay(Division division, DayOfWeek day);
 
 	Schedule findOneByDivision(Division division);
+
+	Schedule findOneByDay(DayOfWeek day);
 }
