@@ -42,13 +42,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach begin="1" end="8" varStatus="time">
+				<c:forEach begin="0" end="7" varStatus="time">
 					<tr class="table-light">
-						<td><c:out value="${mondaySubjects['time.index']}" /></td>
+						<td><c:out value="${mondaySubjects[time.index]}" /></td>
 						<td><c:out value="${tuesdaySubjects[time.index]}" /></td>
-						<td><c:out value="${wednesdaySubjects['time.index']}" /></td>
-						<td><c:out value="${thursdaySubjects['time.index']}" /></td>
-						<td><c:out value="${testSubject}" /></td>
+						<td><c:out value="${wednesdaySubjects[time.index]}" /></td>
+						<td><c:out value="${thursdaySubjects[time.index]}" /></td>
+						<td><c:out value="${fridaySubjects[time.index]}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

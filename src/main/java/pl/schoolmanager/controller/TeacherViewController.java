@@ -222,8 +222,8 @@ public class TeacherViewController {
 	
 	@GetMapping("/addSubject/{divisionId}/{dayId}/{timeId}")
 	public String addSubject(@PathVariable long divisionId, @PathVariable int dayId, @PathVariable int timeId) {
-//		DayOfWeek dayOfWeek = DayOfWeek.of(dayId);
-		DayOfWeek dayOfWeek = DayOfWeek.FRIDAY;
+		DayOfWeek dayOfWeek = DayOfWeek.of(dayId);
+//		DayOfWeek dayOfWeek = DayOfWeek.FRIDAY;
 		Division division = this.divisionRepository.findOne(divisionId);
 		Schedule schedule = scheduleRepository.findOneByDivisionAndDay(division, dayOfWeek);
 		if (schedule == null) {
