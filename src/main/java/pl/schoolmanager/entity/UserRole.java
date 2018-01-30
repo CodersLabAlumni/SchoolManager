@@ -38,7 +38,7 @@ public class UserRole {
 		super();
 	}
 
-	private boolean enabled;
+	private boolean enabled = false;
 	
 	public UserRole(String username, String userRole, User user, School school) {
 		super();
@@ -46,6 +46,7 @@ public class UserRole {
 		this.userRole = userRole;
 		this.user = user;
 		this.school = school;
+		this.enabled = false;
 	}
 
 	public long getId() {

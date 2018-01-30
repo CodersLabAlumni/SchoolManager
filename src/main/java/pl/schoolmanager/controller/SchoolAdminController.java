@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.Division;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.SchoolAdmin;
+import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.entity.User;
@@ -30,6 +32,7 @@ import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
 import pl.schoolmanager.repository.UserRepository;
+import pl.schoolmanager.repository.UserRoleRepository;
 
 @Controller
 @RequestMapping("/schoolAdmin")
@@ -53,8 +56,8 @@ public class SchoolAdminController {
 	@Autowired
 	private MessageRepository messageRepository;
 
-
-
+	@Autowired
+	private UserRoleRepository userRoleRepo;
 
 	// Make new schoolAdmin automatically creating new user role
 	@GetMapping("/userNewSchoolAdmin")
@@ -122,7 +125,25 @@ public class SchoolAdminController {
 		s.setAttribute("thisSchool", thisSchoolAdmin.getSchool());
 		return "redirect:/schoolAdminView/";
 	}
-
+	
+	// ON/OFF student/teacher profile in school
+	@GetMapping("/setPofileAvailability")
+	public String setPofileAvailability(Model m) {
+		HttpSession s = SessionManager.session();
+		School school= (School)s.getAttribute("thisSchool");
+		List <UserRole> userToActivate = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(school.getId());
+		m.addAttribute("userToActivate", userToActivate);
+		return "school_admin/user_activateProfile";
+	}
+	
+	@GetMapping("setPofileAvailability/{userRoleId}")
+	public String setPofileAvailability(@PathVariable long userRoleId) {
+		UserRole user = this.userRoleRepo.findOne(userRoleId);
+		user.setEnabled(true);
+		this.userRoleRepo.save(user);
+		return "redirect:/schoolAdmin/setPofileAvailability";
+	}
+	
 	// Additional methods
 	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -165,4 +186,5 @@ public class SchoolAdminController {
 		return schools;
 	}
 
+	
 }
