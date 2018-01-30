@@ -81,6 +81,7 @@ public class SchoolAdminController {
 		userRole.setUserRole("ROLE_SCHOOLADMIN");
 		userRole.setSchool(schoolAdmin.getSchool());
 		userRole.setUser(user);
+		userRole.setEnabled(true);
 		schoolAdmin.setUserRole(userRole);
 		this.schoolAdminRepository.save(schoolAdmin);
 		HttpSession s = SessionManager.session();
