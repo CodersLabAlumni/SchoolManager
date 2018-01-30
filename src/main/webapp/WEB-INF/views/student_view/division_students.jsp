@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../jspf/student_menu.jspf"%>
 	<div class="jumbotron">
-	
+
 		<legend align="center">Your school: ${thisSchool.name}</legend>
 		<legend>Your division: ${thisStudent.division.name}</legend>
 
@@ -28,6 +28,29 @@
 						<td><c:out value="${student.userRole.user.fullName}" /></td>
 						<td><c:out value="${student.userRole.user.email}" /></td>
 				</c:forEach>
+			</tbody>
+		</table>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr class="table-light">
+					<th scope="col">TIME</th>
+					<th scope="col">MONDAY</th>
+					<th scope="col">TUESDAY</th>
+					<th scope="col">WEDNESDAY</th>
+					<th scope="col">THURSDAY</th>
+					<th scope="col">FRIDAY</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table-light">
+					<td>7:00 - 7:45</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+					<td>TEST</td>
+				</tr>
 			</tbody>
 		</table>
 

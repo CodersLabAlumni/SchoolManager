@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Schedule {
@@ -17,6 +18,9 @@ public class Schedule {
 	private long id;
 	
 	private DayOfWeek day;
+	
+	@ManyToOne
+	private Division division;
 	
 	@ManyToMany
 	private Map<Integer, Subject> daySubject;
