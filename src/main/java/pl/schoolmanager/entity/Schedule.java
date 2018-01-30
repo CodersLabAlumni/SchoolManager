@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Schedule {
 
@@ -23,6 +26,7 @@ public class Schedule {
 	@ManyToOne
 	private Division division;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
 	private Map<Integer, Subject> daySubject = new HashMap<Integer, Subject>();
 
