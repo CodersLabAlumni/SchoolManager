@@ -1,6 +1,8 @@
 package pl.schoolmanager.controller;
 
-import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
 
 @Controller
@@ -18,6 +23,9 @@ public class StudentViewController {
 
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private ScheduleRepository scheduleRepository;
 	
 
 	@GetMapping("")
@@ -39,6 +47,13 @@ public class StudentViewController {
 	@GetMapping("/marks")
 	public String marks(Model m) {
 		return "student_view/marks_student";
+	}
+	
+	@ModelAttribute("mondaySubjects")
+	public Map<Integer, Subject> getMondaySubject() {
+		HttpSession s = SessionManager.session();
+		Student thisStudent = (Student) s.getAttribute("thisStudent");
+		return this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), 1);
 	}
 
 }
