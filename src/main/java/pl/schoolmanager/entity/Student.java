@@ -39,6 +39,8 @@ public class Student {
 	@MapsId
 	private UserRole userRole;
 	
+	private boolean enabled;
+	
 	public Student() {
 		super();
 	}
@@ -87,6 +89,14 @@ public class Student {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
