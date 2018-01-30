@@ -64,7 +64,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		
+
 		<input action="action" onclick="window.history.go(-1); return false;"
 			   type="button" class="btn btn-secondary" value="Return" />
 
