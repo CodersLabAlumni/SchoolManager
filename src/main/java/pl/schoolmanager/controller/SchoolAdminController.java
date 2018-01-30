@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Message;
+import pl.schoolmanager.entity.MessageData;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.SchoolAdmin;
 import pl.schoolmanager.entity.Student;
@@ -33,6 +35,7 @@ import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
+import pl.schoolmanager.service.message.MessageService;
 
 @Controller
 @RequestMapping("/schoolAdmin")
@@ -55,6 +58,9 @@ public class SchoolAdminController {
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private UserRoleRepository userRoleRepo;
@@ -95,10 +101,10 @@ public class SchoolAdminController {
 	@GetMapping("/userSchoolAdmin")
 	public String TeacherFromUser(Model m) {
 		m.addAttribute("schoolAdmin", new SchoolAdmin());
-		HttpSession s = SessionManager.session();		
+		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
-		s.setAttribute("thisStudent", null);	
+		s.setAttribute("thisStudent", null);
 		return "school_admin/user_school_admin";
 	}
 
@@ -125,7 +131,8 @@ public class SchoolAdminController {
 			}
 		}
 		HttpSession s = SessionManager.session();
-		List<UserRole> disabledUserInSchool = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(thisSchoolAdmin.getSchool().getId());			
+		List<UserRole> disabledUserInSchool = this.userRoleRepo
+				.findAllBySchoolIdAndEnabledIsFalse(thisSchoolAdmin.getSchool().getId());
 		s.setAttribute("thisSchoolAdmin", thisSchoolAdmin);
 		s.setAttribute("thisSchool", thisSchoolAdmin.getSchool());
 		s.setAttribute("disabledUserInSchool", disabledUserInSchool);
@@ -147,6 +154,7 @@ public class SchoolAdminController {
 		UserRole user = this.userRoleRepo.findOne(userRoleId);
 		user.setEnabled(true);
 		this.userRoleRepo.save(user);
+		messageSender(user);
 		return "redirect:/schoolAdmin/setPofileAvailability";
 	}
 
@@ -192,4 +200,18 @@ public class SchoolAdminController {
 		return schools;
 	}
 
+	public void messageSender(UserRole user) {
+		Message msg = new Message();
+		msg.setChecked(0);
+		msg.setTitle("User profile activation");
+		msg.setContent(
+				"Automatic response: Your account at school " + user.getSchool().getName() + " has been activated");
+		msg.setReceiver(user.getUser());
+		msg.setSender(getLoggedUser());
+		MessageData msgData = new MessageData();
+		msgData.setReceiverDescription(user.getUser().getEmail());
+		msgData.setSenderDescription(getLoggedUser().getEmail());
+		msg.setMessageData(msgData);
+		messageService.save(msg);
+	}
 }
