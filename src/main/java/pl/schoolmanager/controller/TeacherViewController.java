@@ -254,10 +254,8 @@ public class TeacherViewController {
 		}
 		schedule.setDay(dayOfWeek);
 		schedule.setDivision(division);
-		HttpSession s = SessionManager.session();
-		Subject subject = (Subject) s.getAttribute("subject");
 		Map<Integer, Subject> daySubject = schedule.getDaySubject();
-		daySubject.put(timeId, null);
+		daySubject.remove(timeId);
 		schedule.setDaySubject(daySubject);
 		scheduleRepository.save(schedule);
 		return "redirect:/teacherView/viewSubject";
