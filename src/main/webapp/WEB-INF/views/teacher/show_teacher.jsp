@@ -20,8 +20,8 @@
 
 	<div class="jumbotron">
 
-		<legend>Teacher details: ${teacher.firstName}
-			${teacher.lastName} </legend>
+		<legend>Teacher details: ${teacher.userRole.user.firstName}
+			${teacher.userRole.user.lastName} </legend>
 
 		<table class="table table-bordered">
 			<thead>
@@ -37,15 +37,15 @@
 				</tr>
 				<tr class="table-light">
 					<td>E-mail</td>
-					<td scope="row"><c:out value="${teacher.email}" /></td>
+					<td scope="row"><c:out value="${teacher.userRole.user.email}" /></td>
 				</tr>
 				<tr class="table-light">
 					<td>First name</td>
-					<td scope="row"><c:out value="${teacher.firstName}" /></td>
+					<td scope="row"><c:out value="${teacher.userRole.user.firstName}" /></td>
 				</tr>
 				<tr class="table-light">
 					<td>Last name</td>
-					<td scope="row"><c:out value="${teacher.lastName}" /></td>
+					<td scope="row"><c:out value="${teacher.userRole.user.lastName}" /></td>
 				</tr>
 			</tbody>
 		</table>

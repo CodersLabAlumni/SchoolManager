@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "mark")
@@ -27,6 +28,7 @@ public class Mark {
 
 	private String description;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
 	@ManyToOne

@@ -64,13 +64,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-
-
-
-
-
-		<a class="btn btn-secondary"
-			href="${pageContext.request.contextPath}/division/all">Return</a>
+		
+		<input action="action" onclick="window.history.go(-1); return false;"
+			   type="button" class="btn btn-secondary" value="Return" />
 
 	</div>
 
