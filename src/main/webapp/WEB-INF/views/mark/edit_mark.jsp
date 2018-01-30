@@ -15,8 +15,8 @@
 
 		<form:form method="post" modelAttribute="mark" class="form-horizontal">
 			<fieldset>
-				<legend>Edit mark for: ${mark.student.firstName}
-					${mark.student.lastName}</legend>
+				<legend>Edit mark for: ${mark.student.userRole.user.firstName}
+					${mark.student.userRole.user.lastName}</legend>
 
 				<div class="form-group">
 					<label for="markValue" class="col-2 col-form-label">Mark value</label>
@@ -38,8 +38,8 @@
 				<div class="form-group">
 					<label for="example-date-input" class="col-2 col-form-label">Mark date</label>
 					<div class="col-10">
-						<input class="form-control" type="date" value="2018-01-01"
-							id="example-date-input">
+						<form:input class="form-control" type="date" value="2018-01-01" path="date"
+							id="example-date-input"/>
 					</div>
 				</div>
 

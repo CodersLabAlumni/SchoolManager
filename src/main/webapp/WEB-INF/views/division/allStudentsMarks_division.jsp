@@ -38,8 +38,8 @@
 				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
-						<td><c:out value="${student.firstName}" /></td>
-						<td><c:out value="${student.lastName}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td><c:forEach items="${marks}" var="mark">
 								<c:choose>
 									<c:when test="${mark.student.id == student.id}">
