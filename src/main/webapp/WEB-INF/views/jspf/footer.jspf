@@ -1,6 +1,9 @@
 <!-- TODO Footer -->
 
-<p>Footer<p>
+
+ <hr class="my-4">
+<p class="text-center" >&copy; SchoolSystemManager <a href="https://github.com/CodersLabAlumni/SchoolManager">Team Project</a></p>
+
 
 <!--  
 <script src='${pageContext.request.contextPath}/resources/js/bootstrap.js'></script>
