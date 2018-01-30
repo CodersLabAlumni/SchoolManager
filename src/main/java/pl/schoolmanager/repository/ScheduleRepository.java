@@ -1,5 +1,6 @@
 package pl.schoolmanager.repository;
 
+import java.time.DayOfWeek;
 import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,5 @@ import pl.schoolmanager.entity.Subject;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-	Map<Integer, Subject> findOneByDivisionAndDay(Division division, int day);
-
+	Schedule findOneByDivisionAndDay(Division division, DayOfWeek day);
 }

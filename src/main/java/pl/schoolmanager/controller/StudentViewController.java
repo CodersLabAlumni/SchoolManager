@@ -1,5 +1,6 @@
 package pl.schoolmanager.controller;
 
+import java.time.DayOfWeek;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
+import pl.schoolmanager.entity.Schedule;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.repository.ScheduleRepository;
@@ -53,7 +55,9 @@ public class StudentViewController {
 	public Map<Integer, Subject> getMondaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		return this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), 1);
+		DayOfWeek monday = DayOfWeek.MONDAY;
+		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.MONDAY);
+		return schedule.getDaySubject();
 	}
 
 }

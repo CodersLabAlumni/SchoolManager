@@ -52,6 +52,14 @@ public class Schedule {
 	public void setDaySubject(Map<Integer, Subject> daySubject) {
 		this.daySubject = daySubject;
 	}
+
+	public Division getDivision() {
+		return division;
+	}
+
+	public void setDivision(Division division) {
+		this.division = division;
+	}
 	
 	
 }

@@ -45,7 +45,7 @@
 			<tbody>
 				<tr class="table-light">
 					<td>7:00 - 7:45</td>
-					<td>TEST</td>
+					<td><c:out value="${mondaySubjects['1']}" /></td>
 					<td>TEST</td>
 					<td>TEST</td>
 					<td>TEST</td>
