@@ -80,7 +80,7 @@ public class StudentController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", student);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "user/user_enabling";
+		return "user/user_activation_info";
 	}
 
 	// Managing exisitng student role

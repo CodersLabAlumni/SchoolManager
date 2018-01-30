@@ -95,7 +95,7 @@ public class TeacherController {
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", teacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "user/user_enabling";
+		return "user/user_activation_info";
 	}
 
 	// Managing existing teacher role

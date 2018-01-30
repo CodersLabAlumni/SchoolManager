@@ -46,7 +46,7 @@
 							</div>
 						</td>
 						<td><a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/schoolAdmin/setPofileAvailability/${userRole.id}">Activate</a>
+							href="${pageContext.request.contextPath}/schoolAdmin/userActivateProfile/${userRole.id}">Activate</a>
 						</td>
 					</tr>
 				</c:forEach>

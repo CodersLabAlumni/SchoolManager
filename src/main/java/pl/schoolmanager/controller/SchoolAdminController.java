@@ -139,23 +139,23 @@ public class SchoolAdminController {
 		return "redirect:/schoolAdminView/";
 	}
 
-	// ON/OFF student/teacher profile in school
-	@GetMapping("/setPofileAvailability")
-	public String setPofileAvailability(Model m) {
+	// Activate user profile at School
+	@GetMapping("/userActivateProfile")
+	public String userActivateProfile(Model m) {
 		HttpSession s = SessionManager.session();
 		School school = (School) s.getAttribute("thisSchool");
 		List<UserRole> userToActivate = this.userRoleRepo.findAllBySchoolIdAndEnabledIsFalse(school.getId());
 		m.addAttribute("userToActivate", userToActivate);
-		return "school_admin/user_activateProfile";
+		return "school_admin/user_activate_profile";
 	}
 
-	@GetMapping("setPofileAvailability/{userRoleId}")
-	public String setPofileAvailability(@PathVariable long userRoleId) {
+	@GetMapping("userActivateProfile/{userRoleId}")
+	public String activateUserProfile(@PathVariable long userRoleId) {
 		UserRole user = this.userRoleRepo.findOne(userRoleId);
 		user.setEnabled(true);
 		this.userRoleRepo.save(user);
 		messageSender(user);
-		return "redirect:/schoolAdmin/setPofileAvailability";
+		return "redirect:/schoolAdmin/userActivateProfile";
 	}
 
 	// Additional methods
