@@ -194,18 +194,19 @@ public class StudentController {
 		return availableSchools;
 	}
 	
-	@ModelAttribute("userSchools")
-	public List<School> userSchools() {
-		User user = sessionManager.loggedUser();
-		List<School> schools = new ArrayList<>();
-		List<UserRole> roles = user.getUserRoles();
-		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
-				schools.add(userRole.getSchool());
-			}
-		}
-		return schools;
-	}
+	//Consider deleting this code
+//	@ModelAttribute("userSchools")
+//	public List<School> userSchools() {
+//		User user = sessionManager.loggedUser();
+//		List<School> schools = new ArrayList<>();
+//		List<UserRole> roles = user.getUserRoles();
+//		for (UserRole userRole : roles) {
+//			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+//				schools.add(userRole.getSchool());
+//			}
+//		}
+//		return schools;
+//	}
 	
 	@ModelAttribute("userEnabledSchools")
 	public List<School> userEnabledSchools() {
