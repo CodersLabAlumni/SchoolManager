@@ -51,11 +51,13 @@ public class StudentController {
 		this.studentRepository.save(student);
 		return "index";
 	}
-
+	
 	// Make new student automatically creating new user role
 	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
-		m.addAttribute("student", new Student());
+		Student student = new Student();
+		student.setEnabled(false);
+		m.addAttribute("student", student);
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
