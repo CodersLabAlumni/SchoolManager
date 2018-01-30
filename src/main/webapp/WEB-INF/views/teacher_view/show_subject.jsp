@@ -57,7 +57,6 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr class="table-light">
-								<th scope="col">TIME</th>
 								<th scope="col">MONDAY</th>
 								<th scope="col">TUESDAY</th>
 								<th scope="col">WEDNESDAY</th>
@@ -68,7 +67,6 @@
 						<tbody>
 							<c:forEach begin="1" end="8" varStatus="time">
 								<tr class="table-light">
-									<td>7:00 - 7:45</td>
 									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/1/${time.index}">add subject</a></td>
 									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/2/${time.index}">add subject</a></td>
 									<td><a href="${pageContext.request.contextPath}/teacherView/addSubject/${division.id}/3/${time.index}">add subject</a></td>

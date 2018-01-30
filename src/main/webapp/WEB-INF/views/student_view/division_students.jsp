@@ -34,7 +34,6 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr class="table-light">
-					<th scope="col">TIME</th>
 					<th scope="col">MONDAY</th>
 					<th scope="col">TUESDAY</th>
 					<th scope="col">WEDNESDAY</th>
@@ -43,36 +42,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="table-light">
-					<td>7:00 - 7:45</td>
-					<td><c:out value="${mondaySubjects['1']}" /></td>
-					<td>
-						<%-- ${mondaySubjects.1} --%>
-					</td>
-					<td>${mondaySubjects["1"]}</td>
-					<td>TEST</td>
-					<td>TEST</td>
-				</tr>
-				<tr class="table-light">
-					<td>7:00 - 7:45</td>
-					<td><c:out value="${mondaySubjects['0']}" /></td>
-					<td>
-						<%-- ${mondaySubjects.1} --%>
-					</td>
-					<td>${mondaySubjects["0"]}</td>
-					<td>
-						<%-- ${mondaySubjects} --%>
-					</td>
-					<td>TEST</td>
-				</tr>
 				<c:forEach begin="1" end="8" varStatus="time">
 					<tr class="table-light">
-						<td>7:00 - 7:45</td>
-						<td><c:out value="${mondaySubjects['time.index']}" /></a></td>
-						<td><c:out value="${mondaySubjects['time.index']}" /></a></td>
-						<td><c:out value="${mondaySubjects['time.index']}" /></a></td>
-						<td><c:out value="${mondaySubjects['time.index']}" /></a></td>
-						<td><c:out value="${mondaySubjects['time.index']}" /></a></td>
+						<td><c:out value="${mondaySubjects['time.index']}" /></td>
+						<td><c:out value="${tuesdaySubjects[time.index]}" /></td>
+						<td><c:out value="${wednesdaySubjects['time.index']}" /></td>
+						<td><c:out value="${thursdaySubjects['time.index']}" /></td>
+						<td><c:out value="${testSubject}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
