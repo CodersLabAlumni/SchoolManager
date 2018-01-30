@@ -55,9 +55,7 @@ public class StudentController {
 	// Make new student automatically creating new user role
 	@GetMapping("/userNewStudent")
 	public String newStudentFromUser(Model m) {
-		Student student = new Student();
-		student.setEnabled(false);
-		m.addAttribute("student", student);
+		m.addAttribute("student", new Student());
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisSchoolAdmin", null);
 		s.setAttribute("thisTeacher", null);
@@ -77,6 +75,7 @@ public class StudentController {
 		userRole.setUserRole("ROLE_STUDENT");
 		userRole.setSchool(student.getSchool());
 		userRole.setUser(user);
+		userRole.setEnabled(false);
 		student.setUserRole(userRole);
 		this.studentRepository.save(student);
 		HttpSession s = SessionManager.session();
@@ -202,6 +201,19 @@ public class StudentController {
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
 			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		return schools;
+	}
+	
+	@ModelAttribute("userEnabledSchools")
+	public List<School> userEnabledSchools() {
+		User user = sessionManager.loggedUser();
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = user.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT")&& userRole.isEnabled()==true) {
 				schools.add(userRole.getSchool());
 			}
 		}

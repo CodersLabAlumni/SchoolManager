@@ -38,6 +38,8 @@ public class UserRole {
 		super();
 	}
 
+	private boolean enabled;
+	
 	public UserRole(String username, String userRole, User user, School school) {
 		super();
 		this.username = username;
@@ -85,6 +87,14 @@ public class UserRole {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public static List<String> getRolesForSelect() {
