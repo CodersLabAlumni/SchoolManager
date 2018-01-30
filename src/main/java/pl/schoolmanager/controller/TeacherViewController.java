@@ -98,6 +98,11 @@ public class TeacherViewController {
 		return "test";
 	}
 
+	@GetMapping("/viewSubject")
+	public String viewSessionSubject() {
+		return "teacher_view/show_subject";
+	}
+
 	// READ
 	@GetMapping("/viewSubject/{subjectId}")
 	public String viewSubject(Model m, @PathVariable long subjectId) {
@@ -106,7 +111,7 @@ public class TeacherViewController {
 		s.setAttribute("subject", subject);
 		return "teacher_view/show_subject";
 	}
-
+	
 	// UPDATE
 	@GetMapping("/updateSubject/{subjectId}")
 	public String updateSubject(Model m, @PathVariable long subjectId) {
@@ -236,7 +241,26 @@ public class TeacherViewController {
 		daySubject.put(timeId, subject);
 		schedule.setDaySubject(daySubject);
 		scheduleRepository.save(schedule);
-		return "teacher_view/show_subject";
+		return "redirect:/teacherView/viewSubject";
+	}
+	
+	@GetMapping("/removeSubject/{divisionId}/{dayId}/{timeId}")
+	public String removeSubject(@PathVariable long divisionId, @PathVariable int dayId, @PathVariable int timeId) {
+		DayOfWeek dayOfWeek = DayOfWeek.of(dayId);
+		Division division = this.divisionRepository.findOne(divisionId);
+		Schedule schedule = scheduleRepository.findOneByDivisionAndDay(division, dayOfWeek);
+		if (schedule == null) {
+			schedule = new Schedule();
+		}
+		schedule.setDay(dayOfWeek);
+		schedule.setDivision(division);
+		HttpSession s = SessionManager.session();
+		Subject subject = (Subject) s.getAttribute("subject");
+		Map<Integer, Subject> daySubject = schedule.getDaySubject();
+		daySubject.put(timeId, null);
+		schedule.setDaySubject(daySubject);
+		scheduleRepository.save(schedule);
+		return "redirect:/teacherView/viewSubject";
 	}
 
 	@ModelAttribute("teacherSubjects")
