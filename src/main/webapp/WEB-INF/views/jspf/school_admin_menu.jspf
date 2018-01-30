@@ -77,9 +77,9 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<sec:authorize access="isAuthenticated()">
-				<%@ include file="addToSchoolRequest.jspf"%>
-				<li class="nav-item">Logged:<sec:authentication property="principal.username" /></li>
+				<li class="nav-item"><a class="nav-link">Logged:<sec:authentication property="principal.username" /></a></li>
 				<%@ include file="message.jspf"%>
+				<%@ include file="activateProfile.jspf"%>
 				<li class="nav-item"><a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/logout">Logout</a></li>
 			</sec:authorize>

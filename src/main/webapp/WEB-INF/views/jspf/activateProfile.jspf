@@ -1,0 +1,9 @@
+<c:choose>
+	<c:when test="${empty disabledUserInSchool}">
+	</c:when>
+	<c:otherwise>
+		<li class="nav-item"><a class="btn btn-danger"
+			href="${pageContext.request.contextPath}/schoolAdmin/setPofileAvailability">!</a></li>
+		</li>
+	</c:otherwise>
+</c:choose>
