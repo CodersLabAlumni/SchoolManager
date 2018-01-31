@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,7 @@ public class TeacherViewController {
 	}
 
 	@PostMapping("/createSubjects")
+	@Transactional
 	public String createSubjectPost(@Valid @ModelAttribute Subject subject, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "teacher_view/new_subject";
@@ -88,14 +90,14 @@ public class TeacherViewController {
 		HttpSession s = SessionManager.session();
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
 		School school = (School) s.getAttribute("thisSchool");
+
+		teacher.getSubject().add(subject);
+		teacherRepository.save(teacher);
+
+		subject.getTeacher().add(teacherRepository.findOne(teacher.getId()));
 		subject.setSchool(school);
-		subject.getTeacher()/* .add(teacher) */;
-		List<Subject> subjects = teacher.getSubject();
-		subjects.add(subject);
-		teacher.setSubject(subjects);
-		this.teacherRepository.save(teacher);
-		this.subjectRepository.save(subject);
-		return "test";
+		subjectRepository.save(subject);
+		return "redirect:/teacherView/subjects";
 	}
 
 	@GetMapping("/viewSubject")
