@@ -128,9 +128,11 @@ public class TeacherViewController {
 		if (bindingResult.hasErrors()) {
 			return "teacher_view/edit_subject";
 		}
-		subject.setId(subjectId);
-		this.subjectRepository.save(subject);
-		return "index";
+		Subject dbSubject = subjectRepository.findOne(subjectId);
+		dbSubject.setName(subject.getName());
+		dbSubject.setDescription(subject.getDescription());
+		subjectRepository.save(dbSubject);
+		return "redirect:/teacherView/subjects";
 	}
 
 	// DELETE
