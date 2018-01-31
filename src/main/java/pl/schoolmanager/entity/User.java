@@ -12,16 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
-
-import pl.schoolmanager.validator.EditUsernameValidator;
-import pl.schoolmanager.validator.NewUsernameValidator;
+import pl.schoolmanager.validator.user.EditUsernameValidator;
+import pl.schoolmanager.validator.user.NewUsernameValidator;
+import pl.schoolmanager.validator.user.UserPasswordValidator;
 
 @Entity
 @Table(name = "user")
@@ -31,30 +30,29 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
-	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotBlank(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Size(min=5, max=25, groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String username;
 
-	@NotNull(groups = NewUsernameValidator.class)
-	@NotEmpty(groups = NewUsernameValidator.class)
-	@Size(min=5, max=100, groups = NewUsernameValidator.class)
+	@NotBlank(groups = {NewUsernameValidator.class, UserPasswordValidator.class})
+	@Size(min=5, max=100, groups = {NewUsernameValidator.class, UserPasswordValidator.class})
 	private String password;
 
 	@Transient
 	private String confirmPassword;
 
-	@NotNull(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Email(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	@Column(unique = true)
 	private String email;
 	
-	@NotBlank
+	@NotBlank(message = "white characters forbidden", groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	private String firstName;
 
-	@NotBlank
+	@NotBlank(message = "white characters forbidden", groups = {NewUsernameValidator.class, EditUsernameValidator.class})
+	@NotEmpty(groups = {NewUsernameValidator.class, EditUsernameValidator.class})
 	private String lastName;
 	
 	private boolean enabled;
@@ -67,13 +65,12 @@ public class User {
 	}
 
 	public User(String username, String password, String email, String firstName, String lastName, boolean enabled) {
-		super();
-		this.username = username;
-		this.setPassword(password);
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.enabled = enabled;
+		setUsername(username);
+		setPassword(password);
+		setEmail(email);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEnabled(enabled);
 	}
 
 	@Override
@@ -103,15 +100,15 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-	}
-	
-	public void setPasswordEncrypted(String password) {
 		this.password = password;
 	}
 	
-	public boolean isPasswordCorrent(String password) {
+	public boolean isPasswordCorrect(String password) {
 		return BCrypt.checkpw(password, this.password);
+	}
+
+	public void hashPassword() {
+		password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
 	public boolean isEnabled() {

@@ -12,7 +12,7 @@
 	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
-		<legend>All Users</legend>
+		<legend>Change user password</legend>
 
 		<table class="table table-bordered">
 			<thead>
@@ -33,17 +33,32 @@
 			</tbody>
 		</table>
 
+		<h4>Please provide new password for this user:</h4>
+
 		<div>
-			<form:form method="post">
-				<h4>Please provide new password for this user:</h4>
-				Password:
-				<input type="password" name="password1" />
-				Confirm password:
-				<input type="password" name="password2" />
-				<h5><c:out value="${msg}"></c:out></h5>
+			<form:form method="post" modelAttribute="user" >
+
+				<form:input type="hidden" path="id" />
+				<form:input type="hidden" path="username" />
+				<form:input type="hidden" path="email" />
+				<form:input type="hidden" path="firstName" />
+				<form:input type="hidden" path="lastName" />
+
+				<div class="form-group">
+					Password:
+					<form:password path="password" cssClass="form-control" />
+					<form:errors class="text-danger" path="password" />
+				</div>
+
+				<div class="form-group">
+					Confirm password:
+					<form:password path="confirmPassword" cssClass="form-control" />
+				</div>
+
 				<input type="submit" value="Change password" class="btn btn-primary"/>
 			</form:form>
 		</div>
+
 	</div>
 	<%@ include file="../jspf/footer.jspf"%>
 </body>

@@ -17,6 +17,7 @@ import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.TeacherRepository;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
+import pl.schoolmanager.service.user.UserService;
 
 @Controller
 @RequestMapping("/mockdb")
@@ -39,6 +40,9 @@ public class MockDbController {
 
 	@Autowired
 	private SchoolAdminRepository schoolAdminRepo;
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/mockdb")
 	public String mockUserAndUserRoles() {
@@ -64,16 +68,16 @@ public class MockDbController {
 		User user118 = new User("user118", "user118", "user118@wp.pl", "Julius", "Caesar",true);
 		User user119 = new User("user119", "user119", "user119@wp.pl", "Phillip", "Morris",true);
 
-		this.userRepo.save(admin111);
-		this.userRepo.save(user111);
-		this.userRepo.save(user112);
-		this.userRepo.save(user113);
-		this.userRepo.save(user114);
-		this.userRepo.save(user115);
-		this.userRepo.save(user116);
-		this.userRepo.save(user117);
-		this.userRepo.save(user118);
-		this.userRepo.save(user119);
+		userService.register(admin111);
+		userService.register(user111);
+		userService.register(user112);
+		userService.register(user113);
+		userService.register(user114);
+		userService.register(user115);
+		userService.register(user116);
+		userService.register(user117);
+		userService.register(user118);
+		userService.register(user119);
 
 		//admin of the whole webapp
 		UserRole adminRole1 = new UserRole("admin111", "ROLE_ADMIN", admin111, null);
