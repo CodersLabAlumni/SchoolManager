@@ -139,7 +139,7 @@ public class TeacherViewController {
 	@GetMapping("/deleteSubject/{subjectId}")
 	public String deleteSubject(@PathVariable long subjectId) {
 		this.subjectRepository.delete(subjectId);
-		return "index";
+		return "redirect:/teacherView/subjects";
 	}
 
 	// SHOW SUDENTS IN DIVISION
