@@ -36,7 +36,7 @@ public class StudentController {
 
 	@Autowired
 	private SessionManager sessionManager;
-	
+
 	@GetMapping("/create")
 	public String createStudent(Model m) {
 		m.addAttribute("student", new Student());
@@ -64,8 +64,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/userNewStudent")
-	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
-										Model m) {
+	public String newStudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "student/user_new_student";
 		}
@@ -75,14 +74,15 @@ public class StudentController {
 		userRole.setUserRole("ROLE_STUDENT");
 		userRole.setSchool(student.getSchool());
 		userRole.setUser(user);
+		userRole.setEnabled(false);
 		student.setUserRole(userRole);
 		this.studentRepository.save(student);
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisStudent", student);
 		s.setAttribute("thisSchool", student.getSchool());
-		return "redirect:/studentView/";
+		return "user/user_activation_info";
 	}
-	
+
 	// Managing exisitng student role
 	@GetMapping("/userStudent")
 	public String StudentFromUser(Model m) {
@@ -95,8 +95,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/userStudent")
-	public String StudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult,
-										Model m) {
+	public String StudentFromUserPost(@Valid @ModelAttribute Student student, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "student/user_student";
 		}
@@ -105,7 +104,8 @@ public class StudentController {
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
 		for (UserRole userRole : userRoles) {
-			if (userRole.getUserRole().equals("ROLE_STUDENT") && userRole.getSchool().getName().equals(student.getSchool().getName())) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT")
+					&& userRole.getSchool().getName().equals(student.getSchool().getName())) {
 				thisUserRole = userRole;
 			}
 		}
@@ -152,22 +152,22 @@ public class StudentController {
 		m.addAttribute("student", student);
 		return "student/confirmdelete_student";
 	}
-	
+
 	@PostMapping("/delete/{studentId}")
 	public String deleteStudent(@PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
-		if (student.getSchool()!=null || student.getMark()!=null || student.getDivision()!=null) {
+		if (student.getSchool() != null || student.getMark() != null || student.getDivision() != null) {
 			return "errors/deleteException";
 		}
 		this.studentRepository.delete(studentId);
 		return "redirect:/student/all";
 	}
-	
+
 	@ModelAttribute("availableStudents")
 	public List<Student> getStudents() {
 		return this.studentRepository.findAll();
 	}
-	
+
 	// SHOW ALL FROM SCHOOL
 	@ModelAttribute("schoolStudents")
 	public List<Student> getSchoolStudents() {
@@ -192,14 +192,28 @@ public class StudentController {
 		List<School> availableSchools = this.schoolRepo.findAll();
 		return availableSchools;
 	}
-	
-	@ModelAttribute("userSchools")
-	public List<School> userSchools() {
+
+	// Consider deleting this code
+	// @ModelAttribute("userSchools")
+	// public List<School> userSchools() {
+	// User user = sessionManager.loggedUser();
+	// List<School> schools = new ArrayList<>();
+	// List<UserRole> roles = user.getUserRoles();
+	// for (UserRole userRole : roles) {
+	// if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+	// schools.add(userRole.getSchool());
+	// }
+	// }
+	// return schools;
+	// }
+
+	@ModelAttribute("userEnabledSchools")
+	public List<School> userEnabledSchools() {
 		User user = sessionManager.loggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {
-			if (userRole.getUserRole().equals("ROLE_STUDENT")) {
+			if (userRole.getUserRole().equals("ROLE_STUDENT") && userRole.isEnabled() == true) {
 				schools.add(userRole.getSchool());
 			}
 		}

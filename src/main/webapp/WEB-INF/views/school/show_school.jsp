@@ -39,7 +39,8 @@
 		<input action="action" onclick="window.history.go(-1); return false;"
 			type="button" class="btn btn-secondary" value="Return" />
 	</div>
-
 	<%@ include file="../jspf/footer.jspf"%>
+
+	
 </body>
 </html>

@@ -38,6 +38,7 @@ public class Student {
 	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
 	private UserRole userRole;
+
 	
 	public Student() {
 		super();

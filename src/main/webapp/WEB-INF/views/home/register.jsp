@@ -15,57 +15,46 @@
 
 		<div id="login-box">
 
-			<h2>Please provide login and password for new user</h2>
-
-			<c:if test="${not empty error}">
-				<div class="error">${error}</div>
-			</c:if>
-			<c:if test="${not empty msg}">
-				<div class="msg">${msg}</div>
-			</c:if>
+			<h2>Registration form</h2>
 
 			<form:form method="post" modelAttribute="user">
 				<div class="form-group">
 					Username:
 					<form:input path="username" cssClass="form-control" />
-					<form:errors path="username" />
+					<form:errors class="text-danger" path="username" />
 				</div>
 				<div class="form-group">
 					Email:
 					<form:input path="email" cssClass="form-control" />
-					<form:errors path="email" />
+					<form:errors class="text-danger" path="email" />
 				</div>
 
 				<div class="form-group">
 					First name:
 					<form:input path="firstName" cssClass="form-control" />
-					<form:errors path="firstName" />
+					<form:errors class="text-danger" path="firstName" />
 				</div>
 				<div class="form-group">
 					Last name:
 					<form:input path="lastName" cssClass="form-control" />
-					<form:errors path="lastName" />
+					<form:errors class="text-danger" path="lastName" />
 				</div>
-
 
 				<div class="form-group">
 					Password:
 					<form:password path="password" cssClass="form-control" />
-					<form:errors path="password" />
+					<form:errors class="text-danger" path="password" />
 				</div>
+
 				<div class="form-group">
 					Confirm password:
 					<form:password path="confirmPassword" cssClass="form-control" />
-					<form:errors path="confirmPassword" />
 				</div>
 
 				<input type="submit" class="btn btn-primary"
 					value="Register new user">
+
 			</form:form>
-			<br />
-			<h3>
-				<c:out value="${msg}"></c:out>
-			</h3>
 		</div>
 	</div>
 	<%@ include file="../jspf/footer.jspf"%>

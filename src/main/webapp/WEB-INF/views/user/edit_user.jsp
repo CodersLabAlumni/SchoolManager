@@ -15,16 +15,20 @@
 
 		<form:form method="post" modelAttribute="user" class="form-horizontal">
 			<fieldset>
-				<legend>Add new User or Edit existing one</legend>
+				<legend>Update user</legend>
+
+				<form:input type="hidden" path="password" />
+				<form:input type="hidden" path="id" />
 
 				<div class="form-group">
 					<label for="inputUsername" class="col-lg-2 control-label">Username</label>
 					<div class="col-lg-10">
 						<form:input class="form-control" id="inputUsername"
-							placeholder="Enter first name" type="text" path="username" />
+							placeholder="Enter username" type="text" path="username" />
 						<form:errors path="username" class="text-danger" />
 					</div>
 				</div>
+
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">E-mail
 					</label>
@@ -60,13 +64,13 @@
 					</div>
 				</div>
 
-
 				<div>
 					Account type: Enabled:
 					<form:radiobutton path="enabled" value="true" />
 					Blocked:
 					<form:radiobutton path="enabled" value="false" />
 				</div>
+
 				<br />
 			</fieldset>
 			<input action="action" onclick="window.history.go(-1); return false;"
