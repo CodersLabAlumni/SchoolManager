@@ -89,12 +89,13 @@ public class TeacherController {
 		userRole.setUserRole("ROLE_TEACHER");
 		userRole.setSchool(teacher.getSchool());
 		userRole.setUser(user);
+		userRole.setEnabled(false);
 		teacher.setUserRole(userRole);
 		this.teacherRepository.save(teacher);
 		HttpSession s = SessionManager.session();
 		s.setAttribute("thisTeacher", teacher);
 		s.setAttribute("thisSchool", teacher.getSchool());
-		return "redirect:/teacherView/";
+		return "user/user_activation_info";
 	}
 
 	// Managing existing teacher role
@@ -166,17 +167,17 @@ public class TeacherController {
 		m.addAttribute("teacher", teacher);
 		return "teacher/confirmdelete_teacher";
 	}
-	
+
 	@PostMapping("/delete/{teacherId}")
 	public String deleteSchool(@PathVariable long teacherId) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
-		if (teacher.getSubject()!=null || teacher.getSchool() !=null) {
+		if (teacher.getSubject() != null || teacher.getSchool() != null) {
 			return "errors/deleteException";
 		}
 		this.teacherRepository.delete(teacherId);
 		return "redirect:/teacher/all";
 	}
-		
+
 	@ModelAttribute("availableTeachers")
 	public List<Teacher> getTeachers() {
 		return this.teacherRepository.findAll();
@@ -243,4 +244,17 @@ public class TeacherController {
 		return schools;
 	}
 
+	@ModelAttribute("userEnabledSchools")
+	public List<School> userEnabledSchools() {
+		User user = sessionManager.loggedUser();
+		List<School> schools = new ArrayList<>();
+		List<UserRole> roles = user.getUserRoles();
+		for (UserRole userRole : roles) {
+			if (userRole.getUserRole().equals("ROLE_TEACHER") && userRole.isEnabled() == true) {
+				schools.add(userRole.getSchool());
+			}
+		}
+		return schools;
+	}
+	
 }

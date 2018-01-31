@@ -26,6 +26,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<sec:authorize access="isAuthenticated()">
+			<li class="nav-item"><a class="nav-link">Logged:<sec:authentication property="principal.username" /></a></li>
 				<%@ include file="message.jspf"%>
 				<li class="nav-item"><a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/logout">Logout</a></li>

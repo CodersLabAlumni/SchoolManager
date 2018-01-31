@@ -77,7 +77,9 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item"><a class="nav-link">Logged:<sec:authentication property="principal.username" /></a></li>
 				<%@ include file="message.jspf"%>
+				<%@ include file="activateProfile.jspf"%>
 				<li class="nav-item"><a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/logout">Logout</a></li>
 			</sec:authorize>
@@ -90,7 +92,7 @@
 					href="${pageContext.request.contextPath}/register">Register</a></li>
 			</sec:authorize>
 		</ul>
-		
+
 
 	</div>
 </nav>
