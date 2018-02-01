@@ -94,9 +94,11 @@ public class DivisionController {
 		if (bindingResult.hasErrors()) {
 			return "division/edit_division";
 		}
-		division.setId(divisionId);
-		this.divisionRepository.save(division);
-		return "index";
+		Division dbDivision = divisionRepository.findOne(divisionId);
+		dbDivision.setName(division.getName());
+		dbDivision.setDescription(division.getDescription());
+		divisionRepository.save(dbDivision);
+		return "redirect:/division/all";
 	}
 
 	@GetMapping("/delete/{divisionId}")
