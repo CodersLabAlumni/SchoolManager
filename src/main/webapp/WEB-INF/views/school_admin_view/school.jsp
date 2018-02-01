@@ -9,59 +9,61 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/school_admin_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
+	<div class="container">
+		<div class="row">
+			<h2>
+				Welcome to
+				<c:out value="${schoolAdmin.school.name}" />
+				(
+				<c:out value="${schoolAdmin.school.type}" />
+				)
+				<c:out value="${schoolAdmin.userRole.user.fullName}" />
+				.
+			</h2>
+			<h4>You are and administrator in this school</h4>
+		</div>
 
-	<div class="jumbotron">
-		<legend>Your school</legend>
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><a class="nav-link active show"
+					data-toggle="tab" href="#home">Home</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#divisions">Divisions</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#teachers">Teachers</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#students">Students</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade active show" id="home">
+					<div>
+						<br />
+						<hr />
+						<br />
+						<p>Basic information about this school:</p>
+						<p>
+							Name: <c:out value="${schoolAdmin.school.name}"/>
+						</p>
+						<p>Type: <c:out value="${schoolAdmin.school.type}"/></p>
+						<p>Number of divisions: (placeholder)</p>
+						<p>Number of students: (placeholder)</p>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="divisions">
+					<p>DIVISIONS</p>
+				</div>
+				<div class="tab-pane fade" id="teachers">
+					<p>TEACHERS</p>
+				</div>
+				<div class="tab-pane fade" id="students">
+					<p>STUDENTS</p>
+				</div>
+			</div>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr class="table-light">
-					<th scope="col">ID</th>
-					<th scope="col">NAME</th>
-					<th scope="col">TYPE</th>
-					<th scope="col">OPTION</th>
-				</tr>
-			</thead>
-			<tbody>
-					<tr class="table-light">
-						<td scope="row"><c:out value="${thisSchool.id}" /></td>
-						<td><c:out value="${thisSchool.name}" /></td>
-						<td><c:out value="${thisSchool.type}" /></td>
-						<td>
-							<div class="btn-group">
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/view/${thisSchool.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/update/${thisSchool.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/delete/${thisSchool.id}">Delete</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addDivision/${thisSchool.id}">Add
-											Division</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addSubject/${thisSchool.id}">Add
-											Subject</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addStudent/${thisSchool.id}">Add
-											Student</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/school/addTeacher/${thisSchool.id}">Add
-											Teacher</a>
-									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-			</tbody>
-		</table>
-
-
+		</div>
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>

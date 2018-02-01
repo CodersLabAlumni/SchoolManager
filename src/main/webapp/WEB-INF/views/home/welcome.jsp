@@ -81,7 +81,7 @@
 								<p class="card-text">You are an administrator in this
 									school.</p>
 								<a type="button" class="btn btn-danger btn-lg btn-block"
-									href="${pageContext.request.contextPath}/schooladmin/access/${userRole.id}">Manage
+									href="${pageContext.request.contextPath}/schoolAdminView/access/${userRole.id}">Manage
 									this school</a>
 							</div>
 						</div>
