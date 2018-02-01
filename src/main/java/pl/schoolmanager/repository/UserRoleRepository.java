@@ -16,5 +16,6 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     void updateWithUsernameByUserId(@Param("user_id") long user_id, @Param("username") String username);
 
     List<UserRole> findAllBySchoolIdAndEnabledIsFalse(long schoolId);
+    UserRole findOneByUserRoleAndUserIdAndSchoolId(String userrole, long userId, long schoolId );
     
 }
