@@ -1,5 +1,6 @@
 package pl.schoolmanager.entity;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 @Table(name = "school")
@@ -123,6 +125,25 @@ public class School {
 
 	public void setTimeTable(TimeTable timeTable) {
 		this.timeTable = timeTable;
+	}
+	
+	public List<String> getTimeTableList() {
+		TimeTable tt = this.timeTable;
+		if (tt == null) {
+			tt = new TimeTable();
+		}
+		List<String> timeTableList = new ArrayList<>();
+		LocalTime first = tt.getStart();
+		LocalTime start = first;
+		LocalTime finish = start.plusMinutes(45);
+		timeTableList.add(start + " - " + finish);
+		
+		for (int i = 0; i < 7; i++) {
+			start = finish.plusMinutes(tt.getList().get(i));
+			finish = start.plusMinutes(45);
+			timeTableList.add(start + " - " + finish);
+		}
+		return timeTableList;
 	}
 	
 }
