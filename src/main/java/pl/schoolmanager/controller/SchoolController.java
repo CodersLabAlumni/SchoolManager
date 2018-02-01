@@ -55,6 +55,7 @@ public class SchoolController {
 
 	@Autowired
 	private SessionManager sessionManager;
+	
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -199,7 +200,6 @@ public class SchoolController {
 	@GetMapping("removeStudent/{schoolId}/{studentId}")
 	public String removeStudent(@PathVariable long schoolId, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
-		student.setSchool(null);
 		this.studentRepository.save(student);
 		return "redirect:/school/addStudent/{schoolId}";
 	}
