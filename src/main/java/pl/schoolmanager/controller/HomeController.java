@@ -31,6 +31,13 @@ public class HomeController {
         sessionManager.updateMessageValues();
         return "home/home";
     }
+    
+    @GetMapping("/welcome")
+    public String welcome(Model m) {
+    	User user = sessionManager.loggedUser();
+    	m.addAttribute("user", user);
+    	return "home/welcome";
+    }
 
     @GetMapping("login")
     public String loginGet() {

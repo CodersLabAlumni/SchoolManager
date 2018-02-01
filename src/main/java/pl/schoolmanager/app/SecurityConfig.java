@@ -29,10 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register").permitAll()
+		http.authorizeRequests().antMatchers("/login", "/register", "/").permitAll()
 			.antMatchers("/user/**").hasRole("ADMIN").anyRequest().authenticated()
 			.and()
-			.formLogin().loginPage("/login").permitAll()
+			.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/welcome", true)
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
