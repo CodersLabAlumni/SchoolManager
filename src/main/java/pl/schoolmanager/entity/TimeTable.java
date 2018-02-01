@@ -1,7 +1,9 @@
 package pl.schoolmanager.entity;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -70,6 +72,14 @@ public class TimeTable {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+	
+	public List<Integer> getList() {
+		List<Integer> breakList = new ArrayList<>();
+		for (int i = 1; i < 8; i++) {
+			breakList.add(breaks.get(i));
+		}
+		return breakList;
 	}
 	
 	
