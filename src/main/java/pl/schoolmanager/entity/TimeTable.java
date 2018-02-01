@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TimeTable {
@@ -17,6 +19,10 @@ public class TimeTable {
 	private long id;
 	
 	private LocalTime start;
+	
+	@OneToOne
+	@MapsId
+	private School school;
 	
 	private Map<Integer, Integer> breaks = new HashMap<>();
 
@@ -54,6 +60,14 @@ public class TimeTable {
 
 	public void setBreaks(Map<Integer, Integer> breaks) {
 		this.breaks = breaks;
+	}
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 	
 	
