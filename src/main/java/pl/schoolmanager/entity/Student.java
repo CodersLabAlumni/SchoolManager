@@ -39,7 +39,6 @@ public class Student {
 	@MapsId
 	private UserRole userRole;
 
-	
 	public Student() {
 		super();
 	}
