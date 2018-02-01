@@ -27,19 +27,17 @@
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
-				<a type="button" class="btn btn-success btn-lg"
+				<a type="button" class="btn btn-danger btn-lg btn-block"
 					href="${pageContext.request.contextPath}/school/create">Create
 					new school</a>
 			</div>
 			<div class="col-sm-4">
-
-				<a type="button" class="btn btn-info btn-lg"
+				<a type="button" class="btn btn-info btn-lg btn-block"
 					href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
 					new teacher profile</a>
 			</div>
 			<div class="col-sm-4">
-
-				<a type="button" class="btn btn-warning btn-lg"
+				<a type="button" class="btn btn-warning btn-lg btn-block"
 					href="${pageContext.request.contextPath}/student/userNewStudent">Create
 					new student profile</a>
 			</div>
@@ -56,7 +54,7 @@
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
-				<h5 class="text-success">Schools you are managing:</h5>
+				<h5 class="text-danger">Schools you are managing:</h5>
 			</div>
 			<div class="col-sm-4">
 				<h5 class="text-info">Schools where you teach:</h5>
@@ -72,14 +70,19 @@
 			<div class="col-sm-4">
 				<c:forEach items="${user.userRoles}" var="userRole">
 					<c:if test="${userRole.userRole eq 'ROLE_SCHOOLADMIN'}">
-						<div class="card border-success mb-3" style="max-width: 20rem;">
-							<div class="card-header">School owner/admin</div>
-							<div class="card-body text-success">
+						<div class="card border-danger mb-3" style="max-width: 20rem;">
+							<div class="card-header">
+								<c:out value="${userRole.school.type}" />
+							</div>
+							<div class="card-body text-danger">
 								<h4 class="card-title">
-									<c:out value="${userRole.school.name}"></c:out>
+									<c:out value="${userRole.school.name}" />
 								</h4>
-								<p class="card-text">Some quick example text to build on the
-									card title and make up the bulk of the card's content.</p>
+								<p class="card-text">You are an administrator in this
+									school.</p>
+								<a type="button" class="btn btn-danger btn-lg btn-block"
+									href="${pageContext.request.contextPath}/schooladmin/access/${userRole.id}">Manage
+									this school</a>
 							</div>
 						</div>
 
@@ -90,13 +93,17 @@
 				<c:forEach items="${user.userRoles}" var="userRole">
 					<c:if test="${userRole.userRole eq 'ROLE_TEACHER'}">
 						<div class="card border-primary mb-3" style="max-width: 20rem;">
-							<div class="card-header">School owner/admin</div>
+							<div class="card-header">
+								<c:out value="${userRole.school.type}" />
+							</div>
 							<div class="card-body text-primary">
 								<h4 class="card-title">
-									<c:out value="${userRole.school.name}"></c:out>
+									<c:out value="${userRole.school.name}" />
 								</h4>
-								<p class="card-text">Some quick example text to build on the
-									card title and make up the bulk of the card's content.</p>
+								<p class="card-text">You are a teacher in this school.</p>
+								<a type="button" class="btn btn-info btn-lg btn-block"
+									href="${pageContext.request.contextPath}/teacher/access/${userRole.id}">Access
+									as teacher</a>
 							</div>
 						</div>
 					</c:if>
@@ -106,13 +113,17 @@
 				<c:forEach items="${user.userRoles}" var="userRole">
 					<c:if test="${userRole.userRole eq 'ROLE_STUDENT'}">
 						<div class="card border-warning mb-3" style="max-width: 20rem;">
-							<div class="card-header">School owner/admin</div>
+							<div class="card-header">
+								<c:out value="${userRole.school.type}" />
+							</div>
 							<div class="card-body text-warning">
 								<h4 class="card-title">
-									<c:out value="${userRole.school.name}"></c:out>
+									<c:out value="${userRole.school.name}" />
 								</h4>
-								<p class="card-text">Some quick example text to build on the
-									card title and make up the bulk of the card's content.</p>
+								<p class="card-text">You are a student in this school.</p>
+								<a type="button" class="btn btn-warning btn-lg btn-block"
+									href="${pageContext.request.contextPath}/student/access/${userRole.id}">Access 
+									as student</a>
 							</div>
 						</div>
 					</c:if>
