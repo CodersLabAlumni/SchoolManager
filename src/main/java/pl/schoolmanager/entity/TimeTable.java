@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,8 @@ public class TimeTable {
 	@MapsId
 	private School school;
 	
-	private Map<Integer, Integer> breaks = new HashMap<>();
+	@ElementCollection
+	private Map<Integer, Integer> breaks = new HashMap<Integer, Integer>();
 
 	public TimeTable() {
 		super();
