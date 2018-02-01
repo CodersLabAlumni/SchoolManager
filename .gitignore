@@ -1,12 +1,14 @@
-# My additions
+# Eclipse
 .classpath
 .project
 .settings
-target/
 
 # Intellij IDEA
 .idea/
 *.iml
+
+# Maven
+target/
 
 # Compiled class file
 *.class

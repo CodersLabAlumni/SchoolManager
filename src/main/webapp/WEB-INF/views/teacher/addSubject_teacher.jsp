@@ -9,12 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
-		<legend>Teacher: ${teacher.userRole.user.firstName}  ${teacher.userRole.user.lastName}</legend>
+		<legend>Teacher: ${teacher.userRole.user.firstName}
+			${teacher.userRole.user.lastName}</legend>
 		</br>
-		<legend>All taught subjects  </legend>
+		<legend>All taught subjects </legend>
 		<%@ include file="../jspf/teacher_subjects.jspf"%>
 
 		<legend>All subjects to add </legend>
@@ -49,19 +57,16 @@
 								</div>
 							</div>
 						</td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}/${subject.id}">Add</a>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/teacher/addSubject/${teacher.id}/${subject.id}">Add</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 
-
-
-
-
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/division/all">Return</a>
+		<input action="action" onclick="window.history.go(-1); return false;"
+			   type="button" class="btn btn-secondary" value="Return" />
 
 	</div>
 

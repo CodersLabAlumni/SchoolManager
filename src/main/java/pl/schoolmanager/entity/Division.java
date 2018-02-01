@@ -27,6 +27,7 @@ public class Division {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotEmpty
 	private String name;
 
@@ -44,6 +45,9 @@ public class Division {
 	@ManyToMany (mappedBy = "division")
 	List <Subject> subject = new ArrayList<>();
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	List<Schedule> schedule = new ArrayList<>();
 	
 	public Division() {
 		super();
@@ -103,6 +107,12 @@ public class Division {
 		this.school = school;
 	}
 
+	@Override
+	public String toString() {
+		return "Division [id=" + id + ", name=" + name + ", description=" + description + ", school=" + school
+				+ ", student=" + student + ", subject=" + subject + "]";
+	}
 	
 	
+
 }

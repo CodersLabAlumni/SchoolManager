@@ -16,17 +16,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_role")
 public class UserRole {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
 	private String username;
+
 	@Column(name="user_role")
 	private String userRole;
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	//school information
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "school_id")
 	private School school;
@@ -35,12 +38,15 @@ public class UserRole {
 		super();
 	}
 
+	private boolean enabled = false;
+	
 	public UserRole(String username, String userRole, User user, School school) {
 		super();
 		this.username = username;
 		this.userRole = userRole;
 		this.user = user;
 		this.school = school;
+		this.enabled = false;
 	}
 
 	public long getId() {
@@ -73,6 +79,7 @@ public class UserRole {
 
 	public void setUser(User user) {
 		this.user = user;
+		setUsername(user.getUsername());
 	}
 	
 	public School getSchool() {
@@ -81,6 +88,14 @@ public class UserRole {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public static List<String> getRolesForSelect() {

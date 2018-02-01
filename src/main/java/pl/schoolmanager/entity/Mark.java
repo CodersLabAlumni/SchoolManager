@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "mark")
@@ -21,11 +22,13 @@ public class Mark {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotBlank
 	private String value;
-	
+
 	private String description;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
 	@ManyToOne
@@ -46,7 +49,7 @@ public class Mark {
 		this.description = description;
 		this.date = date;
 	}
-	
+
 	public Mark(Student student, Subject subject) {
 		super();
 		this.student = student;

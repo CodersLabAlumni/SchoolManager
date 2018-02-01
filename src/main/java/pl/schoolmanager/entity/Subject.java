@@ -28,6 +28,7 @@ public class Subject {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+
 	@NotBlank
 	private String name;
 
@@ -113,5 +114,12 @@ public class Subject {
 		this.school = school;
 	}
 
+	@Override
+	public String toString() {
+		return "Subject [id=" + id + ", name=" + name + ", description=" + description + ", school=" + school
+				+ ", division=" + division + ", mark=" + mark + ", teacher=" + teacher + "]";
+	}
+
+	
 	
 }

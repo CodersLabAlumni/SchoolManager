@@ -9,15 +9,18 @@ import pl.schoolmanager.entity.Teacher;
 
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
-	List<Subject>findAllByDivisionId(long divisionId);
-	List<Subject>findAllByDivisionIdIsNullOrDivisionIdIsNot(long divisionId);
-	
-	List<Subject>findAllByTeacherId(long teacherId);
-	List<Subject>findAllByTeacherIdIsNullOrTeacherIdIsNot(long teacherId);
+    List<Subject> findAllByDivisionId(long divisionId);
 
-	List<Subject> findAllBySchoolId(long schoolId);
-	List<Subject> findAllBySchoolIdIsNull();
-	
-	List<Subject> findAllByTeacher(Teacher teacher);
-	
+    List<Subject> findAllByDivisionIdIsNullOrDivisionIdIsNot(long divisionId);
+
+    List<Subject> findAllByTeacherId(long teacherId);
+
+    List<Subject> findAllByTeacherIdIsNullOrTeacherIdIsNot(long teacherId);
+
+    List<Subject> findAllBySchoolId(long schoolId);
+
+    List<Subject> findAllBySchoolIdIsNull();
+
+    List<Subject> findAllByTeacher(Teacher teacher);
+
 }

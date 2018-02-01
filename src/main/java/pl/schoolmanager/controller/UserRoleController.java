@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.User;
@@ -28,12 +27,13 @@ public class UserRoleController {
 
 	@Autowired
 	private UserRoleRepository userRoleRepo;
+
 	@Autowired
 	private UserRepository userRepo;
+
 	@Autowired
 	private SchoolRepository schoolRepo;
 
-	// CREATE
 	@GetMapping("/create/{userId}")
 	public String createUserRole(Model m, @PathVariable long userId) {
 		User user = this.userRepo.findOne(userId);
@@ -56,7 +56,6 @@ public class UserRoleController {
 		return "redirect:/user/all";
 	}
 
-	// READ
 	@GetMapping("/view/{userRoleId}")
 	public String viewUserRolet(Model m, @PathVariable long userRoleId) {
 		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
@@ -64,7 +63,6 @@ public class UserRoleController {
 		return "userrole/show_userrole";
 	}
 
-	// UPDATE
 	@GetMapping("/update/{userRoleId}")
 	public String updateUserRole(Model m, @PathVariable long userRoleId) {
 		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
@@ -82,7 +80,6 @@ public class UserRoleController {
 		return "redirect:/userrole/all";
 	}
 
-	// DELETE
 	@GetMapping("/delete/{userRoleId}")
 	public String deleteUserRole(@PathVariable long userRoleId, Model m) {
 		UserRole userRoleToDelete = userRoleRepo.findOne(userRoleId);
@@ -98,13 +95,11 @@ public class UserRoleController {
 		return "redirect:/user/all";
 	}
 
-	// SHOW ALL
 	@GetMapping("/all")
 	public String allUserRoles(Model m) {
 		return "userrole/all_userroles";
 	}
 
-	// Model Attributes
 	@ModelAttribute("availableUserRoles")
 	public List<UserRole> getUserRoles() {
 		return this.userRoleRepo.findAll();

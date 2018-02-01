@@ -8,11 +8,44 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarColor03">
-
+		<ul class="nav navbar-nav navbar-right">
+			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/student/userStudent">Student
+						profile</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/teacher/userTeacher">Teacher
+						profile</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/schoolAdmin/userSchoolAdmin">School
+						admin profile</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">Developer
+						tools (for further distribution)</a>
+					<div class="dropdown-menu" x-placement="bottom-start"
+						style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/student/userNewStudent">Create
+							student profile</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/teacher/userNewTeacher">Create
+							teacher profile</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/schoolAdmin/userNewSchoolAdmin">Create
+							school admin profile</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/school/all">"Can do
+							anything profile" (for developers)</a>
+					</div></li>
+			</sec:authorize>
+		</ul>
 		<ul class="navbar-nav mr-auto">
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<sec:authorize access="isAuthenticated()">
+			<li class="nav-item"><a class="nav-link">Logged:<sec:authentication property="principal.username" /></a></li>
+				<li class="nav-item"></li>
 				<%@ include file="message.jspf"%>
 				<li class="nav-item"><a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/logout">Logout</a></li>

@@ -29,14 +29,14 @@ import org.springframework.web.servlet.view.JstlView;
 import pl.schoolmanager.converter.SchoolConverter;
 import pl.schoolmanager.converter.StudentConverter;
 import pl.schoolmanager.converter.SubjectConverter;
+import pl.schoolmanager.converter.TeacherConverter;
 
 @Configuration
-@ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity" })
+@ComponentScan(basePackages = { "pl.schoolmanager"})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
 @Import({ SecurityConfig.class })
-
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "dataSource")
@@ -49,7 +49,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	    return driverManagerDataSource;
 	}
 
-	
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -83,7 +82,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return tm;
 	}
 
-
 	@Bean(name = "localeResolver")
 	public LocaleContextResolver getLocaleContextResolver() {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
@@ -101,6 +99,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		registry.addConverter(getSubjectConverter());
 		registry.addConverter(getStudentConverter());
 		registry.addConverter(getSchoolConverter());
+		registry.addConverter(getTeacherConverter());
 	}
 
 	@Bean
@@ -116,5 +115,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public SchoolConverter getSchoolConverter() {
 		return new SchoolConverter();
+	}
+	
+	@Bean
+	public TeacherConverter getTeacherConverter() {
+		return new TeacherConverter();
 	}
 }

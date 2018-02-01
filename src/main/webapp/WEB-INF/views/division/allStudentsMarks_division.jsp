@@ -9,7 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
 		<legend>Division: ${division.name} ; Subject: ${subject.name}
@@ -31,8 +38,8 @@
 				<c:forEach items="${students}" var="student">
 					<tr class="table-light">
 						<td><c:out value="${student.id}" /></td>
-						<td><c:out value="${student.firstName}" /></td>
-						<td><c:out value="${student.lastName}" /></td>
+						<td><c:out value="${student.userRole.user.firstName}" /></td>
+						<td><c:out value="${student.userRole.user.lastName}" /></td>
 						<td><c:forEach items="${marks}" var="mark">
 								<c:choose>
 									<c:when test="${mark.student.id == student.id}">

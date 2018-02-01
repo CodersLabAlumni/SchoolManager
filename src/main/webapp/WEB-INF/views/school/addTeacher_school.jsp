@@ -23,6 +23,7 @@
 					<th scope="col">FIRST NAME</th>
 					<th scope="col">LAST NAME</th>
 					<th scope="col">OPTION</th>
+					<th scope="col">REMOVE</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,8 +31,8 @@
 				<c:forEach items="${schoolTeachers}" var="teacher">
 					<tr class="table-light">
 						<td><c:out value="${teacher.id}" /></td>
-						<td><c:out value="${teacher.firstName}" /></td>
-						<td><c:out value="${teacher.lastName}" /></td>
+						<td><c:out value="${teacher.userRole.user.firstName}" /></td>
+						<td><c:out value="${teacher.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">
@@ -44,6 +45,9 @@
 									</div>
 								</div>
 							</div>
+						</td>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/school/removeTeacher/${school.id}/${teacher.id}">Remove</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -68,8 +72,8 @@
 				<c:forEach items="${notSchoolTeachers}" var="teacher">
 					<tr class="table-light">
 						<td><c:out value="${teacher.id}" /></td>
-						<td><c:out value="${teacher.firstName}" /></td>
-						<td><c:out value="${teacher.lastName}" /></td>
+						<td><c:out value="${teacher.userRole.user.firstName}" /></td>
+						<td><c:out value="${teacher.userRole.user.lastName}" /></td>
 						<td>
 							<div class="btn-group">
 								<div class="btn-group">

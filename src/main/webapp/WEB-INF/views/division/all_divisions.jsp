@@ -9,7 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../jspf/main_menu.jspf"%>
+	<c:choose>
+		<c:when test="${thisSchoolAdmin != null}">
+			<%@ include file="../jspf/school_admin_menu.jspf"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../jspf/main_menu.jspf"%>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="jumbotron">
 		<legend>All Divisions</legend>
@@ -24,36 +31,72 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${availableDivisions}" var="division">
-					<tr class="table-light">
-						<td scope="row"><c:out value="${division.id}" /></td>
-						<td><a
-							href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
-						<td><c:out value="${division.description}" /></td>
-						<td>
-							<div class="btn-group">
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown"></button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/view/${division.id}">View
-											details</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/update/${division.id}">Update</a>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add
-											Student</a> <a class="dropdown-item"
-											href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add
-											Subject</a>
+				<c:choose>
+					<c:when test="${thisSchoolAdmin != null}">
+						<c:forEach items="${schoolDivisions}" var="division">
+							<tr class="table-light">
+								<td scope="row"><c:out value="${division.id}" /></td>
+								<td><a
+									href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
+								<td><c:out value="${division.description}" /></td>
+								<td>
+									<div class="btn-group">
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown">Menu</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/view/${division.id}">View
+													details</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/update/${division.id}">Update</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add/Remove
+													Student</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add/Remove
+													Subject</a>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${availableDivisions}" var="division">
+							<tr class="table-light">
+								<td scope="row"><c:out value="${division.id}" /></td>
+								<td><a
+									href="${pageContext.request.contextPath}/division/inside/${division.id}">${division.name}</a></td>
+								<td><c:out value="${division.description}" /></td>
+								<td>
+									<div class="btn-group">
+										<div class="btn-group">
+											<button type="button" class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown">Menu</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/view/${division.id}">View
+													details</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/update/${division.id}">Update</a>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/delete/${division.id}">Delete</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add/Remove
+													Student</a> <a class="dropdown-item"
+													href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add/Remove
+													Subject</a>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</tbody>
 		</table>
 

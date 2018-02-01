@@ -35,10 +35,10 @@ public class Student {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private School school;
 	
-	//relation with user role
 	@OneToOne(fetch = FetchType.EAGER)
 	@MapsId
 	private UserRole userRole;
+
 	
 	public Student() {
 		super();
@@ -89,5 +89,13 @@ public class Student {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", division=" + division + ", mark=" + mark + ", school=" + school + ", userRole="
+				+ userRole + "]";
+	}
+	
+	
 	
 }
