@@ -69,8 +69,9 @@ public class DivisionController {
 		if (bindingResult.hasErrors()) {
 			return "division/new_division";
 		}
+		division.setSchool((School)SessionManager.session().getAttribute("thisSchool"));
 		this.divisionRepository.save(division);
-		return "index";
+		return "redirect:/division/all";
 	}
 
 	@GetMapping("/view/{divisionId}")
@@ -236,7 +237,7 @@ public class DivisionController {
 		return "division/allStudentsMarks_division";
 	}
 
-	@ModelAttribute("availableDivisions")
+	@ModelAttribute("schoolDivisions")
 	public List<Division> getSchoolDivisions() {
 		HttpSession s = SessionManager.session();
 		School school = (School) s.getAttribute("thisSchool");
