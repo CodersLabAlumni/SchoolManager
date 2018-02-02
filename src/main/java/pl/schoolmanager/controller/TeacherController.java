@@ -27,6 +27,7 @@ import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
+import pl.schoolmanager.repository.UserRoleRepository;
 
 @Controller
 @RequestMapping("/teacher")
@@ -46,6 +47,9 @@ public class TeacherController {
 
 	@Autowired
 	private SessionManager sessionManager;
+	
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -84,6 +88,10 @@ public class TeacherController {
 			return "teacher/user_teacher";
 		}
 		User user = sessionManager.loggedUser();
+		if ((this.userRoleRepository.findOneByUserRoleAndUserIdAndSchoolId("ROLE_TEACHER", user.getId(), teacher.getSchool().getId()))!=null) {
+			m.addAttribute("messageToView", "Your profile at this school was earlier created, please wait for activation");
+			return "info/infoPage";
+			}
 		UserRole userRole = new UserRole();
 		userRole.setUsername(user.getUsername());
 		userRole.setUserRole("ROLE_TEACHER");
