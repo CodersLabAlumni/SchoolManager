@@ -1,5 +1,6 @@
 package pl.schoolmanager.entity;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 @Table(name = "school")
@@ -42,6 +45,9 @@ public class School {
 	
 	@OneToMany (mappedBy = "school")
 	private Set<Teacher>teacher;
+	
+	@OneToOne (mappedBy = "school")
+	private TimeTable timeTable;
 
 	public School() {
 		super();
@@ -111,6 +117,33 @@ public class School {
 	
 	public String getNameForForm() {
 		return this.name + " (" +this.type +")";
+	}
+
+	public TimeTable getTimeTable() {
+		return timeTable;
+	}
+
+	public void setTimeTable(TimeTable timeTable) {
+		this.timeTable = timeTable;
+	}
+	
+	public List<String> getTimeTableList() {
+		TimeTable tt = this.timeTable;
+		if (tt == null) {
+			tt = new TimeTable();
+		}
+		List<String> timeTableList = new ArrayList<>();
+		LocalTime first = tt.getStart();
+		LocalTime start = first;
+		LocalTime finish = start.plusMinutes(45);
+		timeTableList.add(start + " - " + finish);
+		
+		for (int i = 0; i < 7; i++) {
+			start = finish.plusMinutes(tt.getList().get(i));
+			finish = start.plusMinutes(45);
+			timeTableList.add(start + " - " + finish);
+		}
+		return timeTableList;
 	}
 	
 }
