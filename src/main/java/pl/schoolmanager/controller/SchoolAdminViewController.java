@@ -36,6 +36,7 @@ public class SchoolAdminViewController {
 		Hibernate.initialize(schoolAdmin.getSchool().getDivision());
 		Hibernate.initialize(schoolAdmin.getSchool().getTeacher());
 		Hibernate.initialize(schoolAdmin.getSchool().getStudent());
+		Hibernate.initialize(schoolAdmin.getSchool().getSubject());
 		m.addAttribute("schoolAdmin", schoolAdmin);
 		return "school_admin_view/school";
 	}

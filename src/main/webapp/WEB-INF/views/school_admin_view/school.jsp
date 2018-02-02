@@ -32,6 +32,8 @@
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#divisions">Groups/Classes</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#subjects">Subjects</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#teachers">Teachers</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#students">Students</a></li>
@@ -57,10 +59,11 @@
 						<p>Number of students: (placeholder)</p>
 					</div>
 				</div>
+
 				<div class="tab-pane fade" id="divisions">
 					<br /> <a type="button" class="btn btn-danger"
 						href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/createDivision">
-						Create new division </a> <br /><br/>
+						Create new division </a> <br /> <br />
 					<p>Groups/classes in this school:</p>
 					<table class="table table-hover">
 						<thead>
@@ -105,6 +108,28 @@
 						</tbody>
 					</table>
 				</div>
+
+				<div class="tab-pane fade" id="subjects">
+					<br />
+					<p>Teachers in this school:</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Manage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.subject}" var="subject">
+								<tr>
+									<td><c:out value="${subject.name}" /></td>
+									<td>Menu</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+
 				<div class="tab-pane fade" id="teachers">
 					<br />
 					<p>Teachers in this school:</p>
