@@ -58,6 +58,14 @@ public class Division {
 		this.name = name;
 		this.description = description;
 	}
+	
+	public int getNumStudents() {
+		return this.student.size();
+	}
+	
+	public int getNumSubjects() {
+		return this.subject.size();
+	}
 
 	public long getId() {
 		return id;

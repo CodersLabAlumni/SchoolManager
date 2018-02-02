@@ -11,6 +11,7 @@
 <body>
 	<%@ include file="../jspf/main_menu.jspf"%>
 	<div class="container">
+		<br/>
 		<div class="row">
 			<h2>
 				Welcome to
@@ -21,7 +22,7 @@
 				<c:out value="${schoolAdmin.userRole.user.fullName}" />
 				.
 			</h2>
-			<h4>You are and administrator in this school</h4>
+			<h4>You are an administrator in this school</h4>
 		</div>
 
 		<div class="row">
@@ -29,7 +30,7 @@
 				<li class="nav-item"><a class="nav-link active show"
 					data-toggle="tab" href="#home">Home</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#divisions">Divisions</a></li>
+					href="#divisions">Groups/Classes</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#teachers">Teachers</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -45,21 +46,82 @@
 						<br />
 						<p>Basic information about this school:</p>
 						<p>
-							Name: <c:out value="${schoolAdmin.school.name}"/>
+							Name:
+							<c:out value="${schoolAdmin.school.name}" />
 						</p>
-						<p>Type: <c:out value="${schoolAdmin.school.type}"/></p>
+						<p>
+							Type:
+							<c:out value="${schoolAdmin.school.type}" />
+						</p>
 						<p>Number of divisions: (placeholder)</p>
 						<p>Number of students: (placeholder)</p>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="divisions">
-					<p>DIVISIONS</p>
+					<br />
+					<p>Groups/classes in this school:</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Description</th>
+								<th scope="col">Num of students</th>
+								<th scope="col">Num of subjects</th>
+								<th scope="col">Manage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.division}" var="division">
+								<tr>
+									<td><c:out value="${division.name}" /></td>
+									<td><c:out value="${division.description}" /></td>
+									<td><c:out value="${division.numStudents}" /></td>
+									<td><c:out value="${division.numSubjects}" /></td>
+									<td>Menu</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 				<div class="tab-pane fade" id="teachers">
-					<p>TEACHERS</p>
+					<br />
+					<p>Teachers in this school:</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Manage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.teacher}" var="teacher">
+								<tr>
+									<td><c:out value="${teacher.userRole.user.fullName}" /></td>
+									<td>Menu</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 				<div class="tab-pane fade" id="students">
-					<p>STUDENTS</p>
+					<br />
+					<p>Students in this school:</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Manage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.student}" var="student">
+								<tr>
+									<td><c:out value="${student.userRole.user.fullName}" /></td>
+									<td>Menu</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 

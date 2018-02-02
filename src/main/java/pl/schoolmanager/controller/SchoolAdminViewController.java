@@ -1,5 +1,8 @@
 package pl.schoolmanager.controller;
 
+import javax.transaction.Transactional;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +21,12 @@ public class SchoolAdminViewController {
 	private SchoolAdminRepository schoolAdminRepo;
 
 	@GetMapping("/access/{schooladminId}")
+	@Transactional
 	public String schoolAdminHome(@PathVariable long schooladminId, Model m) {
 		SchoolAdmin schoolAdmin = schoolAdminRepo.findOne(schooladminId);
+		Hibernate.initialize(schoolAdmin.getSchool().getDivision());
+		Hibernate.initialize(schoolAdmin.getSchool().getTeacher());
+		Hibernate.initialize(schoolAdmin.getSchool().getStudent());
 		m.addAttribute("schoolAdmin", schoolAdmin);
 		return "school_admin_view/school";
 	}

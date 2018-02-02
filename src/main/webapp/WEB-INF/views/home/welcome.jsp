@@ -102,7 +102,7 @@
 								</h4>
 								<p class="card-text">You are a teacher in this school.</p>
 								<a type="button" class="btn btn-info btn-lg btn-block"
-									href="${pageContext.request.contextPath}/teacher/access/${userRole.id}">Access
+									href="${pageContext.request.contextPath}/teacherView/access/${userRole.id}">Access
 									as teacher</a>
 							</div>
 						</div>
@@ -122,7 +122,7 @@
 								</h4>
 								<p class="card-text">You are a student in this school.</p>
 								<a type="button" class="btn btn-warning btn-lg btn-block"
-									href="${pageContext.request.contextPath}/student/access/${userRole.id}">Access 
+									href="${pageContext.request.contextPath}/studentView/access/${userRole.id}">Access 
 									as student</a>
 							</div>
 						</div>

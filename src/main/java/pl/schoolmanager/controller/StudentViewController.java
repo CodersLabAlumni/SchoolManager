@@ -2,9 +2,7 @@ package pl.schoolmanager.controller;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
@@ -32,7 +31,13 @@ public class StudentViewController {
 	@Autowired
 	private ScheduleRepository scheduleRepository;
 	
-
+	@GetMapping("/access/{studentId}")
+	public String access(@PathVariable long studentId, Model m) {
+		Student student = this.studentRepository.findOne(studentId);
+		m.addAttribute("student", student);
+		return "student_view/school";
+	}
+	
 	@GetMapping("")
 	public String stidentHome(Model m) {
 		return "student_view/division_students";
@@ -54,7 +59,7 @@ public class StudentViewController {
 		return "student_view/marks_student";
 	}
 	
-	@ModelAttribute("mondaySubjects")
+//	@ModelAttribute("mondaySubjects")
 	public List<String> getMondaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -74,7 +79,7 @@ public class StudentViewController {
 		return daySubjects;
 	}
 	
-	@ModelAttribute("tuesdaySubjects")
+//	@ModelAttribute("tuesdaySubjects")
 	public List<String> getTuesdaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -94,7 +99,7 @@ public class StudentViewController {
 		return daySubjects;
 	}
 	
-	@ModelAttribute("wednesdaySubjects")
+//	@ModelAttribute("wednesdaySubjects")
 	public List<String> getWednesdaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -114,7 +119,7 @@ public class StudentViewController {
 		return daySubjects;
 	}
 	
-	@ModelAttribute("thursdaySubjects")
+//	@ModelAttribute("thursdaySubjects")
 	public List<String> getThursdaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -134,7 +139,7 @@ public class StudentViewController {
 		return daySubjects;
 	}
 	
-	@ModelAttribute("fridaySubjects")
+//	@ModelAttribute("fridaySubjects")
 	public List<String> getFridaySubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -154,7 +159,7 @@ public class StudentViewController {
 		return daySubjects;
 	}
 	
-	@ModelAttribute("testSubject1")
+//	@ModelAttribute("testSubject1")
 	public String getTestSubject() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
@@ -166,7 +171,7 @@ public class StudentViewController {
 		}
 	}
 	
-	@ModelAttribute("testSubject2")
+//	@ModelAttribute("testSubject2")
 	public String getTestSubject2() {
 		HttpSession s = SessionManager.session();
 		Student thisStudent = (Student) s.getAttribute("thisStudent");
