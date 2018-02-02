@@ -69,8 +69,9 @@ public class DivisionController {
 		if (bindingResult.hasErrors()) {
 			return "division/new_division";
 		}
+		division.setSchool((School)SessionManager.session().getAttribute("thisSchool"));
 		this.divisionRepository.save(division);
-		return "index";
+		return "redirect:/division/all";
 	}
 
 	@GetMapping("/view/{divisionId}")
@@ -93,9 +94,11 @@ public class DivisionController {
 		if (bindingResult.hasErrors()) {
 			return "division/edit_division";
 		}
-		division.setId(divisionId);
-		this.divisionRepository.save(division);
-		return "index";
+		Division dbDivision = divisionRepository.findOne(divisionId);
+		dbDivision.setName(division.getName());
+		dbDivision.setDescription(division.getDescription());
+		divisionRepository.save(dbDivision);
+		return "redirect:/division/all";
 	}
 
 	@GetMapping("/delete/{divisionId}")
@@ -236,7 +239,7 @@ public class DivisionController {
 		return "division/allStudentsMarks_division";
 	}
 
-	@ModelAttribute("availableDivisions")
+	@ModelAttribute("schoolDivisions")
 	public List<Division> getSchoolDivisions() {
 		HttpSession s = SessionManager.session();
 		School school = (School) s.getAttribute("thisSchool");
