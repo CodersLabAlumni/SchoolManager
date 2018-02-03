@@ -152,7 +152,7 @@ public class DivisionController {
 	public String addStudent(@PathVariable long divisionId, @PathVariable long studentId) {
 		Division division = this.divisionRepository.findOne(divisionId);
 		Student student = this.studentRepository.findOne(studentId);
-		student.setDivision(division);
+		student.getDivision().add(division);
 		this.studentRepository.save(student);
 		return "redirect:/division/addStudent/{divisionId}";
 	}

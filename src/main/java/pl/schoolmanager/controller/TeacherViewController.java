@@ -206,19 +206,19 @@ public class TeacherViewController {
 		return "mark/edit_mark";
 	}
 
-	@PostMapping("/updateMark/{markId}")
-	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult,
-			@PathVariable long markId) {
-		if (bindingResult.hasErrors()) {
-			return "mark/edit_mark";
-		}
-		mark.setId(markId);
-
-		this.markRepository.save(mark);
-		Long divisionId = mark.getStudent().getDivision().getId();
-		Long subjectId = mark.getSubject().getId();
-		return "redirect:/division/inside/marks/" + divisionId + "/" + subjectId;
-	}
+//	@PostMapping("/updateMark/{markId}")
+//	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult,
+//			@PathVariable long markId) {
+//		if (bindingResult.hasErrors()) {
+//			return "mark/edit_mark";
+//		}
+//		mark.setId(markId);
+//
+//		this.markRepository.save(mark);
+//		Long divisionId = mark.getStudent().getDivision().getId();
+//		Long subjectId = mark.getSubject().getId();
+//		return "redirect:/division/inside/marks/" + divisionId + "/" + subjectId;
+//	}
 
 	// DELETE
 	@DeleteMapping("/deleteMark/{markId}")

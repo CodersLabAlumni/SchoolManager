@@ -169,7 +169,7 @@ public class SchoolAdminViewController {
 			@PathVariable long divisionId,  @PathVariable long studentId) {
 		Division division = this.divisionRepo.findOne(divisionId);
 		Student student = this.studentRepo.findOne(studentId);
-		student.setDivision(division);;
+		student.getDivision().add(division);
 		this.studentRepo.save(student);
 		return "redirect:/schoolAdminView/{schooladminId}/addStudent/{divisionId}";
 	}
@@ -177,8 +177,14 @@ public class SchoolAdminViewController {
 	@GetMapping("/{schooladminId}/removeStudent/{divisionId}/{studentId}")
 	public String removeStudent(@PathVariable long schooladminId,  
 			@PathVariable long divisionId,  @PathVariable long studentId) {
+		Division division = this.divisionRepo.findOne(divisionId);
 		Student student = this.studentRepo.findOne(studentId);
-		student.setDivision(null);
+		ListIterator<Division> div = student.getDivision().listIterator();
+		while (div.hasNext()) {
+			if (div.next().getId() == division.getId()) {
+				div.remove();
+			}
+		}
 		this.studentRepo.save(student);
 		return "redirect:/schoolAdminView/{schooladminId}/addStudent/{divisionId}";
 	}

@@ -38,7 +38,7 @@ public class Division {
 	private School school;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	List <Student> student = new ArrayList<>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)

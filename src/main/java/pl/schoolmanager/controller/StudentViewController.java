@@ -60,127 +60,127 @@ public class StudentViewController {
 	}
 	
 //	@ModelAttribute("mondaySubjects")
-	public List<String> getMondaySubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.MONDAY);
-		if (schedule == null) {
-			schedule = new Schedule();			
-		}
-		List<String> daySubjects = new ArrayList<>();
-		for (int i = 1; i <= 8; i++) {
-			Subject currentSubject = schedule.getDaySubject().get(i);
-			if (currentSubject != null) {
-				daySubjects.add(currentSubject.getName());
-			} else {
-				daySubjects.add("empty");
-			}
-		}
-		return daySubjects;
-	}
-	
+//	public List<String> getMondaySubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.MONDAY);
+//		if (schedule == null) {
+//			schedule = new Schedule();			
+//		}
+//		List<String> daySubjects = new ArrayList<>();
+//		for (int i = 1; i <= 8; i++) {
+//			Subject currentSubject = schedule.getDaySubject().get(i);
+//			if (currentSubject != null) {
+//				daySubjects.add(currentSubject.getName());
+//			} else {
+//				daySubjects.add("empty");
+//			}
+//		}
+//		return daySubjects;
+//	}
+//	
 //	@ModelAttribute("tuesdaySubjects")
-	public List<String> getTuesdaySubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.TUESDAY);
-		if (schedule == null) {
-			schedule = new Schedule();			
-		}
-		List<String> daySubjects = new ArrayList<>();
-		for (int i = 1; i <= 8; i++) {
-			Subject currentSubject = schedule.getDaySubject().get(i);
-			if (currentSubject != null) {
-				daySubjects.add(currentSubject.getName());
-			} else {
-				daySubjects.add("empty");
-			}
-		}
-		return daySubjects;
-	}
-	
+//	public List<String> getTuesdaySubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.TUESDAY);
+//		if (schedule == null) {
+//			schedule = new Schedule();			
+//		}
+//		List<String> daySubjects = new ArrayList<>();
+//		for (int i = 1; i <= 8; i++) {
+//			Subject currentSubject = schedule.getDaySubject().get(i);
+//			if (currentSubject != null) {
+//				daySubjects.add(currentSubject.getName());
+//			} else {
+//				daySubjects.add("empty");
+//			}
+//		}
+//		return daySubjects;
+//	}
+//	
 //	@ModelAttribute("wednesdaySubjects")
-	public List<String> getWednesdaySubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.WEDNESDAY);
-		if (schedule == null) {
-			schedule = new Schedule();			
-		}
-		List<String> daySubjects = new ArrayList<>();
-		for (int i = 1; i <= 8; i++) {
-			Subject currentSubject = schedule.getDaySubject().get(i);
-			if (currentSubject != null) {
-				daySubjects.add(currentSubject.getName());
-			} else {
-				daySubjects.add("empty");
-			}
-		}
-		return daySubjects;
-	}
-	
+//	public List<String> getWednesdaySubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.WEDNESDAY);
+//		if (schedule == null) {
+//			schedule = new Schedule();			
+//		}
+//		List<String> daySubjects = new ArrayList<>();
+//		for (int i = 1; i <= 8; i++) {
+//			Subject currentSubject = schedule.getDaySubject().get(i);
+//			if (currentSubject != null) {
+//				daySubjects.add(currentSubject.getName());
+//			} else {
+//				daySubjects.add("empty");
+//			}
+//		}
+//		return daySubjects;
+//	}
+//	
 //	@ModelAttribute("thursdaySubjects")
-	public List<String> getThursdaySubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.THURSDAY);
-		if (schedule == null) {
-			schedule = new Schedule();			
-		}
-		List<String> daySubjects = new ArrayList<>();
-		for (int i = 1; i <= 8; i++) {
-			Subject currentSubject = schedule.getDaySubject().get(i);
-			if (currentSubject != null) {
-				daySubjects.add(currentSubject.getName());
-			} else {
-				daySubjects.add("empty");
-			}
-		}
-		return daySubjects;
-	}
-	
+//	public List<String> getThursdaySubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.THURSDAY);
+//		if (schedule == null) {
+//			schedule = new Schedule();			
+//		}
+//		List<String> daySubjects = new ArrayList<>();
+//		for (int i = 1; i <= 8; i++) {
+//			Subject currentSubject = schedule.getDaySubject().get(i);
+//			if (currentSubject != null) {
+//				daySubjects.add(currentSubject.getName());
+//			} else {
+//				daySubjects.add("empty");
+//			}
+//		}
+//		return daySubjects;
+//	}
+//	
 //	@ModelAttribute("fridaySubjects")
-	public List<String> getFridaySubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
-		if (schedule == null) {
-			schedule = new Schedule();			
-		}
-		List<String> daySubjects = new ArrayList<>();
-		for (int i = 1; i <= 8; i++) {
-			Subject currentSubject = schedule.getDaySubject().get(i);
-			if (currentSubject != null) {
-				daySubjects.add(currentSubject.getName());
-			} else {
-				daySubjects.add("empty");
-			}
-		}
-		return daySubjects;
-	}
-	
+//	public List<String> getFridaySubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
+//		if (schedule == null) {
+//			schedule = new Schedule();			
+//		}
+//		List<String> daySubjects = new ArrayList<>();
+//		for (int i = 1; i <= 8; i++) {
+//			Subject currentSubject = schedule.getDaySubject().get(i);
+//			if (currentSubject != null) {
+//				daySubjects.add(currentSubject.getName());
+//			} else {
+//				daySubjects.add("empty");
+//			}
+//		}
+//		return daySubjects;
+//	}
+//	
 //	@ModelAttribute("testSubject1")
-	public String getTestSubject() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
-		if (schedule != null) {
-			return schedule.getDaySubject().get(1).getName();			
-		} else {
-			return "ni ma";
-		}
-	}
-	
+//	public String getTestSubject() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
+//		if (schedule != null) {
+//			return schedule.getDaySubject().get(1).getName();			
+//		} else {
+//			return "ni ma";
+//		}
+//	}
+//	
 //	@ModelAttribute("testSubject2")
-	public String getTestSubject2() {
-		HttpSession s = SessionManager.session();
-		Student thisStudent = (Student) s.getAttribute("thisStudent");
-		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
-		if (schedule != null) {
-			return schedule.getDaySubject().get(2).getName();			
-		} else {
-			return "ni ma";
-		}
-	}
-
+//	public String getTestSubject2() {
+//		HttpSession s = SessionManager.session();
+//		Student thisStudent = (Student) s.getAttribute("thisStudent");
+//		Schedule schedule = this.scheduleRepository.findOneByDivisionAndDay(thisStudent.getDivision(), DayOfWeek.FRIDAY);
+//		if (schedule != null) {
+//			return schedule.getDaySubject().get(2).getName();			
+//		} else {
+//			return "ni ma";
+//		}
+//	}
+//
 }
