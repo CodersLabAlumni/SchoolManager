@@ -63,7 +63,7 @@
 				<div class="tab-pane fade" id="divisions">
 					<br /> <a type="button" class="btn btn-danger"
 						href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/createDivision">
-						Create new division </a> <br /> <br />
+						Create new group/class </a> <br /> <br />
 					<p>Groups/classes in this school:</p>
 					<table class="table table-hover">
 						<thead>
@@ -95,9 +95,9 @@
 														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/updateDivision/${division.id}">Update</a>
 													<div class="dropdown-divider"></div>
 													<a class="dropdown-item"
-														href="${pageContext.request.contextPath}/division/addStudent/${division.id}">Add/Remove
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addStudent/${division.id}">Add/Remove
 														Student</a> <a class="dropdown-item"
-														href="${pageContext.request.contextPath}/division/addSubject/${division.id}">Add/Remove
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addSubject/${division.id}">Add/Remove
 														Subject</a>
 												</div>
 											</div>
@@ -110,7 +110,9 @@
 				</div>
 
 				<div class="tab-pane fade" id="subjects">
-					<br />
+					<br /> <a type="button" class="btn btn-danger"
+						href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/createSubject">
+						Create new subject </a> <br /> <br />
 					<p>Teachers in this school:</p>
 					<table class="table table-hover">
 						<thead>
@@ -123,7 +125,25 @@
 							<c:forEach items="${schoolAdmin.school.subject}" var="subject">
 								<tr>
 									<td><c:out value="${subject.name}" /></td>
-									<td>Menu</td>
+									<td><c:out value="${subject.description}" /></td>
+									<td>
+										<div class="btn-group">
+											<div class="btn-group">
+												<button type="button"
+													class="btn btn-primary dropdown-toggle"
+													data-toggle="dropdown">Menu</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item"
+														href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
+														details</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/updateSubject/${subject.id}">Update</a>
+													<a class="dropdown-item"
+														href="${pageContext.request.contextPath}/subject/delete/${subject.id}">Delete</a>
+												</div>
+											</div>
+										</div>
+
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -5,7 +5,6 @@
 			<th scope="col">ID</th>
 			<th scope="col">NAME</th>
 			<th scope="col">DESCRIPTION</th>
-			<th scope="col">OPTION</th>
 			<th scope="col">REMOVE</th>
 		</tr>
 	</thead>
@@ -15,21 +14,8 @@
 				<td scope="row"><c:out value="${subject.id}" /></td>
 				<td><c:out value="${subject.name}" /></td>
 				<td><c:out value="${subject.description}" /></td>
-				<td>
-					<div class="btn-group">
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary dropdown-toggle"
-								data-toggle="dropdown"></button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item"
-									href="${pageContext.request.contextPath}/subject/view/${subject.id}">View
-									details</a>
-							</div>
-						</div>
-					</div>
-				</td>
 				<td><a class="btn btn-primary"
-					href="${pageContext.request.contextPath}/division/removeSubject/${division.id}/${subject.id}">Remove</a>
+					href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/removeSubject/${division.id}/${subject.id}">Remove</a>
 				</td>
 			</tr>
 		</c:forEach>

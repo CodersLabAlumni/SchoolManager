@@ -38,10 +38,10 @@ public class School {
 	private List<Subject> subject = new ArrayList<>();
 	
 	@ManyToMany (mappedBy = "school")
-	private Set<Student> student;
+	private List<Student> student;
 	
 	@OneToMany (mappedBy = "school")
-	private Set<Teacher>teacher;
+	private List<Teacher>teacher;
 
 	public School() {
 		super();
@@ -89,26 +89,26 @@ public class School {
 		return subject;
 	}
 
+	public List<Student> getStudent() {
+		return student;
+	}
+
+	public void setStudent(List<Student> student) {
+		this.student = student;
+	}
+
+	public List<Teacher> getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(List<Teacher> teacher) {
+		this.teacher = teacher;
+	}
+
 	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
 	}
 
-	public Set<Teacher> getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Set<Teacher> teacher) {
-		this.teacher = teacher;
-	}
-
-	public Set<Student> getStudent() {
-		return student;
-	}
-
-	public void setStudent(Set<Student> student) {
-		this.student = student;
-	}
-	
 	public String getNameForForm() {
 		return this.name + " (" +this.type +")";
 	}
