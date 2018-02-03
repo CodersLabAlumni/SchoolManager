@@ -57,6 +57,10 @@ public class Subject {
 		this.name = name;
 		this.description = description;
 	}
+	
+	public String getFullName() {
+		return this.name + " (" + this.description + ")";
+	}
 
 	public long getId() {
 		return id;

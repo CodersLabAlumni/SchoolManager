@@ -1,6 +1,5 @@
 package pl.schoolmanager.entity;
 
-import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -10,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "lesson")
@@ -31,13 +34,21 @@ public class Lesson {
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date stopDate;
 	
 	private String dayOfWeek;
 	
-	private Time startHour;
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
+	private Date startHour;
+	
+	private int duration;
 
 	public Lesson() {
 		super();
@@ -99,12 +110,21 @@ public class Lesson {
 		this.dayOfWeek = dayOfWeek;
 	}
 
-	public Time getStartHour() {
+
+	public Date getStartHour() {
 		return startHour;
 	}
 
-	public void setStartHour(Time startHour) {
+	public void setStartHour(Date startHour) {
 		this.startHour = startHour;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 	
 }

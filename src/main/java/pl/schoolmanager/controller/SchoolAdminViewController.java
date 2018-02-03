@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Lesson;
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.SchoolAdmin;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.LessonRepository;
 import pl.schoolmanager.repository.SchoolAdminRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
@@ -42,6 +45,8 @@ public class SchoolAdminViewController {
 	private SubjectRepository subjectRepo;
 	@Autowired
 	private StudentRepository studentRepo;
+	@Autowired
+	LessonRepository lessonRepo;
 
 	@GetMapping("/access/{schooladminId}")
 	public String schoolAdminHome(@PathVariable long schooladminId, Model m) {
@@ -213,9 +218,32 @@ public class SchoolAdminViewController {
 		return "redirect:/schoolAdminView/{schooladminId}/addStudent/{divisionId}";
 	}
 	
-//	@GetMapping("/{schooladminId}/addLesson/{divisionId}")
-//	public String addLesson(Model m, @PathVariable long schooladminId, @PathVariable long divisionId) {
-//		
-//	}
-//	
+	@GetMapping("/{schooladminId}/addLesson/{divisionId}")
+	public String addLessonGet(Model m, @PathVariable long schooladminId, @PathVariable long divisionId) {
+		List<Subject> subjects = this.divisionRepo.findOne(divisionId).getSubject();
+		List<Teacher> teachers = this.schoolAdminRepo.findOne(schooladminId).getSchool().getTeacher();
+		List<Lesson> lessons = this.divisionRepo.findOne(divisionId).getLesson();
+		SchoolAdmin schoolAdmin = this.schoolAdminRepo.findOne(schooladminId);
+		Division division = this.divisionRepo.findOne(divisionId);
+		Hibernate.initialize(schoolAdmin.getSchool().getTeacher());
+		m.addAttribute("division", division);
+		m.addAttribute("schoolAdmin", schoolAdmin);
+		m.addAttribute("subjects", subjects);
+		m.addAttribute("teachers", teachers);
+		m.addAttribute("lessons", lessons);
+		m.addAttribute("lesson", new Lesson());
+		return "school_admin_view/addLesson2division";
+	}
+	
+	@PostMapping("/{schooladminId}/addLesson/{divisionId}")
+	public String addLessonPost(Model m, @PathVariable long schooladminId, @PathVariable long divisionId,
+			@ModelAttribute Lesson lesson, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "school_admin_view/addLesson2division";
+		}
+		lesson.setDivision(this.divisionRepo.findOne(divisionId));
+		this.lessonRepo.save(lesson);
+		return "redirect:/schoolAdminView/{schooladminId}/addLesson/{divisionId}";
+	}
+	
 }
