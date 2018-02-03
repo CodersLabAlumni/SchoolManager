@@ -87,6 +87,7 @@ public class SchoolAdminViewController {
 		}
 		School school = this.schoolAdminRepo.findOne(schooladminId).getSchool();
 		division.setSchool(school);
+		division.setId(divisionId);
 		this.divisionRepo.save(division);
 		return "redirect:/schoolAdminView/access/{schooladminId}";
 	}
@@ -108,6 +109,29 @@ public class SchoolAdminViewController {
 		this.subjectRepo.save(subject);
 		return "redirect:/schoolAdminView/access/{schooladminId}";
 	}
+	
+	
+	@GetMapping("/{schooladminId}/updateSubject/{subjectId}")
+	public String updateSubjectGet(Model m, @PathVariable long subjectId) {
+		Subject subject = this.subjectRepo.findOne(subjectId);
+		m.addAttribute("subject", subject);
+		return "school_admin_view/create_subject";
+	}
+	
+	@PostMapping("/{schooladminId}/updateSubject/{subjectId}")
+	public String updateSubjectPost(Model m, @PathVariable long schooladminId, @PathVariable long subjectId,
+			@ModelAttribute Subject subject, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "school_admin_view/create_subject";
+		}
+		School school = this.schoolAdminRepo.findOne(schooladminId).getSchool();
+		subject.setSchool(school);
+		subject.setId(subjectId);
+		this.subjectRepo.save(subject);
+		return "redirect:/schoolAdminView/access/{schooladminId}";
+	}
+	
+	
 	
 	@GetMapping("/{schooladminId}/addSubject/{divisionId}")
 	public String addSubject(Model m, @PathVariable long schooladminId, @PathVariable long divisionId) {
@@ -189,4 +213,9 @@ public class SchoolAdminViewController {
 		return "redirect:/schoolAdminView/{schooladminId}/addStudent/{divisionId}";
 	}
 	
+//	@GetMapping("/{schooladminId}/addLesson/{divisionId}")
+//	public String addLesson(Model m, @PathVariable long schooladminId, @PathVariable long divisionId) {
+//		
+//	}
+//	
 }

@@ -72,6 +72,7 @@
 								<th scope="col">Description</th>
 								<th scope="col">Num of students</th>
 								<th scope="col">Num of subjects</th>
+								<th scope="col">Num of lessons</th>
 								<th scope="col">Manage</th>
 							</tr>
 						</thead>
@@ -82,6 +83,7 @@
 									<td><c:out value="${division.description}" /></td>
 									<td><c:out value="${division.numStudents}" /></td>
 									<td><c:out value="${division.numSubjects}" /></td>
+									<td><c:out value="${division.numLessons}" /></td>
 									<td>
 										<div class="btn-group">
 											<div class="btn-group">
@@ -95,10 +97,9 @@
 														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/updateDivision/${division.id}">Update</a>
 													<div class="dropdown-divider"></div>
 													<a class="dropdown-item"
-														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addStudent/${division.id}">Add/Remove
-														Student</a> <a class="dropdown-item"
-														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addSubject/${division.id}">Add/Remove
-														Subject</a>
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addStudent/${division.id}">Manage students</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addSubject/${division.id}">Manage subjects</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addLesson/${division.id}">Manage lessons</a>
 												</div>
 											</div>
 										</div>
