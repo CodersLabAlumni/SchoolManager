@@ -26,6 +26,7 @@
 					<th scope="col">Until</th>
 					<th scope="col">Time</th>
 					<th scope="col">Duration</th>
+					<th scope="col">Remove</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,7 +38,10 @@
 						<td><c:out value="${lesson.startDate}" /></td>
 						<td><c:out value="${lesson.stopDate}" /></td>
 						<td><c:out value="${lesson.startHour}" /></td>
-						<td><c:out value="${lesson.startHour}" /></td>
+						<td><c:out value="${lesson.duration}" /></td>
+						<td><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/removeLesson/${division.id}/${lesson.id}">Remove</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

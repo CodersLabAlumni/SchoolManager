@@ -246,4 +246,14 @@ public class SchoolAdminViewController {
 		return "redirect:/schoolAdminView/{schooladminId}/addLesson/{divisionId}";
 	}
 	
+	@GetMapping("/{schooladminId}/removeLesson/{divisionId}/{lessonId}")
+	public String removeLesson(@PathVariable long schooladminId,  
+			@PathVariable long divisionId,  @PathVariable long lessonId) {
+		Lesson lesson = this.lessonRepo.findOne(lessonId);
+		this.divisionRepo.findOne(divisionId).getLesson().remove(lesson);
+		lesson.setDivision(null);
+		this.lessonRepo.delete(lesson);
+		return "redirect:/schoolAdminView/{schooladminId}/addLesson/{divisionId}";		
+	}
+	
 }

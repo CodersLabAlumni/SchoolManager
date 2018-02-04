@@ -50,7 +50,7 @@ public class Division {
 	List<Schedule> schedule = new ArrayList<>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	List<Lesson> lesson = new ArrayList<>();
 	
 	public Division() {
