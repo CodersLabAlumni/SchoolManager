@@ -31,10 +31,6 @@
 					data-toggle="tab" href="#home">Home</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#lessons">Lessons</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#teachers">---Teachers</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#students">---Students</a></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -63,35 +59,30 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col">Subject</th>
-								<th scope="col">Class/Group</th>
+								<th scope="col">Name</th>
+								<th scope="col">Group/class</th>
 								<th scope="col">Day</th>
-								<th scope="col">Dates</th>
-								<th scope="col">Hour</th>
-								<th scope="col">Menu</th>
+								<th scope="col">From</th>
+								<th scope="col">Until</th>
+								<th scope="col">Time</th>
+								<th scope="col">Duration</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${lessons}" var="lesson">
 								<tr>
-									<td><c:out value="${lesson.subject.name}" />(<c:out value="${lesson.subject.description}" />)</td>
-									<td><c:out value="${lesson.division.name}" /></td>
+									<td><c:out value="${lesson.subject.fullName}" /></td>
+									<td><c:out
+											value="${lesson.division.name}" /></td>
 									<td><c:out value="${lesson.dayOfWeek}" /></td>
-									<td><c:out value="${lesson.startDate}" />-<c:out value="${lesson.stopDate}" /></td>
-									<td><c:out value="${lesson.startHour}" />
-										(<c:out value="${lesson.startHour}" /> mins)</td>
-									
-									<td>Menu</td>
+									<td><c:out value="${lesson.startDate}" /></td>
+									<td><c:out value="${lesson.stopDate}" /></td>
+									<td><c:out value="${lesson.startHour}" /></td>
+									<td><c:out value="${lesson.duration}" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-				</div>
-				<div class="tab-pane fade" id="teacher">
-					<br />
-				</div>
-				<div class="tab-pane fade" id="students">
-					<br />
 				</div>
 			</div>
 

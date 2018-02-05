@@ -68,7 +68,7 @@ public class TeacherViewController {
 	@GetMapping("/{teacherId}/access")
 	public String access(@PathVariable long teacherId, Model m) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
-		List<Lesson> lessons = this.lessonRepo.findAllByTeacher(teacher);
+		List<Lesson> lessons = this.lessonRepo.findAllByTeacherId(teacherId);
 		m.addAttribute("teacher", teacher);
 		m.addAttribute("lessons", lessons);
 		return "teacher_view/school";

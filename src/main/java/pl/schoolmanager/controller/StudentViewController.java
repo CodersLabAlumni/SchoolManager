@@ -29,6 +29,11 @@ public class StudentViewController {
 		return "student_view/school";
 	}
 	
+	
+	
+	
+	
+	
 	@GetMapping("")
 	public String stidentHome(Model m) {
 		return "student_view/division_students";

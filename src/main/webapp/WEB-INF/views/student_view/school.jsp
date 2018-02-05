@@ -32,7 +32,7 @@
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#divisions">Divisions</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#subjects">Subjects</a></li>
+					href="#lessons">Lessons</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#students">---Students</a></li>
 			</ul>
@@ -86,23 +86,40 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="tab-pane fade" id="subjects">
+				<div class="tab-pane fade" id="lessons">
 					<br />
-					<p>Subjects you study in this school:</p>
+					<p>Your lessons in this school:</p>
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th scope="col">Name</th>
-								<th scope="col">Description</th>
-								<th scope="col">Manage</th>
+								<th scope="col">Teacher</th>
+								<th scope="col">Day</th>
+								<th scope="col">From</th>
+								<th scope="col">Until</th>
+								<th scope="col">Time</th>
+								<th scope="col">Duration</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Subject name</td>
-								<td>Subject division</td>
-								<td>Menu</td>
-							</tr>
+							<c:forEach items="${student.division}" var="division">
+								<tr class="table-warning">
+									<td colspan="7"><strong>Group/class: <c:out value="${division.name}" />(<c:out
+											value="${division.description}" />)</strong></td>
+								</tr>
+								<c:forEach items="${division.lesson}" var="lesson">
+									<tr>
+										<td><c:out value="${lesson.subject.fullName}" /></td>
+										<td><c:out
+												value="${lesson.teacher.userRole.user.fullName}" /></td>
+										<td><c:out value="${lesson.dayOfWeek}" /></td>
+										<td><c:out value="${lesson.startDate}" /></td>
+										<td><c:out value="${lesson.stopDate}" /></td>
+										<td><c:out value="${lesson.startHour}" /></td>
+										<td><c:out value="${lesson.duration}" /></td>
+									</tr>
+								</c:forEach>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
