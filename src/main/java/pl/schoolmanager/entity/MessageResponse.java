@@ -66,5 +66,5 @@ public class MessageResponse {
     public void setMessage(Message message) {
         this.message = message;
     }
-    
+
 }

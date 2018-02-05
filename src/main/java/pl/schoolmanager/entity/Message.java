@@ -4,7 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "message")
@@ -28,7 +29,7 @@ public class Message {
 	private MessageData messageData;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "message")
-	private List<MessageResponse> responses;
+	private Set<MessageResponse> responses;
 
 	@CreationTimestamp
 	private Date created;
@@ -39,6 +40,7 @@ public class Message {
 		sender = new User();
 		receiver = new User();
 		messageData = new MessageData();
+		responses = new LinkedHashSet<>();
 	}
 
 	public long getId() {
@@ -121,11 +123,11 @@ public class Message {
 		return messageData.getSenderDescription();
 	}
 
-	public List<MessageResponse> getResponses() {
+	public Set<MessageResponse> getResponses() {
 		return responses;
 	}
 
-	public void setResponses(List<MessageResponse> responses) {
+	public void setResponses(Set<MessageResponse> responses) {
 		this.responses = responses;
 	}
 
