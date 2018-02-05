@@ -65,7 +65,7 @@ public class TeacherViewController {
 	private LessonRepository lessonRepo;
 
 	
-	@GetMapping("/access/{teacherId}")
+	@GetMapping("/{teacherId}/access")
 	public String access(@PathVariable long teacherId, Model m) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		List<Lesson> lessons = this.lessonRepo.findAllByTeacher(teacher);

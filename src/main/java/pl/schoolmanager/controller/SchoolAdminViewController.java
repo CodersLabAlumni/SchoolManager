@@ -52,7 +52,7 @@ public class SchoolAdminViewController {
 	@Autowired
 	LessonRepository lessonRepo;
 
-	@GetMapping("/access/{schooladminId}")
+	@GetMapping("/{schooladminId}/access")
 	public String schoolAdminHome(@PathVariable long schooladminId, Model m) {
 		SchoolAdmin schoolAdmin = schoolAdminRepo.findOne(schooladminId);
 		Hibernate.initialize(schoolAdmin.getSchool().getDivision());

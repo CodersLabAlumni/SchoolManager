@@ -81,7 +81,7 @@
 								<p class="card-text">You are an administrator in this
 									school.</p>
 								<a type="button" class="btn btn-danger btn-lg btn-block"
-									href="${pageContext.request.contextPath}/schoolAdminView/access/${userRole.id}">Manage
+									href="${pageContext.request.contextPath}/schoolAdminView/${userRole.id}/access/">Manage
 									this school</a>
 							</div>
 						</div>
@@ -102,7 +102,7 @@
 								</h4>
 								<p class="card-text">You are a teacher in this school.</p>
 								<a type="button" class="btn btn-info btn-lg btn-block"
-									href="${pageContext.request.contextPath}/teacherView/access/${userRole.id}">Access
+									href="${pageContext.request.contextPath}/teacherView/${userRole.id}/access">Access
 									as teacher</a>
 							</div>
 						</div>
@@ -122,7 +122,7 @@
 								</h4>
 								<p class="card-text">You are a student in this school.</p>
 								<a type="button" class="btn btn-warning btn-lg btn-block"
-									href="${pageContext.request.contextPath}/studentView/access/${userRole.id}">Access 
+									href="${pageContext.request.contextPath}/studentView/${userRole.id}/access/">Access 
 									as student</a>
 							</div>
 						</div>

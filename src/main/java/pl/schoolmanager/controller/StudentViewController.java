@@ -21,7 +21,7 @@ public class StudentViewController {
 	@Autowired
 	private ScheduleRepository scheduleRepository;
 	
-	@GetMapping("/access/{studentId}")
+	@GetMapping("/{studentId}/access")
 	public String access(@PathVariable long studentId, Model m) {
 		Student student = this.studentRepository.findOne(studentId);
 		
