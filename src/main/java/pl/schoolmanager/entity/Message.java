@@ -4,8 +4,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "message")
@@ -28,9 +26,6 @@ public class Message {
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private MessageData messageData;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "message")
-	private Set<MessageResponse> responses;
-
 	@CreationTimestamp
 	private Date created;
 
@@ -40,7 +35,6 @@ public class Message {
 		sender = new User();
 		receiver = new User();
 		messageData = new MessageData();
-		responses = new LinkedHashSet<>();
 	}
 
 	public long getId() {
@@ -99,6 +93,14 @@ public class Message {
 		this.receiver.setEmail(receiverEmail);
 	}
 
+	public String getSenderEmail() {
+		return sender.getEmail();
+	}
+
+	public void setSenderEmail(String senderEmail) {
+		this.sender.setEmail(senderEmail);
+	}
+
 	public Date getCreated() {
 		return created;
 	}
@@ -121,14 +123,6 @@ public class Message {
 
 	public String getSenderDescription() {
 		return messageData.getSenderDescription();
-	}
-
-	public Set<MessageResponse> getResponses() {
-		return responses;
-	}
-
-	public void setResponses(Set<MessageResponse> responses) {
-		this.responses = responses;
 	}
 
 }
