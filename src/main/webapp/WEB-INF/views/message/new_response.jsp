@@ -31,6 +31,8 @@
 			<fieldset>
 				<legend>New response</legend>
 
+				<form:hidden path="message" value="${messageId}"/>
+
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">Response
 						content</label>
