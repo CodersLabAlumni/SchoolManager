@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
 import pl.schoolmanager.entity.MessageData;
+import pl.schoolmanager.entity.MessageResponse;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageDataRepository;
 import pl.schoolmanager.repository.MessageRepository;
+import pl.schoolmanager.repository.MessageResponseRepository;
 import pl.schoolmanager.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -27,6 +29,9 @@ public class MessageServiceImpl implements MessageService {
     private MessageDataRepository messageDataRepository;
 
     @Autowired
+    private MessageResponseRepository messageResponseRepository;
+
+    @Autowired
     private SessionManager sessionManager;
 
     @Override
@@ -42,6 +47,16 @@ public class MessageServiceImpl implements MessageService {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public MessageResponse save(MessageResponse messageResponse) {
+        Message msg = messageResponse.getMessage();
+        msg.setSender(userRepository.findOneByEmail(msg.getMessageData().getSenderEmail()));
+        msg.setReceiver(userRepository.findOneByEmail(msg.getMessageData().getReceiverEmail()));
+        messageRepository.save(msg);
+        messageResponse.setAuthor(sessionManager.loggedUser());
+        return messageResponseRepository.save(messageResponse);
     }
 
     @Override
@@ -80,6 +95,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message message(long id) {
         return messageRepository.findOne(id);
+    }
+
+    @Override
+    public List<MessageResponse> responses(long messageId) {
+        return messageResponseRepository.findAllByMessageIdOrderByCreatedAsc(messageId);
     }
 
     private Message saveOrDelete(Message message) {
