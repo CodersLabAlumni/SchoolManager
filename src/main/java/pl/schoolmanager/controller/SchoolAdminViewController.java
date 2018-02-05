@@ -26,11 +26,13 @@ import pl.schoolmanager.entity.SchoolAdmin;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.DivisionRepository;
 import pl.schoolmanager.repository.LessonRepository;
 import pl.schoolmanager.repository.SchoolAdminRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
+import pl.schoolmanager.repository.UserRoleRepository;
 
 @Controller
 @RequestMapping("/schoolAdminView")
@@ -45,6 +47,8 @@ public class SchoolAdminViewController {
 	private SubjectRepository subjectRepo;
 	@Autowired
 	private StudentRepository studentRepo;
+	@Autowired
+	private UserRoleRepository userRoleRepo;
 	@Autowired
 	LessonRepository lessonRepo;
 
@@ -183,8 +187,15 @@ public class SchoolAdminViewController {
 		List<Student> schoolStudents = schoolAdminRepo.findOne(schooladminId).getSchool().getStudent();
 		List<Student> divisionStudents = divisionRepo.findOne(divisionId).getStudent();
 		List<Student> studentsNotInDivision = new ArrayList<>(schoolStudents);
-		SchoolAdmin schoolAdmin = this.schoolAdminRepo.findOne(schooladminId);
 		studentsNotInDivision.removeAll(divisionStudents);
+		List<Student> tempList = new ArrayList<>();
+		for (Student s : studentsNotInDivision) {
+			if (s.getUserRole().isEnabled()) {
+				tempList.add(s);
+			}
+		}
+		studentsNotInDivision = tempList;
+		SchoolAdmin schoolAdmin = this.schoolAdminRepo.findOne(schooladminId);
 		Division division = this.divisionRepo.findOne(divisionId);
 		m.addAttribute("schoolAdmin", schoolAdmin);
 		m.addAttribute("division", division);
@@ -222,6 +233,13 @@ public class SchoolAdminViewController {
 	public String addLessonGet(Model m, @PathVariable long schooladminId, @PathVariable long divisionId) {
 		List<Subject> subjects = this.divisionRepo.findOne(divisionId).getSubject();
 		List<Teacher> teachers = this.schoolAdminRepo.findOne(schooladminId).getSchool().getTeacher();
+		List<Teacher> tempList = new ArrayList<>();
+		for (Teacher t : teachers) {
+			if (t.getUserRole().isEnabled()) {
+				tempList.add(t);
+			}
+		}
+		teachers = tempList;
 		List<Lesson> lessons = this.divisionRepo.findOne(divisionId).getLesson();
 		SchoolAdmin schoolAdmin = this.schoolAdminRepo.findOne(schooladminId);
 		Division division = this.divisionRepo.findOne(divisionId);
@@ -256,4 +274,15 @@ public class SchoolAdminViewController {
 		return "redirect:/schoolAdminView/{schooladminId}/addLesson/{divisionId}";		
 	}
 	
+	@GetMapping("/{schooladminId}/toggleEnabled/{userRoleId}")
+	public String toogleEnabledUserRole(@PathVariable long schooladminId, @PathVariable long userRoleId) {
+		UserRole userRole = this.userRoleRepo.findOne(userRoleId);
+		if (userRole.isEnabled()) {
+			userRole.setEnabled(false);
+		} else {
+			userRole.setEnabled(true);
+		}
+		this.userRoleRepo.save(userRole);
+		return "redirect:/schoolAdminView/access/{schooladminId}";
+	}
 }

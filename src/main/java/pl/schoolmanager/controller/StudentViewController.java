@@ -1,23 +1,13 @@
 package pl.schoolmanager.controller;
 
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.Schedule;
 import pl.schoolmanager.entity.Student;
-import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
 
@@ -34,6 +24,7 @@ public class StudentViewController {
 	@GetMapping("/access/{studentId}")
 	public String access(@PathVariable long studentId, Model m) {
 		Student student = this.studentRepository.findOne(studentId);
+		
 		m.addAttribute("student", student);
 		return "student_view/school";
 	}

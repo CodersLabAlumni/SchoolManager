@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Lesson;
 import pl.schoolmanager.entity.Mark;
 import pl.schoolmanager.entity.Schedule;
 import pl.schoolmanager.entity.School;
@@ -29,6 +31,7 @@ import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.LessonRepository;
 import pl.schoolmanager.repository.MarkRepository;
 import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
@@ -37,6 +40,7 @@ import pl.schoolmanager.repository.TeacherRepository;
 
 @Controller
 @RequestMapping("/teacherView")
+@Transactional
 public class TeacherViewController {
 
 	@Autowired
@@ -56,19 +60,30 @@ public class TeacherViewController {
 	
 	@Autowired
 	private ScheduleRepository scheduleRepository;
+	
+	@Autowired
+	private LessonRepository lessonRepo;
 
-	@GetMapping("/all")
-	public String all(Model m) {
-		return "test";
-	}
 	
 	@GetMapping("/access/{teacherId}")
 	public String access(@PathVariable long teacherId, Model m) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		List<Lesson> lessons = this.lessonRepo.findAllByTeacher(teacher);
 		m.addAttribute("teacher", teacher);
+		m.addAttribute("lessons", lessons);
 		return "teacher_view/school";
 	}
 	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/all")
+	public String all(Model m) {
+		return "test";
+	}
 
 	// HOME
 	@GetMapping("")

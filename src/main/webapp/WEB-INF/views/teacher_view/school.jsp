@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-		<br/>
+		<br />
 		<div class="row">
 			<h2>
 				Welcome to
@@ -30,7 +30,7 @@
 				<li class="nav-item"><a class="nav-link active show"
 					data-toggle="tab" href="#home">Home</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#subjects">Subjects</a></li>
+					href="#lessons">Lessons</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#teachers">---Teachers</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -57,22 +57,30 @@
 						<p>Number of students: (placeholder)</p>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="subjects">
+				<div class="tab-pane fade" id="lessons">
 					<br />
-					<p>Subjects you teach in this school:</p>
+					<p>Lessons you teach in this school:</p>
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col">Name</th>
-								<th scope="col">Description</th>
-								<th scope="col">Manage</th>
+								<th scope="col">Subject</th>
+								<th scope="col">Class/Group</th>
+								<th scope="col">Day</th>
+								<th scope="col">Dates</th>
+								<th scope="col">Hour</th>
+								<th scope="col">Menu</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${teacher.subject}" var="subject">
+							<c:forEach items="${lessons}" var="lesson">
 								<tr>
-									<td><c:out value="${subject.name}" /></td>
-									<td><c:out value="${subject.description}" /></td>
+									<td><c:out value="${lesson.subject.name}" />(<c:out value="${lesson.subject.description}" />)</td>
+									<td><c:out value="${lesson.division.name}" /></td>
+									<td><c:out value="${lesson.dayOfWeek}" /></td>
+									<td><c:out value="${lesson.startDate}" />-<c:out value="${lesson.stopDate}" /></td>
+									<td><c:out value="${lesson.startHour}" />
+										(<c:out value="${lesson.startHour}" /> mins)</td>
+									
 									<td>Menu</td>
 								</tr>
 							</c:forEach>

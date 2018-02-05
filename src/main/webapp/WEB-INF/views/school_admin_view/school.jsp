@@ -97,9 +97,12 @@
 														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/updateDivision/${division.id}">Update</a>
 													<div class="dropdown-divider"></div>
 													<a class="dropdown-item"
-														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addStudent/${division.id}">Manage students</a> <a class="dropdown-item"
-														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addSubject/${division.id}">Manage subjects</a> <a class="dropdown-item"
-														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addLesson/${division.id}">Manage lessons</a>
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addStudent/${division.id}">Manage
+														students</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addSubject/${division.id}">Manage
+														subjects</a> <a class="dropdown-item"
+														href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/addLesson/${division.id}">Manage
+														lessons</a>
 												</div>
 											</div>
 										</div>
@@ -160,16 +163,43 @@
 								<th scope="col">Name</th>
 								<th scope="col">Manage</th>
 							</tr>
+							<tr>
+								<th colspan="2">Active teachers:</th>
+							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${schoolAdmin.school.teacher}" var="teacher">
-								<tr>
-									<td><c:out value="${teacher.userRole.user.fullName}" /></td>
-									<td>Menu</td>
-								</tr>
+								<c:if test="${teacher.userRole.enabled}">
+									<tr>
+										<td><c:out value="${teacher.userRole.user.fullName}" /></td>
+										<td><a type="button" class="btn btn-danger"
+											href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/toggleEnabled/${teacher.userRole.id}">
+												Deactivate teacher</a></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+						<thead>
+							<tr>
+								<th colspan="2">Teachers that applied to this school (need
+									activation):</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.teacher}" var="teacher">
+								<c:if test="${not teacher.userRole.enabled}">
+									<tr>
+										<td><c:out value="${teacher.userRole.user.fullName}" /></td>
+										<td><a type="button" class="btn btn-danger"
+											href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/toggleEnabled/${teacher.userRole.id}">
+												Activate teacher</a></td>
+									</tr>
+								</c:if>
 							</c:forEach>
 						</tbody>
 					</table>
+
+					<hr />
 				</div>
 				<div class="tab-pane fade" id="students">
 					<br />
@@ -179,14 +209,40 @@
 							<tr>
 								<th scope="col">Name</th>
 								<th scope="col">Manage</th>
+							<tr>
+								<th colspan="2">Active students:</th>
+							</tr>
+
+
+						</thead>
+						<tbody>
+							<c:forEach items="${schoolAdmin.school.student}" var="student">
+								<c:if test="${student.userRole.enabled}">
+									<tr>
+										<td><c:out value="${student.userRole.user.fullName}" /></td>
+										<td><a type="button" class="btn btn-danger"
+											href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/toggleEnabled/${student.userRole.id}">
+												Deactivate student</a></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+						<thead>
+							<tr>
+								<th colspan="2">Students that applied to this school (need
+									activation):</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${schoolAdmin.school.student}" var="student">
-								<tr>
-									<td><c:out value="${student.userRole.user.fullName}" /></td>
-									<td>Menu</td>
-								</tr>
+								<c:if test="${not student.userRole.enabled}">
+									<tr>
+										<td><c:out value="${student.userRole.user.fullName}" /></td>
+										<td><a type="button" class="btn btn-danger"
+											href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/toggleEnabled/${student.userRole.id}">
+												Activate student</a></td>
+									</tr>
+								</c:if>
 							</c:forEach>
 						</tbody>
 					</table>

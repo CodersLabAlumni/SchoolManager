@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-		<br/>
+		<br />
 		<div class="row">
 			<h2>
 				Welcome to
@@ -30,9 +30,9 @@
 				<li class="nav-item"><a class="nav-link active show"
 					data-toggle="tab" href="#home">Home</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#subjects">Subjects</a></li>
+					href="#divisions">Divisions</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#teachers">---Teachers</a></li>
+					href="#subjects">Subjects</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#students">---Students</a></li>
 			</ul>
@@ -57,6 +57,35 @@
 						<p>Number of students: (placeholder)</p>
 					</div>
 				</div>
+				<div class="tab-pane fade" id="divisions">
+					<br />
+
+					<p>Groups/classes in this school:</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Description</th>
+								<th scope="col">Num of students</th>
+								<th scope="col">Num of subjects</th>
+								<th scope="col">Num of lessons</th>
+								<th scope="col">Manage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${student.division}" var="division">
+								<tr>
+									<td><c:out value="${division.name}" /></td>
+									<td><c:out value="${division.description}" /></td>
+									<td><c:out value="${division.numStudents}" /></td>
+									<td><c:out value="${division.numSubjects}" /></td>
+									<td><c:out value="${division.numLessons}" /></td>
+									<td></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 				<div class="tab-pane fade" id="subjects">
 					<br />
 					<p>Subjects you study in this school:</p>
@@ -69,18 +98,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${student.division.subject}" var="subject">
-								<tr>
-									<td><c:out value="${subject.name}" /></td>
-									<td><c:out value="${subject.description}" /></td>
-									<td>Menu</td>
-								</tr>
-							</c:forEach>
+							<tr>
+								<td>Subject name</td>
+								<td>Subject division</td>
+								<td>Menu</td>
+							</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="tab-pane fade" id="teacher">
-					<br />
 				</div>
 				<div class="tab-pane fade" id="students">
 					<br />
