@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "message")
@@ -25,6 +26,9 @@ public class Message {
 
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private MessageData messageData;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "message")
+	private List<MessageResponse> responses;
 
 	@CreationTimestamp
 	private Date created;
@@ -115,6 +119,14 @@ public class Message {
 
 	public String getSenderDescription() {
 		return messageData.getSenderDescription();
+	}
+
+	public List<MessageResponse> getResponses() {
+		return responses;
+	}
+
+	public void setResponses(List<MessageResponse> responses) {
+		this.responses = responses;
 	}
 
 }
