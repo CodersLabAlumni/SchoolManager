@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "message")
@@ -26,15 +28,22 @@ public class Message {
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private MessageData messageData;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "message", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+	private Set<MessageResponse> responses;
+
 	@CreationTimestamp
 	private Date created;
 
-	private int checked;
+	private boolean openBySender;
+
+	private boolean openByReceiver;
 
 	public Message() {
 		sender = new User();
 		receiver = new User();
 		messageData = new MessageData();
+		responses = new HashSet<>();
+		openBySender = true;
 	}
 
 	public long getId() {
@@ -90,7 +99,7 @@ public class Message {
 	}
 
 	public void setReceiverEmail(String receiverEmail) {
-		this.receiver.setEmail(receiverEmail);
+		receiver.setEmail(receiverEmail);
 	}
 
 	public String getSenderEmail() {
@@ -98,7 +107,7 @@ public class Message {
 	}
 
 	public void setSenderEmail(String senderEmail) {
-		this.sender.setEmail(senderEmail);
+		sender.setEmail(senderEmail);
 	}
 
 	public Date getCreated() {
@@ -109,20 +118,40 @@ public class Message {
 		this.created = created;
 	}
 
-	public int getChecked() {
-		return checked;
-	}
-
-	public void setChecked(int checked) {
-		this.checked = checked;
-	}
-
 	public String getReceiverDescription() {
 		return messageData.getReceiverDescription();
 	}
 
 	public String getSenderDescription() {
 		return messageData.getSenderDescription();
+	}
+
+	public boolean isOpenBySender() {
+		return openBySender;
+	}
+
+	public void setOpenBySender(boolean openBySender) {
+		this.openBySender = openBySender;
+	}
+
+	public boolean isOpenByReceiver() {
+		return openByReceiver;
+	}
+
+	public void setOpenByReceiver(boolean openByReceiver) {
+		this.openByReceiver = openByReceiver;
+	}
+
+	public Set<MessageResponse> getResponses() {
+		return responses;
+	}
+
+	public void setResponses(Set<MessageResponse> responses) {
+		this.responses = responses;
+	}
+
+	public int getResponsesNum() {
+		return responses.size();
 	}
 
 }

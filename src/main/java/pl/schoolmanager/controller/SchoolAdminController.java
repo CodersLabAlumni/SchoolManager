@@ -171,22 +171,6 @@ public class SchoolAdminController {
 		return availableSchools;
 	}
 
-	// MESSAGES INFO
-	@ModelAttribute("countAllReceivedMessages")
-	public Integer countAllReceivedMessages(Long receiverId) {
-		return this.messageRepository.findAllByReceiverId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllSendedMessages")
-	public Integer countAllSendedMessages(Long senderId) {
-		return this.messageRepository.findAllBySenderId(getLoggedUser().getId()).size();
-	}
-
-	@ModelAttribute("countAllReceivedUnreadedMessages")
-	public Integer countAllReceivedUnreadedMessages(Long receiverId, Integer checked) {
-		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
-	}
-
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
 		User user = getLoggedUser();
@@ -200,18 +184,13 @@ public class SchoolAdminController {
 		return schools;
 	}
 
-	public void messageSender(UserRole user) {
+	private void messageSender(UserRole user) {
 		Message msg = new Message();
-		msg.setChecked(0);
 		msg.setTitle("User profile activation");
 		msg.setContent(
 				"Automatic response: Your account at school " + user.getSchool().getName() + " has been activated");
 		msg.setReceiver(user.getUser());
-		msg.setSender(getLoggedUser());
-		MessageData msgData = new MessageData();
-		msgData.setReceiverDescription(user.getUser().getEmail());
-		msgData.setSenderDescription(getLoggedUser().getEmail());
-		msg.setMessageData(msgData);
 		messageService.save(msg);
 	}
+
 }
