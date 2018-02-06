@@ -54,6 +54,11 @@ public class MessageServiceImpl implements MessageService {
         Message msg = messageResponse.getMessage();
         msg.setSender(userRepository.findOneByEmail(msg.getMessageData().getSenderEmail()));
         msg.setReceiver(userRepository.findOneByEmail(msg.getMessageData().getReceiverEmail()));
+        if(msg.getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
+            msg.setOpenBySender(false);
+        } else {
+            msg.setOpenByReceiver(false);
+        }
         messageRepository.save(msg);
         messageResponse.setAuthor(sessionManager.loggedUser());
         return messageResponseRepository.save(messageResponse);
@@ -76,7 +81,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message markAsRead(long messageId) {
         Message message = messageRepository.findOne(messageId);
-        message.setChecked(1);
+        if(message.getMessageData().getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
+            message.setOpenByReceiver(true);
+        } else {
+            message.setOpenBySender(true);
+        }
         message = messageRepository.save(message);
         sessionManager.updateMessageValues();
         return message;
