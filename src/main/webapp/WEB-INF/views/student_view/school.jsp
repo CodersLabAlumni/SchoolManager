@@ -33,8 +33,6 @@
 					href="#divisions">Divisions</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#lessons">Lessons</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#students">---Students</a></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -89,6 +87,9 @@
 				<div class="tab-pane fade" id="lessons">
 					<br />
 					<p>Your lessons in this school:</p>
+					<div class="timetable"></div>
+					<br />
+
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -104,8 +105,10 @@
 						<tbody>
 							<c:forEach items="${student.division}" var="division">
 								<tr class="table-warning">
-									<td colspan="7"><strong>Group/class: <c:out value="${division.name}" />(<c:out
-											value="${division.description}" />)</strong></td>
+									<td colspan="7"><strong>Group/class: <c:out
+												value="${division.name}" />(<c:out
+												value="${division.description}" />)
+									</strong></td>
 								</tr>
 								<c:forEach items="${division.lesson}" var="lesson">
 									<tr>
@@ -122,9 +125,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-				</div>
-				<div class="tab-pane fade" id="students">
-					<br />
+
 				</div>
 			</div>
 
@@ -132,5 +133,20 @@
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/timetable.js"></script>
+	<script>
+		var timetable = new Timetable();
+		timetable.setScope(7, 20); // optional, only whole hours between 0 and 23
+
+		timetable.addLocations([ 'Mon', 'Tue', 'Wed', 'Thu',
+				'Fri', 'Sat', 'Sun' ]);
+
+		<c:forEach items="${schedule}" var="lesson">
+			timetable.addEvent(${lesson});
+		</c:forEach>
+		var renderer = new Timetable.Renderer(timetable);
+		renderer.draw('.timetable'); // any css selector
+	</script>
 </body>
 </html>

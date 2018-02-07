@@ -17,4 +17,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
     List<UserRole> findAllBySchoolIdAndEnabledIsFalse(long schoolId);
     
+    List<UserRole> findAllByUsernameAndUserRole(String username, String userRole);
 }

@@ -111,7 +111,7 @@
 
 
 		<a class="btn btn-secondary"
-			href="${pageContext.request.contextPath}/schoolAdminView/access/${schoolAdmin.id}">Return</a>
+			href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/access/">Return</a>
 
 	</div>
 

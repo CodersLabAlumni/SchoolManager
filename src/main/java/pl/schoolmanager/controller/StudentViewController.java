@@ -1,5 +1,8 @@
 package pl.schoolmanager.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Lesson;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
+import pl.schoolmanager.service.timetable.TimetableServiceImpl;
 
 @Controller
 @RequestMapping("/studentView")
@@ -21,10 +27,22 @@ public class StudentViewController {
 	@Autowired
 	private ScheduleRepository scheduleRepository;
 	
+	@Autowired
+	TimetableServiceImpl timeTableService;
+	
 	@GetMapping("/{studentId}/access")
 	public String access(@PathVariable long studentId, Model m) {
 		Student student = this.studentRepository.findOne(studentId);
-		
+		List<Division> divisions = student.getDivision();
+		List<Lesson> lessons = new ArrayList<>();
+		for (Division division : divisions) {
+			List<Lesson> lessonInDivision = division.getLesson();
+			for (Lesson lesson : lessonInDivision) {
+				lessons.add(lesson);
+			}
+		}
+		List<String> schedule = timeTableService.formatLessonsForSchedule(lessons);
+		m.addAttribute("schedule", schedule);
 		m.addAttribute("student", student);
 		return "student_view/school";
 	}

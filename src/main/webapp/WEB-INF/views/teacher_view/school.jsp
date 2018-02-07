@@ -72,8 +72,7 @@
 							<c:forEach items="${lessons}" var="lesson">
 								<tr>
 									<td><c:out value="${lesson.subject.fullName}" /></td>
-									<td><c:out
-											value="${lesson.division.name}" /></td>
+									<td><c:out value="${lesson.division.name}" /></td>
 									<td><c:out value="${lesson.dayOfWeek}" /></td>
 									<td><c:out value="${lesson.startDate}" /></td>
 									<td><c:out value="${lesson.stopDate}" /></td>
