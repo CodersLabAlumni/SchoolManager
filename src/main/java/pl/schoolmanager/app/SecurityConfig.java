@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.access("@teacherAccess.checkAccess(authentication, #teacherId)")
 			.antMatchers("/studentView/{studentId}/**")
 			.access("@studentAccess.checkAccess(authentication, #studentId)")
+			.antMatchers("/**").authenticated()
 			.and()
 			.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/welcome", true)
 			.and()

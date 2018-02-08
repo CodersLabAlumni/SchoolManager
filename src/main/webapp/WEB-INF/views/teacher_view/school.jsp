@@ -22,7 +22,7 @@
 				<c:out value="${teacher.userRole.user.fullName}" />
 				.
 			</h2>
-			<h4>You are and administrator in this school</h4>
+			<h4>You are a teacher in this school</h4>
 		</div>
 
 		<div class="row">
