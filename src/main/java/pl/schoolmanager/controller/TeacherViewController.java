@@ -37,6 +37,7 @@ import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
+import pl.schoolmanager.service.timetable.TimetableServiceImpl;
 
 @Controller
 @RequestMapping("/teacherView")
@@ -63,14 +64,18 @@ public class TeacherViewController {
 	
 	@Autowired
 	private LessonRepository lessonRepo;
-
+	
+	@Autowired
+	TimetableServiceImpl timeTableService;
 	
 	@GetMapping("/{teacherId}/access")
 	public String access(@PathVariable long teacherId, Model m) {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		List<Lesson> lessons = this.lessonRepo.findAllByTeacherId(teacherId);
+		List<String> schedule = timeTableService.formatLessonsForSchedule(lessons);
 		m.addAttribute("teacher", teacher);
 		m.addAttribute("lessons", lessons);
+		m.addAttribute("schedule", schedule);
 		return "teacher_view/school";
 	}
 	

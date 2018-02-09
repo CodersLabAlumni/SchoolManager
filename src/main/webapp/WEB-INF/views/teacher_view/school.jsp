@@ -56,6 +56,7 @@
 				<div class="tab-pane fade" id="lessons">
 					<br />
 					<p>Lessons you teach in this school:</p>
+					<div class="timetable"></div>
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -89,5 +90,20 @@
 	</div>
 
 	<%@ include file="../jspf/footer.jspf"%>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/timetable.js"></script>
+	<script>
+		var timetable = new Timetable();
+		timetable.setScope(7, 20); // optional, only whole hours between 0 and 23
+
+		timetable.addLocations([ 'Mon', 'Tue', 'Wed', 'Thu',
+				'Fri', 'Sat', 'Sun' ]);
+
+		<c:forEach items="${schedule}" var="lesson">
+			timetable.addEvent(${lesson});
+		</c:forEach>
+		var renderer = new Timetable.Renderer(timetable);
+		renderer.draw('.timetable'); // any css selector
+	</script>
 </body>
 </html>
