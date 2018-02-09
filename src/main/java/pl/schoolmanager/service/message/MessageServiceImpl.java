@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
 import pl.schoolmanager.entity.MessageData;
+import pl.schoolmanager.entity.MessageResponse;
 import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageDataRepository;
 import pl.schoolmanager.repository.MessageRepository;
+import pl.schoolmanager.repository.MessageResponseRepository;
 import pl.schoolmanager.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -25,6 +27,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private MessageDataRepository messageDataRepository;
+
+    @Autowired
+    private MessageResponseRepository messageResponseRepository;
 
     @Autowired
     private SessionManager sessionManager;
@@ -45,6 +50,21 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public MessageResponse save(MessageResponse messageResponse) {
+        Message msg = messageResponse.getMessage();
+        msg.setSender(userRepository.findOneByEmail(msg.getMessageData().getSenderEmail()));
+        msg.setReceiver(userRepository.findOneByEmail(msg.getMessageData().getReceiverEmail()));
+        if(msg.getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
+            msg.setOpenBySender(false);
+        } else {
+            msg.setOpenByReceiver(false);
+        }
+        messageRepository.save(msg);
+        messageResponse.setAuthor(sessionManager.loggedUser());
+        return messageResponseRepository.save(messageResponse);
+    }
+
+    @Override
     public Message removeReceiver(long messageId) {
         Message message = messageRepository.findOne(messageId);
         message.setReceiver(null);
@@ -61,7 +81,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message markAsRead(long messageId) {
         Message message = messageRepository.findOne(messageId);
-        message.setChecked(1);
+        if(message.getMessageData().getReceiverEmail().equals(sessionManager.loggedUser().getEmail())) {
+            message.setOpenByReceiver(true);
+        } else {
+            message.setOpenBySender(true);
+        }
         message = messageRepository.save(message);
         sessionManager.updateMessageValues();
         return message;
@@ -80,6 +104,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message message(long id) {
         return messageRepository.findOne(id);
+    }
+
+    @Override
+    public List<MessageResponse> responses(long messageId) {
+        return messageResponseRepository.findAllByMessageIdOrderByCreatedAsc(messageId);
     }
 
     private Message saveOrDelete(Message message) {

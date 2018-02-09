@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Message;
+import pl.schoolmanager.entity.MessageResponse;
 import pl.schoolmanager.service.message.MessageService;
 
 @Controller
@@ -35,6 +36,19 @@ public class MessageController {
 		return "redirect:/message/sent";
 	}
 
+	@GetMapping("/create/response/{messageId}")
+	public String createResponse(Model m, @PathVariable long messageId) {
+		m.addAttribute("response", new MessageResponse());
+		m.addAttribute("messageId", messageId);
+		return "message/new_response";
+	}
+
+	@PostMapping("/create/response/{messageId}")
+	public String createResponse(@ModelAttribute MessageResponse response) {
+		messageService.save(response);
+		return "redirect:/message/view/{messageId}";
+	}
+
 	@GetMapping("/received")
 	public String receivedMessages(Model m) {
 		m.addAttribute("receivedMessages", messageService.receivedMessages(sessionManager.loggedUser()));
@@ -50,6 +64,8 @@ public class MessageController {
 	@GetMapping("/view/{messageId}")
 	public String viewMessage(Model m, @PathVariable long messageId) {
 		m.addAttribute("message", messageService.markAsRead(messageId));
+		m.addAttribute("responses", messageService.responses(messageId));
+		m.addAttribute("loggedUser", sessionManager.loggedUser());
 		return "message/show_message";
 	}
 

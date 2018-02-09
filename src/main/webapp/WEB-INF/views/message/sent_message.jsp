@@ -38,8 +38,15 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${sentMessages}" var="sent">
-					<tr class="table-light">
-						<td scope="row"><c:out value="${sent.receiverDescription}" /></td>
+					<c:choose>
+						<c:when test="${sent.openBySender eq false}">
+							<tr class="table-warning">
+						</c:when>
+						<c:otherwise>
+							<tr class="table-light">
+						</c:otherwise>
+					</c:choose>
+					<td scope="row"><span>${sent.receiverDescription} <b>(${sent.responsesNum})</b></span></td>
 						<td><c:out value="${sent.title}" /></td>
 						<td><c:out value="${sent.created}" /></td>
 						<td><c:choose>
