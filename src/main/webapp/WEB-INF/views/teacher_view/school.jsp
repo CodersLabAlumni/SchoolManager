@@ -94,7 +94,7 @@
 		src="${pageContext.request.contextPath}/resources/js/timetable.js"></script>
 	<script>
 		var timetable = new Timetable();
-		timetable.setScope(7, 20); // optional, only whole hours between 0 and 23
+		timetable.setScope(${activeHours}); // optional, only whole hours between 0 and 23
 
 		timetable.addLocations(${activeDays});
 

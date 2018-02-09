@@ -66,4 +66,45 @@ public class TimetableServiceImpl implements TimetableService {
 		}
 		return false;
 	}
+
+	public String getActiveHours(List<Lesson> lessons) {
+		int lessonMinHour = getLessonsMinHour(lessons);
+		int lessonMaxHour = getLessonsMaxHour(lessons);
+		return lessonMinHour + ", " + lessonMaxHour;
+	}
+
+
+	private int getLessonsMinHour(List<Lesson> lessons) {
+		int result = 23;
+		for (Lesson lesson : lessons) {
+			int currentStartHour = Integer.parseInt((lesson.getStartHour().toString().split(":"))[0]);
+			if(currentStartHour<result) {
+				result = currentStartHour;
+			}
+		}
+		if(result>=1) {
+			result -= 1;
+		} else {
+			result = 0;
+		}
+		return result;
+	}
+	
+	private int getLessonsMaxHour(List<Lesson> lessons) {
+		int result = 0;
+		for (Lesson lesson : lessons) {
+			int currentStartHour = Integer.parseInt((lesson.getStartHour().toString().split(":"))[0]);
+			int minutes = Integer.parseInt((lesson.getStartHour().toString().split(":"))[1]) + lesson.getDuration();
+			int currentStopHour = currentStartHour + minutes/60 + 1;
+			if(currentStopHour>result) {
+				result = currentStopHour;
+			}
+		}
+		if(result<=22) {
+			result += 1;
+		} else {
+			result=23;
+		}
+		return result;
+	}
 }

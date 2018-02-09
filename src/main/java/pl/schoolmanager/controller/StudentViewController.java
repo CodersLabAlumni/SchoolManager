@@ -43,8 +43,10 @@ public class StudentViewController {
 		}
 		List<String> schedule = timeTableService.formatLessonsForSchedule(lessons);
 		String activeDays = timeTableService.getActiveDays(lessons);
+		String activeHours = timeTableService.getActiveHours(lessons);
 		m.addAttribute("schedule", schedule);
 		m.addAttribute("activeDays", activeDays);
+		m.addAttribute("activeHours", activeHours);
 		m.addAttribute("student", student);
 		return "student_view/school";
 	}
