@@ -73,9 +73,11 @@ public class TeacherViewController {
 		Teacher teacher = this.teacherRepository.findOne(teacherId);
 		List<Lesson> lessons = this.lessonRepo.findAllByTeacherId(teacherId);
 		List<String> schedule = timeTableService.formatLessonsForSchedule(lessons);
+		String activeDays = timeTableService.getActiveDays(lessons);
 		m.addAttribute("teacher", teacher);
 		m.addAttribute("lessons", lessons);
 		m.addAttribute("schedule", schedule);
+		m.addAttribute("activeDays", activeDays);
 		return "teacher_view/school";
 	}
 	

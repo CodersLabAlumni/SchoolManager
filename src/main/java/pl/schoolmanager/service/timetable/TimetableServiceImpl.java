@@ -42,4 +42,28 @@ public class TimetableServiceImpl implements TimetableService {
 		String hourFormatted = "" + timeArray[0] + ", " + timeArray[1];
 		return hourFormatted;
 	}
+
+	public String getActiveDays(List<Lesson> lessons) {
+		String result = "[ ";
+		String[] daysInWeek = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+		for (String day : daysInWeek) {
+			if (dayIsInLessons(day, lessons)) {
+				result += "'"+day+"'";
+				if(!day.equals("Sun")) {
+					result += ", ";
+				}
+			}
+		}
+		result += " ]";
+		return result;
+	}
+
+	private boolean dayIsInLessons(String day, List<Lesson> lessons) {
+		for (Lesson lesson : lessons) {
+			if(lesson.getDayOfWeek().equals(day)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

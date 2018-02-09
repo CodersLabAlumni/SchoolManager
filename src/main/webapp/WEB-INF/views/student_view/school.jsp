@@ -139,8 +139,7 @@
 		var timetable = new Timetable();
 		timetable.setScope(7, 20); // optional, only whole hours between 0 and 23
 
-		timetable.addLocations([ 'Mon', 'Tue', 'Wed', 'Thu',
-				'Fri', 'Sat', 'Sun' ]);
+		timetable.addLocations(${activeDays});
 
 		<c:forEach items="${schedule}" var="lesson">
 			timetable.addEvent(${lesson});
