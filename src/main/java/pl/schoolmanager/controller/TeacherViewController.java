@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.Division;
+import pl.schoolmanager.entity.Lesson;
 import pl.schoolmanager.entity.Mark;
 import pl.schoolmanager.entity.Schedule;
 import pl.schoolmanager.entity.School;
@@ -30,14 +31,17 @@ import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
 import pl.schoolmanager.repository.DivisionRepository;
+import pl.schoolmanager.repository.LessonRepository;
 import pl.schoolmanager.repository.MarkRepository;
 import pl.schoolmanager.repository.ScheduleRepository;
 import pl.schoolmanager.repository.StudentRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.TeacherRepository;
+import pl.schoolmanager.service.timetable.TimetableServiceImpl;
 
 @Controller
 @RequestMapping("/teacherView")
+@Transactional
 public class TeacherViewController {
 
 	@Autowired
@@ -57,7 +61,34 @@ public class TeacherViewController {
 	
 	@Autowired
 	private ScheduleRepository scheduleRepository;
-
+	
+	@Autowired
+	private LessonRepository lessonRepo;
+	
+	@Autowired
+	TimetableServiceImpl timeTableService;
+	
+	@GetMapping("/{teacherId}/access")
+	public String access(@PathVariable long teacherId, Model m) {
+		Teacher teacher = this.teacherRepository.findOne(teacherId);
+		List<Lesson> lessons = this.lessonRepo.findAllByTeacherId(teacherId);
+		List<String> schedule = timeTableService.formatLessonsForSchedule(lessons);
+		String activeDays = timeTableService.getActiveDays(lessons);
+		String activeHours = timeTableService.getActiveHours(lessons);
+		m.addAttribute("teacher", teacher);
+		m.addAttribute("lessons", lessons);
+		m.addAttribute("schedule", schedule);
+		m.addAttribute("activeDays", activeDays);
+		m.addAttribute("activeHours", activeHours);
+		return "teacher_view/school";
+	}
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/all")
 	public String all(Model m) {
 		return "test";
@@ -202,19 +233,19 @@ public class TeacherViewController {
 		return "mark/edit_mark";
 	}
 
-	@PostMapping("/updateMark/{markId}")
-	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult,
-			@PathVariable long markId) {
-		if (bindingResult.hasErrors()) {
-			return "mark/edit_mark";
-		}
-		mark.setId(markId);
-
-		this.markRepository.save(mark);
-		Long divisionId = mark.getStudent().getDivision().getId();
-		Long subjectId = mark.getSubject().getId();
-		return "redirect:/division/inside/marks/" + divisionId + "/" + subjectId;
-	}
+//	@PostMapping("/updateMark/{markId}")
+//	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult,
+//			@PathVariable long markId) {
+//		if (bindingResult.hasErrors()) {
+//			return "mark/edit_mark";
+//		}
+//		mark.setId(markId);
+//
+//		this.markRepository.save(mark);
+//		Long divisionId = mark.getStudent().getDivision().getId();
+//		Long subjectId = mark.getSubject().getId();
+//		return "redirect:/division/inside/marks/" + divisionId + "/" + subjectId;
+//	}
 
 	// DELETE
 	@DeleteMapping("/deleteMark/{markId}")

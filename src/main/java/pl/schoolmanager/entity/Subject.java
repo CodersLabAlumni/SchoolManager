@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "subject")
@@ -30,6 +31,7 @@ public class Subject {
 	private long id;
 
 	@NotBlank
+	@NotEmpty
 	private String name;
 
 	private String description;
@@ -56,6 +58,10 @@ public class Subject {
 		super();
 		this.name = name;
 		this.description = description;
+	}
+	
+	public String getFullName() {
+		return this.name + " (" + this.description + ")";
 	}
 
 	public long getId() {

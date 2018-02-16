@@ -38,7 +38,7 @@ public class Division {
 	private School school;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	List <Student> student = new ArrayList<>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -49,6 +49,10 @@ public class Division {
 	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	List<Schedule> schedule = new ArrayList<>();
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany (mappedBy = "division", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	List<Lesson> lesson = new ArrayList<>();
+	
 	public Division() {
 		super();
 	}
@@ -57,6 +61,18 @@ public class Division {
 		super();
 		this.name = name;
 		this.description = description;
+	}
+	
+	public int getNumStudents() {
+		return this.student.size();
+	}
+	
+	public int getNumSubjects() {
+		return this.subject.size();
+	}
+	
+	public int getNumLessons() {
+		return this.lesson.size();
 	}
 
 	public long getId() {
@@ -105,6 +121,14 @@ public class Division {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+	
+	public List<Lesson> getLesson() {
+		return lesson;
+	}
+
+	public void setLesson(List<Lesson> lesson) {
+		this.lesson = lesson;
 	}
 
 	@Override

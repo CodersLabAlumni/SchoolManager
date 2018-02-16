@@ -3,9 +3,7 @@
 	<thead>
 		<tr class="table-light">
 			<th scope="col">ID</th>
-			<th scope="col">FIRST NAME</th>
-			<th scope="col">LAST NAME</th>
-			<th scope="col">OPTION</th>
+			<th scope="col">NAME</th>
 			<th scope="col">REMOVE</th>
 		</tr>
 	</thead>
@@ -14,23 +12,9 @@
 		<c:forEach items="${students}" var="student">
 			<tr class="table-light">
 				<td><c:out value="${student.id}" /></td>
-				<td><c:out value="${student.userRole.user.firstName}" /></td>
-				<td><c:out value="${student.userRole.user.lastName}" /></td>
-				<td>
-					<div class="btn-group">
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary dropdown-toggle"
-								data-toggle="dropdown"></button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item"
-									href="${pageContext.request.contextPath}/student/view/${student.id}">View
-									details</a>
-							</div>
-						</div>
-					</div>
-				</td>
+				<td><c:out value="${student.userRole.user.fullName}" /></td>
 				<td><a class="btn btn-primary"
-					href="${pageContext.request.contextPath}/division/removeStudent/${division.id}/${student.id}">Remove</a>
+					href="${pageContext.request.contextPath}/schoolAdminView/${schoolAdmin.id}/removeStudent/${division.id}/${student.id}">Remove</a>
 				</td>
 
 			</tr>

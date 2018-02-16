@@ -42,6 +42,10 @@ public class Teacher {
 		this.school = school;
 		this.userRole = userRole;
 	}
+	
+	public String getFullName() {
+		return this.userRole.getUser().getFullName();
+	}
 
 	public long getId() {
 		return id;

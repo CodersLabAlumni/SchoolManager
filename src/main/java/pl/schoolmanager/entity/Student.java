@@ -7,7 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
@@ -25,9 +25,8 @@ public class Student {
 	private long id;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToOne
-	@JoinColumn(name = "division_id")
-	private Division division;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Division> division = new ArrayList<>();
 
 	@OneToMany (mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	List <Mark> mark = new ArrayList<>();
@@ -39,7 +38,6 @@ public class Student {
 	@MapsId
 	private UserRole userRole;
 
-	
 	public Student() {
 		super();
 	}
@@ -57,15 +55,15 @@ public class Student {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public Division getDivision() {
+	
+	public List<Division> getDivision() {
 		return division;
 	}
 
-	public void setDivision(Division division) {
+	public void setDivision(List<Division> division) {
 		this.division = division;
 	}
-	
+
 	public List<Mark> getMark() {
 		return mark;
 	}

@@ -47,16 +47,16 @@ public class MarkController {
 		return "mark/new_mark";
 	}
 	
-	@PostMapping("/create")
-	public String createMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, Model m) {
-		if (bindingResult.hasErrors()) {
-			return "mark/new_mark";
-		}
-		this.markRepository.save(mark);
-		Long divisionId = mark.getStudent().getDivision().getId();
-		Long subjectId = mark.getSubject().getId();
-		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
-	}
+//	@PostMapping("/create")
+//	public String createMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, Model m) {
+//		if (bindingResult.hasErrors()) {
+//			return "mark/new_mark";
+//		}
+//		this.markRepository.save(mark);
+//		Long divisionId = mark.getStudent().getDivision().getId();
+//		Long subjectId = mark.getSubject().getId();
+//		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
+//	}
 	
 	@GetMapping("/view/{markId}")
 	public String viewMark(Model m, @PathVariable long markId) {
@@ -72,18 +72,18 @@ public class MarkController {
 		return "mark/edit_mark";
 	}
 	
-	@PostMapping("/update/{markId}")
-	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, @PathVariable long markId) {
-		if (bindingResult.hasErrors()) {
-			return "mark/edit_mark";
-		}
-		mark.setId(markId);
-		
-		this.markRepository.save(mark);
-		Long divisionId = mark.getStudent().getDivision().getId();
-		Long subjectId = mark.getSubject().getId();
-		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
-	}
+//	@PostMapping("/update/{markId}")
+//	public String updateMarkPost(@Valid @ModelAttribute Mark mark, BindingResult bindingResult, @PathVariable long markId) {
+//		if (bindingResult.hasErrors()) {
+//			return "mark/edit_mark";
+//		}
+//		mark.setId(markId);
+//		
+//		this.markRepository.save(mark);
+//		Long divisionId = mark.getStudent().getDivision().getId();
+//		Long subjectId = mark.getSubject().getId();
+//		return "redirect:/division/inside/marks/"+divisionId+"/"+subjectId;
+//	}
 	
 	@DeleteMapping("/delete/{markId}")
 	public String deleteMark(@PathVariable long markId) {
