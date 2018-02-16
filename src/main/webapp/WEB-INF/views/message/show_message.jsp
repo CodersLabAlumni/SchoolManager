@@ -34,10 +34,30 @@
 		<hr class="my-4">
 		<p class="lead">${message.content}</p>
 		<hr class="my-4">
+		<c:forEach var="response" items="${responses}">
+			<div>
+				<p class="lead text-left">Re: ${message.title}
+					<c:choose>
+						<c:when test="${loggedUser.username eq response.author.username}">
+							You
+						</c:when>
+						<c:otherwise>
+							${response.author.fullName}
+						</c:otherwise>
+					</c:choose>
+						${response.created}
+				</p>
+			</div>
+			<hr class="my-4">
+			<div>
+				<p class="lead">${response.content}</p>
+			</div>
+			<hr class="my-4">
+		</c:forEach>
 		<input action="action" onclick="window.history.go(-1); return false;"
 			type="button" class="btn btn-secondary" value="Return" /> <a
 			class="btn btn-primary"
-			href="${pageContext.request.contextPath}/message/create">Send
+			href="${pageContext.request.contextPath}/message/create/response/${message.id}">Send
 			response</a>
 	</div>
 

@@ -38,14 +38,14 @@
 			<tbody>
 				<c:forEach items="${receivedMessages}" var="received">
 					<c:choose>
-						<c:when test="${received.checked eq 0}">
+						<c:when test="${received.openByReceiver eq false}">
 							<tr class="table-warning">
 						</c:when>
 						<c:otherwise>
 							<tr class="table-light">
 						</c:otherwise>
 					</c:choose>
-					<td scope="row"><c:out value="${received.senderDescription}" /></td>
+					<td scope="row"><span>${received.senderDescription} <b>(${received.responsesNum})</b></span></td>
 					<td ${style}><c:out value="${received.title}" /></td>
 					<td><c:out value="${received.created}" /></td>
 					<td><c:choose>

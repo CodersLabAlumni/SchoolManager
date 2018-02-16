@@ -6,8 +6,8 @@
 		<a class="dropdown-item"
 			href="${pageContext.request.contextPath}/message/create">Create new</a>
 		<a class="dropdown-item"
-			href="${pageContext.request.contextPath}/message/received">Inbox (${sessionScope.receivedMessages}) <b>(${sessionScope.unreadMessages})</b></a>
+			href="${pageContext.request.contextPath}/message/received">Inbox (${sessionScope.receivedMessages}) <b>(${sessionScope.unreadInbox})</b></a>
 		<a class="dropdown-item"													
-			href="${pageContext.request.contextPath}/message/sent">Outbox (${sessionScope.sentMessages})</a>
+			href="${pageContext.request.contextPath}/message/sent">Outbox (${sessionScope.sentMessages}) <b>(${sessionScope.unreadOutbox})</b></a>
 	</div>
 </li>

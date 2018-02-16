@@ -11,8 +11,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findAllByReceiverId(Long receiverId);
 
-    List<Message> findAllByReceiverIdAndChecked(Long receiverId, Integer checked);
-
     List<Message> findAllBySenderId(Long senderId);
 
     List<Message> findAllBySender(User sender);
@@ -23,6 +21,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     int countBySender(User sender);
 
-    int countByReceiverAndChecked(User receiver, int checked);
+    int countByReceiverAndOpenByReceiver(User receiver, boolean openByReceiver);
+
+    int countBySenderAndOpenBySender(User sender, boolean openBySender);
 
 }

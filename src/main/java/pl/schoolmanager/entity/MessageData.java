@@ -13,6 +13,10 @@ public class MessageData {
 
     private String senderDescription;
 
+    private String receiverEmail;
+
+    private String senderEmail;
+
     @OneToOne
     @JoinColumn(name = "message_id")
     @MapsId
@@ -56,7 +60,25 @@ public class MessageData {
     public void setMessage(Message message) {
         setReceiverDescription(message.getReceiver().getUsername() + "<" + message.getReceiver().getEmail() + ">");
         setSenderDescription(message.getSender().getEmail());
+        setReceiverEmail(message.getReceiverEmail());
+        setSenderEmail(message.getSenderEmail());
         this.message = message;
+    }
+
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
+
+    public String getSenderEmail() {
+        return senderEmail;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
     }
 
 }

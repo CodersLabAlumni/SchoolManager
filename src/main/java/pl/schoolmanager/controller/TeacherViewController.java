@@ -113,6 +113,7 @@ public class TeacherViewController {
 	}
 
 	@PostMapping("/createSubjects")
+	@Transactional
 	public String createSubjectPost(@Valid @ModelAttribute Subject subject, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "teacher_view/new_subject";
@@ -120,14 +121,14 @@ public class TeacherViewController {
 		HttpSession s = SessionManager.session();
 		Teacher teacher = (Teacher) s.getAttribute("thisTeacher");
 		School school = (School) s.getAttribute("thisSchool");
+
+		teacher.getSubject().add(subject);
+		teacherRepository.save(teacher);
+
+		subject.getTeacher().add(teacherRepository.findOne(teacher.getId()));
 		subject.setSchool(school);
-		subject.getTeacher()/* .add(teacher) */;
-		List<Subject> subjects = teacher.getSubject();
-		subjects.add(subject);
-		teacher.setSubject(subjects);
-		this.teacherRepository.save(teacher);
-		this.subjectRepository.save(subject);
-		return "test";
+		subjectRepository.save(subject);
+		return "redirect:/teacherView/subjects";
 	}
 
 	@GetMapping("/viewSubject")
@@ -158,16 +159,18 @@ public class TeacherViewController {
 		if (bindingResult.hasErrors()) {
 			return "teacher_view/edit_subject";
 		}
-		subject.setId(subjectId);
-		this.subjectRepository.save(subject);
-		return "index";
+		Subject dbSubject = subjectRepository.findOne(subjectId);
+		dbSubject.setName(subject.getName());
+		dbSubject.setDescription(subject.getDescription());
+		subjectRepository.save(dbSubject);
+		return "redirect:/teacherView/subjects";
 	}
 
 	// DELETE
 	@GetMapping("/deleteSubject/{subjectId}")
 	public String deleteSubject(@PathVariable long subjectId) {
 		this.subjectRepository.delete(subjectId);
-		return "index";
+		return "redirect:/teacherView/subjects";
 	}
 
 	// SHOW SUDENTS IN DIVISION

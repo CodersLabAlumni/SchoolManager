@@ -33,7 +33,8 @@ public class SessionManager {
     public void updateMessageValues() {
         session().setAttribute("receivedMessages", messageRepository.countByReceiver(loggedUser()));
         session().setAttribute("sentMessages", messageRepository.countBySender(loggedUser()));
-        session().setAttribute("unreadMessages", messageRepository.countByReceiverAndChecked(loggedUser(), 0));
+        session().setAttribute("unreadInbox", messageRepository.countByReceiverAndOpenByReceiver(loggedUser(), false));
+        session().setAttribute("unreadOutbox", messageRepository.countBySenderAndOpenBySender(loggedUser(), false));
     }
 
 }
