@@ -46,6 +46,9 @@ public class School {
 	@OneToMany (mappedBy = "school")
 	private List<Teacher>teacher;
 
+	@OneToOne (mappedBy = "school")
+	private TimeTable timeTable;
+
 	public School() {
 		super();
 	}
