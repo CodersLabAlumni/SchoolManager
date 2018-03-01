@@ -44,6 +44,7 @@ public class Subject {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	List<Division> division = new ArrayList<>();
 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "subject", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	List<Mark> mark = new ArrayList<>();
 
