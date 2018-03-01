@@ -19,17 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.Division;
-import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.Student;
-import pl.schoolmanager.entity.Subject;
-import pl.schoolmanager.entity.Teacher;
-import pl.schoolmanager.repository.DivisionRepository;
-import pl.schoolmanager.repository.MessageRepository;
-import pl.schoolmanager.repository.SchoolRepository;
-import pl.schoolmanager.repository.StudentRepository;
-import pl.schoolmanager.repository.SubjectRepository;
-import pl.schoolmanager.repository.TeacherRepository;
+import pl.schoolmanager.entity.*;
+import pl.schoolmanager.repository.*;
 
 @Controller
 @RequestMapping("/school")
@@ -52,6 +43,12 @@ public class SchoolController {
 
 	@Autowired
 	private MessageRepository messageRepository;
+
+	@Autowired
+	private UserRoleRepository userRoleRepository;
+
+	@Autowired
+	private SchoolAdminRepository schoolAdminRepository;
 
 	@Autowired
 	private SessionManager sessionManager;
@@ -111,8 +108,17 @@ public class SchoolController {
 	}
 
 	@PostMapping("/delete/{schoolId}")
-	public String deleteSchool(@PathVariable long schoolId) {	
+	public String deleteSchool(@PathVariable long schoolId) {
 		try {
+			for (UserRole userRole : userRoleRepository.findAllBySchoolId(schoolId)) {
+				userRole.setSchool(null);
+				userRoleRepository.save(userRole);
+			}
+			SchoolAdmin schoolAdmin = schoolAdminRepository.findBySchoolId(schoolId);
+			if (schoolAdmin != null) {
+				schoolAdmin.setSchool(null);
+				schoolAdminRepository.save(schoolAdmin);
+			}
 			this.schoolRepository.delete(schoolId);
 		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
 			return "errors/deleteException";
@@ -200,6 +206,7 @@ public class SchoolController {
 	@GetMapping("removeStudent/{schoolId}/{studentId}")
 	public String removeStudent(@PathVariable long schoolId, @PathVariable long studentId) {
 		Student student = this.studentRepository.findOne(studentId);
+		student.setSchool(null);
 		this.studentRepository.save(student);
 		return "redirect:/school/addStudent/{schoolId}";
 	}

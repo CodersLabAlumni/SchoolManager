@@ -6,4 +6,6 @@ import pl.schoolmanager.entity.SchoolAdmin;
 
 public interface SchoolAdminRepository extends JpaRepository<SchoolAdmin, Long> {
 
+    SchoolAdmin findBySchoolId(long schoolId);
+
 }
