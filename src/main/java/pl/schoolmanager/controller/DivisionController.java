@@ -114,18 +114,14 @@ public class DivisionController {
 		m.addAttribute("division", division);
 		return "division/confirmdelete_divisions";
 	}
-	
+
 	@PostMapping("/delete/{divisionId}")
 	public String deleteSchool(@PathVariable long divisionId) {
 		Division division = this.divisionRepository.findOne(divisionId);
-		if (division.getSubject()!=null || division.getStudent() != null || division.getSchool() != null) {
+		if (division.getSubject().size() > 0 || division.getStudent().size() > 0 || division.getSchool() != null) {
 			return "errors/deleteException";
 		}
-		try {
-			this.divisionRepository.delete(divisionId);
-		} catch (ConstraintViolationException | PersistenceException | JpaSystemException e) {
-			return "errors/deleteException";
-		}
+		this.divisionRepository.delete(divisionId);
 		return "redirect:/division/all";
 	}
 
