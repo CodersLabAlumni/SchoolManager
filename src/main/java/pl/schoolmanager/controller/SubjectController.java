@@ -87,7 +87,7 @@ public class SubjectController {
 	@PostMapping("/delete/{subjectId}")
 	public String deleteSubject(@PathVariable long subjectId) {
 		Subject subject = this.subjectRepository.findOne(subjectId);
-		if (subject.getSchool() != null || subject.getTeacher() != null || subject.getMark() != null || subject.getDivision() != null) {
+		if (subject.getSchool() != null || subject.getTeacher().size() > 0 || subject.getMark().size() > 0 || subject.getDivision().size() > 0) {
 			return "errors/deleteException";
 		}
 		this.subjectRepository.delete(subjectId);
